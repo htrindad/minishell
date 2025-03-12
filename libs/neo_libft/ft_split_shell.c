@@ -88,10 +88,13 @@ static int	ft_filling_arr(char **array, char const *s)
 char	**ft_split_shell(char const *s)
 {
 	char	**array;
+	//char	*tmp;
 	size_t	words;
 
 	if (!s)
 		return (NULL);
+	//if (has_env_var(s))
+	//	tmp = handle_env_var();
 	words = ft_count_words(s);
 	array = malloc(sizeof(char *) * (words + 1));
 	if (!array)

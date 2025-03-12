@@ -12,7 +12,7 @@
 
 #include "./libft.h"
 
-//iteration cases return the length iteraded.
+//iteration cases return the length of the next token.
 
 size_t	iteration_cases(const char *s, size_t i)
 {
@@ -44,9 +44,7 @@ size_t	iterate_through_q(const char *s, size_t i, char *quote_type)
 	{
 		*quote_type = s[i++];
 		while (s[i] && s[i] != *quote_type)
-		{
 			i++;
-		}
 		if (!s[i])
 		{
 			ft_putstr_fd("Error:\nUnclosed quotes", 2);
@@ -68,3 +66,22 @@ size_t	iterate_through_var(const char *s, size_t i)
 		i++;
 	return (i - start);
 }
+
+//int	has_env_var(const char *s)
+//{
+//	int		i;
+//
+//	i = 0;
+//	while (s[i])
+//	{
+//		if (s[i] == '\'')
+//		{
+//			while (s[i] && s[i] != '\'')
+//				i++;
+//		}
+//		else if (s[i] == '$')
+//			return (is_valid_env_var(s));
+//		i++;
+//	}
+//	return (0);
+//}

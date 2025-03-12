@@ -29,14 +29,14 @@ int	add_token(t_token **head, char *value)
 }
 
 
-t_token	*lexing(const char *input)
+t_token	*lexing(t_ms *shell)
 {
 	t_token *head;
 	char	**args;
 	int		i;
 
 	head = NULL;
-	args = ft_split_shell(input);
+	args = ft_split_shell(shell->input);
 	if (!args)
 		return (NULL);
 	i = 0;

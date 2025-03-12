@@ -12,14 +12,14 @@ typedef struct  s_ms
 	char	**env;
 	char	*input;
 	int		pid;
+	int		last_exit_stat;
 	t_token	*tokens;
 }	t_ms;
 
 typedef struct  s_token
 {
 	char	*value;
-	int		type;
-	int		last_exit_status;
+	int		type;;
 	t_token	*next;
 }	t_token;
 
