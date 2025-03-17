@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft.h"
+#include "../../minishell.h"
 
 //iteration cases return the length of the next token.
 
@@ -57,31 +57,3 @@ size_t	iterate_through_q(const char *s, size_t i, char *quote_type)
 	return (i - start);
 }
 
-size_t	iterate_through_var(const char *s, size_t i)
-{
-	size_t	start;
-
-	start = i + 1;
-	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
-		i++;
-	return (i - start);
-}
-
-//int	has_env_var(const char *s)
-//{
-//	int		i;
-//
-//	i = 0;
-//	while (s[i])
-//	{
-//		if (s[i] == '\'')
-//		{
-//			while (s[i] && s[i] != '\'')
-//				i++;
-//		}
-//		else if (s[i] == '$')
-//			return (is_valid_env_var(s));
-//		i++;
-//	}
-//	return (0);
-//}

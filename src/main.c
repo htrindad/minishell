@@ -1,4 +1,4 @@
-#include "./minishell.h"
+#include "../minishell.h"
 
 int	main(int argc, char **argv, char **env)
 {
@@ -18,8 +18,9 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (shell.input)
 			add_history(shell.input);
-		shell.tokens = lexing(shell.input);
-		
+		lexing(&shell, env);
+
 		free(shell.input);
 	}
+	return (0);
 }

@@ -1,0 +1,35 @@
+#include "../../minishell.h"
+
+//A file to keep customized free() functions for lists, strings etc.
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	if (args)
+	{
+		while (args[i])
+			free(args[i++]);
+		free(args);
+	}
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	if (!env)
+		return ;
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		if (tmp->key)
+			free(tmp->key);
+		if (tmp->value )
+			free(tmp->value);
+		if(tmp)
+			free(tmp);
+	}
+}

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft.h"
+#include "../../minishell.h"
 
 int	is_special_char(char c)
 {
@@ -85,22 +85,28 @@ static int	ft_filling_arr(char **array, char const *s)
 	return (1);
 }
 
-char	**ft_split_shell(char const *s)
+char	**ft_split_shell(char const *s, t_env *env)
 {
-	char	**array;
-	//char	*tmp;
 	size_t	words;
+	char	**array;
+	char	*new_s;
 
 	if (!s)
 		return (NULL);
-	//if (has_env_var(s))
-	//	tmp = handle_env_var();
 	words = ft_count_words(s);
 	array = malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (NULL);
 	array[words] = NULL;
-	if (!ft_filling_arr(array, s))
+	if (has_env_var(s))
+	{
+		new_s = handle_env_var(s, env);
+		if (!new_s)
+			return (NULL);
+		if (!ft_filling_arr(array, new_s))
+			return (NULL);
+	}
+	else if (!ft_filling_arr(array, s))
 		return (NULL);
 	return (array);
 }
