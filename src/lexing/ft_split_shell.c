@@ -35,9 +35,7 @@ static size_t	ft_count_words(char const *s)
 		if (!s[i])
 			break ;
 		count++;
-		if (s[i] == '$')
-			i += iterate_through_var(s, i);
-		else if (is_special_char(s[i]) || s[i] == '\'' || s[i] == '\"')
+		if (is_special_char(s[i]) || s[i] == '\'' || s[i] == '\"')
 			i += iteration_cases(s, i);
 		else
 		{
@@ -85,28 +83,29 @@ static int	ft_filling_arr(char **array, char const *s)
 	return (1);
 }
 
-char	**ft_split_shell(char const *s, t_env *env)
+char	**ft_split_shell(t_ms *shell)
 {
 	size_t	words;
 	char	**array;
 	char	*new_s;
 
-	if (!s)
+	if (!shell->input)
 		return (NULL);
-	words = ft_count_words(s);
+	words = ft_count_words(shell->input);
 	array = malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (NULL);
 	array[words] = NULL;
-	if (has_env_var(s))
+	if (has_env_var(shell->input))
 	{
-		new_s = handle_env_var(s, env);
+		new_s = handle_env_var(shell);
 		if (!new_s)
 			return (NULL);
 		if (!ft_filling_arr(array, new_s))
-			return (NULL);
+			return (free(new_s), NULL);
+		free(new_s);
 	}
-	else if (!ft_filling_arr(array, s))
+	else if (!ft_filling_arr(array, shell->input))
 		return (NULL);
 	return (array);
 }

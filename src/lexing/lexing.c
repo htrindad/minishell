@@ -20,6 +20,18 @@ int	add_token(t_token **head, char *value)
 	return (1);
 }
 
+void	print_tokens(t_token *head)
+{
+	t_token	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		printf("[%s]\n", tmp->value);
+		tmp = tmp->next;
+	}
+}
+
 void	lexing(t_ms *shell, char **env)
 {
 	t_token *head;
@@ -28,19 +40,21 @@ void	lexing(t_ms *shell, char **env)
 
 	head = NULL;
 	shell->env = get_env(env);
-	args = ft_split_shell(shell->input, shell->env);
+	args = ft_split_shell(shell);
 	if (!args)
-		return (NULL);
+		return ;
 	i = 0;
 	while (args[i])
 	{
-		if (!add_token(&head, args[i]));
+		if (!add_token(&head, args[i]))
 		{
-			free_list(&head);
+			free_tokens(head);
 			break ;
 		}
 		i++;
 	}
-	free_splited(args);
-	return (head);
+	print_tokens(head);
+	free_tokens(head);
+	free_args(args);
+	return ;
 }

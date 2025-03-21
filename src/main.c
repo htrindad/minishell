@@ -7,7 +7,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 1)
 		ft_putstr_fd("Run ./minishell with no args!", 2);
-	ft_calloc(&shell, sizeof(t_ms));
+	init_ms(&shell);
 	while (1)
 	{
 		shell.input = readline("minishell> ");

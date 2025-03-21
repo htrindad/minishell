@@ -33,3 +33,20 @@ void	free_env(t_env *env)
 			free(tmp);
 	}
 }
+
+void	free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+
+	if (!tokens)
+		return ;
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		if (tmp->value)
+			free(tmp->value);
+		if (tmp)
+			free(tmp);
+	}
+}
