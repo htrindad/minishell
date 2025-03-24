@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_shell_utils.c                             :+:      :+:    :+:   */
+/*   lex_split_shell_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/02/15 15:11:29 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:12:57 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "minishell.h"
 
 //iteration cases return the length of the next token.
 

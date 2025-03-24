@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 //The Purpose of lexing is to separate the user input into tokens the
 //same way the shell does, for that we must have in consideration quotes,

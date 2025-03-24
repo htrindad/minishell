@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 //get_env() function is used to get the environment variables from the envp
 //when using execve() function, I will need to use the environment variables
