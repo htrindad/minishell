@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 //A file to keep customized free() functions for lists, strings etc.
 

@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 // returns a positive int if the character next to the $ is a valid
 // character for an env var (alphanumeric, '_' or '?' just after the $)
