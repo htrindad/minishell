@@ -95,18 +95,20 @@ char	**ft_split_shell(t_ms *shell)
 	array = malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (NULL);
-	array[words] = NULL;
 	if (has_env_var(shell->input))
 	{
 		new_s = handle_env_var(shell);
 		if (!new_s)
 			return (NULL);
+		printf("Before expansion: [%s]\n", shell->input);
+		printf("After expansion: [%s]\n", new_s);
 		if (!ft_filling_arr(array, new_s))
 			return (free(new_s), NULL);
 		free(new_s);
 	}
 	else if (!ft_filling_arr(array, shell->input))
 		return (NULL);
+	array[words] = NULL;
 	return (array);
 }
 

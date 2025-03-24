@@ -50,6 +50,7 @@ char	*get_env_value(t_env *env, char *env_var)
 char	*extract_env_var(char *new_s, t_ms *shell, int *i)
 {
 	char	*env_var;
+	char	*env_value;
 	char	*tmp;
 	int		j;
 
@@ -59,6 +60,9 @@ char	*extract_env_var(char *new_s, t_ms *shell, int *i)
 	env_var = ft_substr(shell->input, *i, j - *i);
 	if (!env_var)
 		return (NULL);
+	env_value = get_env_value(shell->env, env_var);
+	if (!env_value)
+		return (free(env_var), NULL);
 	tmp = ft_strjoin(new_s, get_env_value(shell->env, env_var));
 	free(env_var);
 	if (!tmp)
