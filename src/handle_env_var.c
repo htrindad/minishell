@@ -47,7 +47,7 @@ char	*get_env_value(t_env *env, char *env_var)
 	return (NULL);
 }
 
-char	*extract_env_var(char *new_s, t_ms *shell, int *i)
+char	*extract_env_var(t_ms *shell, int *i)
 {
 	char	*env_var;
 	char	*env_value;
@@ -63,7 +63,7 @@ char	*extract_env_var(char *new_s, t_ms *shell, int *i)
 	env_value = get_env_value(shell->env, env_var);
 	if (!env_value)
 		return (free(env_var), NULL);
-	tmp = ft_strjoin(new_s, get_env_value(shell->env, env_var));
+	tmp = get_env_value(shell->env, env_var);
 	free(env_var);
 	if (!tmp)
 		return (NULL);
@@ -90,7 +90,7 @@ char *handle_env_var(t_ms *shell)
 			if (shell->input[i] == '?')
 				tmp = ft_itoa(shell->last_status);
 			else if (ft_isalpha(shell->input[i]) || shell->input[i] == '_')
-				tmp = extract_env_var(new_s, shell, &i);
+				tmp = extract_env_var(shell, &i);
 			else
 				tmp = ft_strdup("$");
 			if (!tmp)

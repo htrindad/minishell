@@ -28,7 +28,7 @@ $(OBJ_DIR):
 
 ## Compile each .c file into an .o file
 $(OBJ_DIR)/%.o: ./src/%.c | $(OBJ_DIR)
-	@cc $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 	@$(eval COUNT=$(shell expr $(words $(shell ls $(OBJ_DIR)/*.o 2>/dev/null)) + 1))
 	@PERCENT=$$(($(COUNT) * 100 / $(TOTAL))); \
 	FILLED=$$((PERCENT / 2)); \

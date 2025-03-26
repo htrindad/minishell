@@ -100,8 +100,6 @@ char	**ft_split_shell(t_ms *shell)
 		new_s = handle_env_var(shell);
 		if (!new_s)
 			return (NULL);
-		printf("Before expansion: [%s]\n", shell->input);
-		printf("After expansion: [%s]\n", new_s);
 		if (!ft_filling_arr(array, new_s))
 			return (free(new_s), NULL);
 		free(new_s);
