@@ -6,13 +6,13 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/24 19:12:57 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:36:34 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//iteration cases return the length of the next token.
+// iteration cases return the length of the next token.
 
 size_t	iteration_cases(const char *s, size_t i)
 {
@@ -26,7 +26,8 @@ size_t	iteration_cases(const char *s, size_t i)
 	else if (is_special_char(s[i]))
 	{
 		l = 1;
-		if ((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<'))
+		if ((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i
+					+ 1] == '<'))
 			l++;
 	}
 	else
@@ -56,4 +57,3 @@ size_t	iterate_through_q(const char *s, size_t i, char *quote_type)
 		i++;
 	return (i - start);
 }
-

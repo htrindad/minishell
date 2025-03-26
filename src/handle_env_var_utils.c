@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handle_env_var_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 18:33:36 by mely-pan         ###   ########.fr       */
+/*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/03/26 19:34:54 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+char	*var_cases(t_ms *shell, int *i)
 {
-	t_ms	shell;
+	char	*tmp;
 
-	(void)argv;
-	if (argc != 1)
-		ft_putstr_fd("Run ./minishell with no args!", 2);
-	init_ms(&shell);
-	while (1)
-	{
-		shell.input = readline("minishell> ");
-		if (!shell.input)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (shell.input)
-			add_history(shell.input);
-		lexing(&shell, env);
-		free(shell.input);
-	}
-	return (0);
+	if (shell->input[*i] == '?')
+		tmp = ft_itoa(shell->last_status);
+	else if (ft_isalpha(shell->input[*i]) || shell->input[*i] == '_')
+		tmp = extract_env_var(shell, i);
+	else
+		tmp = ft_strdup("$");
+	return (tmp);
+}
+
+char	*conc_char(char c)
+{
+	char *tmp;
+	char str[2];
+
+	tmp = ft_strdup("");
+	if (!tmp)
+		return (NULL);
+	str[0] = c;
+	str[1] = '\0';
+	ft_strjoin(tmp, str);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/24 19:12:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:32:20 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**ft_split_shell(t_ms *shell)
 	return (array);
 }
 
-//int main(void)
+// int main(void)
 //{
 //	char **args = ft_split_shell("echo >>> >< \'hello world\'");
 //	int test = ft_count_words("echo >>> >< \'hello world\'");
@@ -128,5 +128,5 @@ char	**ft_split_shell(t_ms *shell)
 //		i--;
 //	}
 //	free(args);
-//	return 0;
+//	return (0);
 //}

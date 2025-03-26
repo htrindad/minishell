@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_env_var.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/03/26 19:40:00 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 // returns a positive int if the character next to the $ is a valid
@@ -5,7 +17,7 @@
 // Return 0 if it does not contain a valid env var
 int	has_env_var(const char *s)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -26,11 +38,13 @@ int	has_env_var(const char *s)
 	return (0);
 }
 
-char *ft_strjoin_free(char *s1, char *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-    char *joined = ft_strjoin(s1, s2);
-    free(s1);
-    return (joined);
+	char	*joined;
+
+	joined = ft_strjoin(s1, s2);
+	free(s1);
+	return (joined);
 }
 
 char	*get_env_value(t_env *env, char *env_var)
@@ -50,19 +64,16 @@ char	*get_env_value(t_env *env, char *env_var)
 char	*extract_env_var(t_ms *shell, int *i)
 {
 	char	*env_var;
-	char	*env_value;
 	char	*tmp;
 	int		j;
 
 	j = *i;
-	while (shell->input[j] && (ft_isalnum(shell->input[j]) || shell->input[j] == '_'))
+	while (shell->input[j] && (ft_isalnum(shell->input[j])
+			|| shell->input[j] == '_'))
 		j++;
 	env_var = ft_substr(shell->input, *i, j - *i);
 	if (!env_var)
 		return (NULL);
-	env_value = get_env_value(shell->env, env_var);
-	if (!env_value)
-		return (free(env_var), NULL);
 	tmp = get_env_value(shell->env, env_var);
 	free(env_var);
 	if (!tmp)
@@ -70,8 +81,9 @@ char	*extract_env_var(t_ms *shell, int *i)
 	*i = j - 1;
 	return (tmp);
 }
+
 // Extracts the env var from the string and returns it
-char *handle_env_var(t_ms *shell)
+char	*handle_env_var(t_ms *shell)
 {
 	char	*new_s;
 	char	*tmp;
@@ -87,15 +99,11 @@ char *handle_env_var(t_ms *shell)
 		if (shell->input[i] == '$' && shell->input[i + 1])
 		{
 			i++;
-			if (shell->input[i] == '?')
-				tmp = ft_itoa(shell->last_status);
-			else if (ft_isalpha(shell->input[i]) || shell->input[i] == '_')
-				tmp = extract_env_var(shell, &i);
-			else
-				tmp = ft_strdup("$");
+			tmp = var_cases(shell, &i);
 			if (!tmp)
 				return (free(new_s), NULL);
 			new_s = ft_strjoin_free(new_s, tmp);
+			free(tmp);
 		}
 		else
 		{

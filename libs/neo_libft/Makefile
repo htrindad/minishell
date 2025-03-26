@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+         #
+#    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 17:08:01 by htrindad          #+#    #+#              #
-#    Updated: 2025/03/24 19:23:19 by htrindad         ###   ########.fr        #
+#    Updated: 2025/03/26 18:41:23 by mely-pan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS = $(SRC:.c=.o)
 
 BONUS_OBJ = $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -O3
+CFLAGS = -Wall -Wextra -Werror -O3
 
 all: $(NAME)
 

@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/03/26 18:34:23 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-//get_env() function is used to get the environment variables from the envp
-//when using execve() function, I will need to use the environment variables
-//but execve() requires a char **envp, so I need to convert the linked list into
-//a char **envp. (I will do that in another function furthermore the project) and
-//use it inside each forked process. (so it's clean and doesn't affect the parent process)
+// get_env() function is used to get the environment variables from the envp
+// when using execve() function, I will need to use the environment variables
+// but execve() requires a char **envp,
+//	so I need to convert the linked list into
+// a char **envp. (I will do that in another function furthermore the project)
+// and use it inside each forked process. (so it's clean and doesn't affect
+// the parent process)
 static int	add_env(t_env **head, char *env)
 {
 	t_env	*new;
@@ -25,8 +39,7 @@ static int	add_env(t_env **head, char *env)
 	return (1);
 }
 
-
-t_env *get_env(char **env)
+t_env	*get_env(char **env)
 {
 	t_env	*new;
 	int		i;
@@ -39,29 +52,29 @@ t_env *get_env(char **env)
 		{
 			free_env(new);
 			ft_putstr_fd("Error:\nMalloc failed", 2);
-			exit (1);
+			exit(1);
 		}
 		i++;
 	}
 	return (new);
 }
 
-//typedef struct s_data
+// typedef struct s_data
 //{
 //	char *key;
 //	char *value;
 //	struct s_data *next;
 //} t_data;
 //
-//t_data *d()
+// t_data *d()
 //{
 //	static t_data d;
 //	return (&d);
 //}
 //=======================================
-//int main(int ac, char **av, char **env)
+// int main(int ac, char **av, char **env)
 //{
-	//	t_env *env_list;
+//	t_env *env_list;
 //	t_env *env_list_ptr;
 //
 //	(void)ac;
@@ -70,9 +83,9 @@ t_env *get_env(char **env)
 //	env_list = env_list_ptr;
 //	while (env_list)
 //	{
-	//		printf("Key: %s\nValue: %s\n", env_list->key, env_list->value);
-	//		env_list = env_list->next;
-	//	}
-	//	free_env(env_list_ptr);
-	//	return (0);
+//		printf("Key: %s\nValue: %s\n", env_list->key, env_list->value);
+//		env_list = env_list->next;
+//	}
+//	free_env(env_list_ptr);
+//	return (0);
 //}
