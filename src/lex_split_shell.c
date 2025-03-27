@@ -6,13 +6,13 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 18:32:20 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:18:35 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_special_char(char c)
+int	is_special_char(int c)
 {
 	if (c == '|' || c == '<' || c == '>')
 		return (1);

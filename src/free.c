@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:32:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 18:32:58 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:05:33 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	free_tokens(t_token *tokens)
 		if (tmp)
 			free(tmp);
 	}
+}
+
+void	clean_ms(t_ms *shell)
+{
+	if (!shell)
+		return ;
+	if (shell->input)
+		free(shell->input);
+	free_tokens(shell->tokens);
+	free_env(shell->env);
 }

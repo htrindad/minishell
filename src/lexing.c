@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 18:33:31 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:15:48 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ void	print_tokens(t_token *head)
 	}
 }
 
-void	lexing(t_ms *shell, char **env)
+void	lexing(t_ms *shell)
 {
 	t_token	*head;
 	char	**args;
 	int		i;
 
 	head = NULL;
-	shell->env = get_env(env);
 	args = ft_split_shell(shell);
 	if (!args)
 		return ;

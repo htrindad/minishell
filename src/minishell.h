@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:35:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 19:34:44 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:30:08 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct s_ms
 	char			*input;
 	int				pid;
 	int				last_status;
-	t_token			**tokens;
+	t_token			*tokens;
 }					t_ms;
 
-void				lexing(t_ms *shell, char **env);
+void				lexing(t_ms *shell);
 int					add_token(t_token **head, char *value);
 char				**ft_split_shell(t_ms *shell);
 char				*handle_env_var(t_ms *shell);
@@ -57,6 +57,7 @@ char				*conc_char(char c);
 void				free_args(char **args);
 void				free_env(t_env *env);
 void				free_tokens(t_token *tokens);
+void				clean_ms(t_ms *shell);
 
 t_env				*get_env(char **env);
 
