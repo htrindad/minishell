@@ -37,12 +37,9 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->value)
-			free(tmp->value);
-		if (tmp)
-			free(tmp);
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
 	}
 }
 
@@ -56,10 +53,8 @@ void	free_tokens(t_token *tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->next;
-		if (tmp->value)
-			free(tmp->value);
-		if (tmp)
-			free(tmp);
+		free(tmp->value);
+		free(tmp);
 	}
 }
 
@@ -67,8 +62,10 @@ void	clean_ms(t_ms *shell)
 {
 	if (!shell)
 		return ;
-	if (shell->input)
-		free(shell->input);
+	free(shell->input);
+	shell->input = NULL;
 	free_tokens(shell->tokens);
+	shell->tokens = NULL;
 	free_env(shell->env);
+	shell->env = NULL;
 }

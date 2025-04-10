@@ -45,7 +45,7 @@ void	print_tokens(t_token *head)
 	}
 }
 
-void	lexing(t_ms *shell)
+t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
 	char	**args;
@@ -54,19 +54,19 @@ void	lexing(t_ms *shell)
 	head = NULL;
 	args = ft_split_shell(shell);
 	if (!args)
-		return ;
+		return (NULL);
 	i = 0;
 	while (args[i])
 	{
 		if (!add_token(&head, args[i]))
 		{
 			free_tokens(head);
-			break ;
+			return (NULL);
 		}
 		i++;
 	}
+	//debug
 	print_tokens(head);
-	free_tokens(head);
 	free_args(args);
-	return ;
+	return (head);
 }

@@ -50,12 +50,18 @@ char	*ft_strjoin_free(char *s1, char *s2)
 char	*get_env_value(t_env *env, char *env_var)
 {
 	t_env	*tmp;
+	char	*env_value;
 
 	tmp = env;
 	while (tmp)
 	{
 		if (tmp->key && !ft_strncmp(tmp->key, env_var, ft_strlen(env_var)))
-			return (tmp->value);
+		{
+			env_value = ft_strdup(tmp->value);
+			if (!env_value)
+				return (NULL);
+			return (env_value);
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);

@@ -42,7 +42,7 @@ typedef struct s_ms
 	t_token			*tokens;
 }					t_ms;
 
-void				lexing(t_ms *shell);
+t_token				*lexing(t_ms *shell);
 int					add_token(t_token **head, char *value);
 char				**ft_split_shell(t_ms *shell);
 char				*handle_env_var(t_ms *shell);

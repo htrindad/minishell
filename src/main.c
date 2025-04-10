@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (shell.input)
 			add_history(shell.input);
-		lexing(&shell);
+		shell.tokens = lexing(&shell);
 		if (ft_strncmp(shell.input, "exit", 4) == 0)
 			break ;
 		free(shell.input);
