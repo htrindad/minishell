@@ -6,28 +6,20 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/11 14:39:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:08:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_special_char(int c)
-{
-	if (c == '|' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
-
 static size_t	ft_count_words(char const *s)
 {
 	size_t	i;
 	size_t	count;
-	char	inside_q;
+	char	*tmp;
 
-	i = 0;
-	count = 0;
-	inside_q = 0;
+	i = 0; //len
+	count = 0; // space
 	while (s[i])
 	{
 		while (s[i] == ' ')
@@ -35,13 +27,15 @@ static size_t	ft_count_words(char const *s)
 		if (!s[i])
 			break ;
 		count++;
+		tmp = ft_substr(s, i, 2);
 		if (is_special_char(s[i]) || s[i] == '\'' || s[i] == '\"')
 			i += iteration_cases(s, i);
 		else
 		{
 			while (s[i] && s[i] != ' ' && !is_special_char(s[i]))
-				i += iterate_through_q(s, i, &inside_q);
+				i += iterate_through_q(s, i);
 		}
+		free(tmp);
 	}
 	return (count);
 }

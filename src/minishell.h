@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/11 15:04:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:16:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_ms
 	t_env			*env;
 	char			*input;
 	char			**scases;
+	bool			*running;
 	int				pid;
 	int				last_status;
 	t_builtin		*builtin;
@@ -89,5 +90,6 @@ void				clean_ms(t_ms *shell);
 t_env				*get_env(char **env);
 void				init_ms(t_ms *shell);
 int					quit(t_ms *);
+void				em(char *str, t_ms *ms);
 
 #endif
