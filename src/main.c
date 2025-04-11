@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 19:27:37 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:14:07 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	main(int argc, char **argv, char **env)
 	t_ms	shell;
 
 	(void)argv;
-	if (argc != 1)
-		ft_putstr_fd("Run ./minishell with no args!", 2);
+	(void)argc;
 	init_ms(&shell);
 	shell.env = get_env(env);
 	while (1)

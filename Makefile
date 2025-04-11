@@ -3,9 +3,9 @@ NAME = minishell
 
 CFLAGS = -Wall -Werror -Wextra -O3
 
-SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle_env_var.c \
-	./src/lex_split_shell.c ./src/lex_split_shell_utils.c ./src/lexing.c \
-	./src/handle_env_var_utils.c ./src/main.c
+SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
+	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
+	./src/handle/env_var_utils.c ./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
