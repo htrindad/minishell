@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_split_shell_utils.c                            :+:      :+:    :+:   */
+/*   split_shell_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/26 18:36:34 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:46:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ size_t	iterate_through_q(const char *s, size_t i, char *quote_type)
 		while (s[i] && s[i] != *quote_type)
 			i++;
 		if (!s[i])
-		{
-			ft_putstr_fd("Error:\nUnclosed quotes", 2);
-			return (0);
-		}
+			return (perror("Error:\nUnclosed quotes"), 0);
 		*quote_type = 0;
 	}
 	if (s[i])

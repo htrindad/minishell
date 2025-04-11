@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:32:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 20:05:33 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:09:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ void	free_tokens(t_token *tokens)
 
 void	clean_ms(t_ms *shell)
 {
+	int	i;
+
 	if (!shell)
 		return ;
 	free(shell->input);
 	shell->input = NULL;
+	i = 0;
+	while (i < 5)
+		free(shell->scases[i++]);
+	free(shell->scases);
 	free_tokens(shell->tokens);
 	shell->tokens = NULL;
 	free_env(shell->env);

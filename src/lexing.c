@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 19:15:48 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:02:38 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // The tokens will be stored in a linked list of t_token structs.
 // ex: echo "$HOME path" -> [echo] [./user/home path]
 
-int	add_token(t_token **head, char *value)
+int	add_token(t_token **head, char *value) // This function needs a serious rework
 {
 	t_token	*new;
 
@@ -65,8 +65,8 @@ t_token	*lexing(t_ms *shell)
 		}
 		i++;
 	}
-	//debug
-	print_tokens(head);
+	if (DEBUG)
+		print_tokens(head);
 	free_args(args);
 	return (head);
 }

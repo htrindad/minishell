@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/11 13:03:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:04:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_builtin
 
 typedef struct	s_token
 {
-	char			*value;
+	char			**value;
 	struct s_token	*next;
 	t_case			cchar;
 }		t_token;
@@ -63,6 +63,7 @@ typedef struct	s_ms
 {
 	t_env			*env;
 	char			*input;
+	char			**scases;
 	int				pid;
 	int				last_status;
 	t_builtin		*builtin;

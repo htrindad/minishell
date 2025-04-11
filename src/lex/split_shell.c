@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_split_shell.c                                  :+:      :+:    :+:   */
+/*   split_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 20:18:35 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:39:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**ft_split_shell(t_ms *shell)
 	if (!shell->input)
 		return (NULL);
 	words = ft_count_words(shell->input);
-	array = malloc(sizeof(char *) * (words + 1));
+	array = ft_calloc(words + 1, sizeof(char *));
 	if (!array)
 		return (NULL);
 	if (has_env_var(shell->input))
@@ -109,24 +109,3 @@ char	**ft_split_shell(t_ms *shell)
 	array[words] = NULL;
 	return (array);
 }
-
-// int main(void)
-//{
-//	char **args = ft_split_shell("echo >>> >< \'hello world\'");
-//	int test = ft_count_words("echo >>> >< \'hello world\'");
-//	int i = 0;
-//
-//	printf("Words: %d", test);
-//	while (args[i])
-//	{
-//		printf("\n[%d] %s\n", i + 1, args[i]);
-//		i++;
-//	}
-//	while (i >= 0)
-//	{
-//		free(args[i]);
-//		i--;
-//	}
-//	free(args);
-//	return (0);
-//}

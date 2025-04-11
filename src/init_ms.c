@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/11 12:25:46 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:11:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static inline t_builtin	*init_bi(void)
 
 	builtin =
 	{
-		{.name="exit", .f=NULL};
+		{.name="exit", .f=quit};
 		{.name="cd", .f=NULL};
 		{.name="echo", .f=NULL};
 		{.name="pwd", .f=NULL};
@@ -36,4 +36,5 @@ void	init_ms(t_ms *shell)
 	shell->input = NULL;
 	shell->last_status = 0;
 	shell->tokens = NULL;
+	shell->scases = ft_split("< > | << >>", ' ');
 }
