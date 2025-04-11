@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:29:56 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/02 14:00:50 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:18:29 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			ft_isdigit(int n);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
+int			is_special_char(int c);
 size_t		ft_strlen(const char *str);
 void		*ft_memset(void *str, int c, size_t t);
 void		ft_bzero(void *s, size_t n);
@@ -47,8 +48,6 @@ char		*ft_substr(const char *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
-char		**ft_split_shell(char const *s);
-size_t		iterate_through_q(const char *s, size_t i, char *quote_type);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		*ft_striteri(char *s, void (*f)(unsigned int, char *));
