@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 18:35:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 19:30:08 by mely-pan         ###   ########.fr       */
+/*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
+/*   Updated: 2025/03/11 16:16:13 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,11 @@ int					has_env_var(const char *s);
 char				*extract_env_var(t_ms *shell, int *i);
 char				*var_cases(t_ms *shell, int *i);
 char				*conc_char(char c);
-
 void				free_args(char **args);
 void				free_env(t_env *env);
 void				free_tokens(t_token *tokens);
 void				clean_ms(t_ms *shell);
-
 t_env				*get_env(char **env);
-
 void				init_ms(t_ms *shell);
 
 #endif
