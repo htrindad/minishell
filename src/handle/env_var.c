@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_env_var.c                                   :+:      :+:    :+:   */
+/*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 20:14:29 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:13:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // returns a positive int if the character next to the $ is a valid
 // character for an env var (alphanumeric, '_' or '?' just after the $)

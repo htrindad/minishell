@@ -5,10 +5,10 @@ CFLAGS = -Wall -Werror -Wextra -O3
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
-	./src/handle/env_var_utils.c ./src/main.c
+	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/main.c
 
 OBJ_DIR = ./obj
-OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
+OBJ = $(patsubst $(SRC)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 LIBFT_DIR = ./libs/neo_libft
 LIBFT= $(LIBFT_DIR)/neo_libft.a

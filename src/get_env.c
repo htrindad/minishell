@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/11 13:00:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:12:46 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*get_env(char **env)
 		if (add_env(&new, env[i]))
 		{
 			free_env(new);
-			perror("Error:\nMalloc failed");
+			perror("Error:\nMalloc failed\n");
 			exit(1);
 		}
 		i++;

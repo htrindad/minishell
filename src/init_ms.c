@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/11 16:10:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:10:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@ static inline t_builtin	*init_bi(void)
 {
 	t_builtin	*builtin;
 
-	builtin =
-	{
-		{.name="exit", .f=quit};
-		{.name="cd", .f=NULL};
-		{.name="echo", .f=NULL};
-		{.name="pwd", .f=NULL};
-		{.name="export", .f=NULL};
-		{.name="env", .f=NULL};
-		{.name="unset", .f=NULL};
-	};
+	builtin = ft_calloc(8, sizeof(t_builtin));
+	builtin[0] = (t_builtin){.name="exit", .f=quit},
+	builtin[1] = (t_builtin){.name="cd", .f=NULL},
+	builtin[2] = (t_builtin){.name="echo", .f=NULL},
+	builtin[3] = (t_builtin){.name="pwd", .f=NULL},
+	builtin[4] = (t_builtin){.name="export", .f=NULL},
+	builtin[5] = (t_builtin){.name="env", .f=NULL},
+	builtin[6] = (t_builtin){.name="unset", .f=NULL},
+	builtin[7] = (t_builtin){.name=NULL, .f=NULL};
 	return (builtin);
 }
 
@@ -38,4 +37,5 @@ void	init_ms(t_ms *shell)
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
 	*shell->running = true;
+	shell->builtin = init_bi();
 }
