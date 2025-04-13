@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 17:26:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:40:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,16 @@ bool	add_token(t_token **head, char *value, t_ms *ms) // This function needs a s
 static void	print_tokens(t_token *head)
 {
 	t_token	*tmp;
+	size_t	i;
 
 	tmp = head;
 	while (tmp)
 	{
-		printf("[%s]\n", tmp->value);
+		i = 0;
+		ft_putchar_fd('(', 1);
+		while (tmp->value[i])
+			printf("[%s]", tmp->value[i++]);
+		ft_putchar_fd(')', 1);
 		tmp = tmp->next;
 	}
 }
@@ -48,7 +53,7 @@ static void	print_tokens(t_token *head)
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
-	char	**args;
+	char	***args;
 	int		i;
 
 	head = NULL;

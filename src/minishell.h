@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/13 17:27:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:53:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ t_env				*get_env(char **env);
 void				init_ms(t_ms *shell);
 int					quit(t_ms *);
 void				em(char *str, t_ms *ms);
-bool				spec_case(char *sub, char **cases, size_t *l);
+size_t				spec_case(char *sub, char **cases, size_t *l);
 
 #endif
