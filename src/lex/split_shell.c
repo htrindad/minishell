@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 18:04:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:07:46 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,12 @@ static bool	ft_filling_arr(char **array, char const *s, t_ms *ms)
 char	***ft_split_shell(t_ms *shell)
 {
 	size_t	words;
-	size_t	cases;
 	char	***array;
-	char	*new_s;
+	char	*new_s; //wtf?
 
 	if (!shell->input)
 		return (NULL);
-	words = ft_count_words(shell->input, shell);
-	cases = count_cases(shell->input, shell);
-	op_funcs(array, words, count);
+	words = op_funcs(array, shell);
 	//array = ft_calloc(words + 1, sizeof(char *)); // Gonna operate on this function
 	if (!array)
 		return (NULL);

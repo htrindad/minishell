@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:00:00 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/13 18:03:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:07:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,15 @@ static size_t	ft_count_words(char const *s, t_ms *ms)
 	return (count);
 }
 
-void	op_funcs(char ***array, size_t words, size_t count)
+size_t	op_funcs(char ***array, t_ms *ms)
 {
+	size_t	count;
+	size_t	words;
+
+	count = count_cases(ms->input, ms);
 	array = ft_calloc(count + 1, sizeof(char **));
+	if (array == NULL)
+		return (em("Error\nMalloc failed.\n", ms), 0);
+	words = ft_count_words(ms->input, ms);
+	return (words);
 }
