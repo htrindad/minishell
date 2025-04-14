@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 16:13:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:21:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	ft_safe_allocate(char **array, int index, size_t len)
 {
-	array[index] = malloc(len + 1); //This is using malloc to avoid 'strlcpy' to be interrupted due to the '\0'
+	array[index] = malloc(len + 1);
 	if (!array[index])
 	{
 		while (index > 0)
@@ -62,13 +62,12 @@ static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 char	***ft_split_shell(t_ms *shell)
 {
 	char	***array;
-	char	*new_s; //wtf?
+	char	*new_s;
 	size_t	countl
 
 	if (!shell->input)
 		return (NULL);
 	count = op_funcs(array, shell);
-	//array = ft_calloc(words + 1, sizeof(char *)); // Gonna operate on this function
 	if (!array)
 		return (NULL);
 	if (has_env_var(shell->input))

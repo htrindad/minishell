@@ -6,13 +6,12 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:00:00 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/14 16:01:09 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:22:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// The purpose of this function is to create tokens separated by special cases
 static size_t	count_cases(char const *s, t_ms *ms)
 {
 	size_t	i;
@@ -68,11 +67,6 @@ static size_t	ft_count_words(char const *s, t_ms *ms)
 		free(tmp);
 	}
 	return (count);
-}
-
-size_t	get_com_size(char const *s, size_t start, size_t len)
-{
-
 }
 
 size_t	op_funcs(char ***array, t_ms *ms)
