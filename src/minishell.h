@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/13 17:53:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:33:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum	e_case
 	OUT,
 	APPEND,
 	IN,
-	DEL,
+	HEREDOC,
 }		t_case;
 
 // Typedefs

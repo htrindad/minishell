@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 17:40:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:38:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,47 @@
 // The tokens will be stored in a linked list of t_token structs.
 // ex: echo "$HOME path" -> [echo] [./user/home path]
 
-bool	add_token(t_token **head, char *value, t_ms *ms) // This function needs a serious rework
+t_case	set_case(char const *c)
+{
+	if (c[0] == '|')
+		return (PIPE);
+	if (c[0] == '>')
+	{
+		if (c[1] == '>')
+			return (APPEND);
+		else
+			return (OUT);
+	}
+	if (c[0] == '<')
+	{
+		if (c[1] == '<')
+			return (HEREDOC);
+		else
+			return (IN);
+	}
+	return (NONE);
+}
+
+bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This function needs a serious rework
 {
 	t_token	*new;
+	size_t	i;
 
+	i = *l;
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
-	new->value = ft_strdup(value);
+	new->value = duplicator(value);
 	if (!new->value)
-		return (free(new), 0);
+		return (em("Error\nMalloc fail.\n"), true);
+	while (ms->input[i])
+	{
+		if (spec_case(ms->input, ms->scases, l, i++))
+		{
+			new->cchar = set_case(ms->input + *l);
+			break ;
+		}
+	}
 	new->next = NULL;
 	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);
