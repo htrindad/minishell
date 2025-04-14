@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:00:00 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/14 12:07:00 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:01:09 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static size_t	count_cases(char const *s, t_ms *ms)
 	{
 		while (!tmp)
 		{
-			tmp += spec_case(s + i, ms->scases, NULL);
+			tmp += spec_case(s, ms->scases, NULL, i);
 			i++;
 		}
 		if (!s[i])
@@ -70,15 +70,31 @@ static size_t	ft_count_words(char const *s, t_ms *ms)
 	return (count);
 }
 
+size_t	get_com_size(char const *s, size_t start, size_t len)
+{
+
+}
+
 size_t	op_funcs(char ***array, t_ms *ms)
 {
 	size_t	count;
-	size_t	words;
+	size_t	i;
+	size_t	l;
+	size_t	arr;
 
+	i = 0;
+	l = 0;
+	arr = 0;
 	count = count_cases(ms->input, ms);
 	array = ft_calloc(count + 1, sizeof(char **));
 	if (array == NULL)
 		return (em("Error\nMalloc failed.\n", ms), 0);
-	words = ft_count_words(ms->input, ms);
-	return (words);
+	while (ms->input[i])
+	{
+		i += ft_iteration_cases(ms->input, i, ms->scases, ms);
+		array[arr] = ft_calloc(i - l + 1, sizeof(char *));
+		l = i;
+	}
+	array[count] = NULL;
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 13:00:33 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:13:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	ft_safe_allocate(char **array, int index, size_t len)
 	return (false);
 }
 
-static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms) //This function needs a serious rework, as it's working with a 'new_s' string, which I can only assume that it's for the purpose of a 'env_var', I have to study this func and rework the whole structure.
+static inline bool	sub(char **array, char const *s, t_ms *ms)
 {
 	size_t	l;
 	size_t	i;
@@ -46,18 +46,28 @@ static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms) //This functi
 		j++;
 		i += l;
 	}
+}
+
+static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count) 
+{
+	size_t	i;
+
+	i = 0;
+	while (i < count)
+		if (sub(array[i++], s, ms));
+			return (true);
 	return (false);
 }
 
 char	***ft_split_shell(t_ms *shell)
 {
-	size_t	words;
 	char	***array;
 	char	*new_s; //wtf?
+	size_t	countl
 
 	if (!shell->input)
 		return (NULL);
-	words = op_funcs(array, shell);
+	count = op_funcs(array, shell);
 	//array = ft_calloc(words + 1, sizeof(char *)); // Gonna operate on this function
 	if (!array)
 		return (NULL);
@@ -66,12 +76,11 @@ char	***ft_split_shell(t_ms *shell)
 		new_s = handle_env_var(shell);
 		if (!new_s)
 			return (NULL);
-		if (ft_filling_arr(array, new_s, shell))
+		if (ft_filling_arr(array, new_s, shell, count))
 			return (free(new_s), NULL);
 		free(new_s);
 	}
-	else if (ft_filling_arr(array, shell->input, shell))
+	else if (ft_filling_arr(array, shell->input, shell, count))
 		return (NULL);
-	array[words] = NULL;
 	return (array);
 }
