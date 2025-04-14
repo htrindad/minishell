@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 19:15:48 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:38:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,65 @@
 // The tokens will be stored in a linked list of t_token structs.
 // ex: echo "$HOME path" -> [echo] [./user/home path]
 
-int	add_token(t_token **head, char *value)
+t_case	set_case(char const *c)
 {
-	t_token	*new;
-
-	new = (t_token *)malloc(sizeof(t_token));
-	if (!new)
-		return (0);
-	new->value = ft_strdup(value);
-	if (!new->value)
-		return (free(new), 0);
-	new->next = NULL;
-	ft_lstadd_back((t_list **)head, (t_list *)new);
-	return (1);
+	if (c[0] == '|')
+		return (PIPE);
+	if (c[0] == '>')
+	{
+		if (c[1] == '>')
+			return (APPEND);
+		else
+			return (OUT);
+	}
+	if (c[0] == '<')
+	{
+		if (c[1] == '<')
+			return (HEREDOC);
+		else
+			return (IN);
+	}
+	return (NONE);
 }
 
-void	print_tokens(t_token *head)
+bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This function needs a serious rework
+{
+	t_token	*new;
+	size_t	i;
+
+	i = *l;
+	new = (t_token *)malloc(sizeof(t_token));
+	if (!new)
+		return (em("Error:\nMalloc failed\n", ms), true);
+	new->value = duplicator(value);
+	if (!new->value)
+		return (em("Error\nMalloc fail.\n"), true);
+	while (ms->input[i])
+	{
+		if (spec_case(ms->input, ms->scases, l, i++))
+		{
+			new->cchar = set_case(ms->input + *l);
+			break ;
+		}
+	}
+	new->next = NULL;
+	ft_lstadd_back((t_list **)head, (t_list *)new);
+	return (false);
+}
+
+static void	print_tokens(t_token *head)
 {
 	t_token	*tmp;
+	size_t	i;
 
 	tmp = head;
 	while (tmp)
 	{
-		printf("[%s]\n", tmp->value);
+		i = 0;
+		ft_putchar_fd('(', 1);
+		while (tmp->value[i])
+			printf("[%s]", tmp->value[i++]);
+		ft_putchar_fd(')', 1);
 		tmp = tmp->next;
 	}
 }
@@ -48,7 +84,7 @@ void	print_tokens(t_token *head)
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
-	char	**args;
+	char	***args;
 	int		i;
 
 	head = NULL;
@@ -58,15 +94,14 @@ t_token	*lexing(t_ms *shell)
 	i = 0;
 	while (args[i])
 	{
-		if (!add_token(&head, args[i]))
+		if (add_token(&head, args[i++], shell))
 		{
 			free_tokens(head);
 			return (NULL);
 		}
-		i++;
 	}
-	//debug
-	print_tokens(head);
+	if (DEBUG)
+		print_tokens(head);
 	free_args(args);
 	return (head);
 }
