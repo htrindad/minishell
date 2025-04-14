@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 12:07:46 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:00:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	ft_safe_allocate(char **array, int index, size_t len)
 {
-	array[index] = malloc(sizeof(char) * (len + 1));
+	array[index] = malloc(len + 1); //This is using malloc to avoid 'strlcpy' to be interrupted due to the '\0'
 	if (!array[index])
 	{
 		while (index > 0)
@@ -25,7 +25,7 @@ static bool	ft_safe_allocate(char **array, int index, size_t len)
 	return (false);
 }
 
-static bool	ft_filling_arr(char **array, char const *s, t_ms *ms)
+static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms) //This function needs a serious rework, as it's working with a 'new_s' string, which I can only assume that it's for the purpose of a 'env_var', I have to study this func and rework the whole structure.
 {
 	size_t	l;
 	size_t	i;

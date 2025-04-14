@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 17:13:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:11:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	*extract_env_var(t_ms *shell, int *i)
 }
 
 // Extracts the env var from the string and returns it
+// Note: This function surpasses the 25 lines, it needs a serious rework
 char	*handle_env_var(t_ms *shell)
 {
 	char	*new_s;
