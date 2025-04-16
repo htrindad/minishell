@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/14 18:06:52 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:45:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	si(int pid)
 	ft_putstr_fd(" ^C\n", 1);
 }
 
-static void	sq(int pid)
-{
-	//TODO
-}
+//static void	sq(int pid)
+//{
+//	//TODO
+//}
 
 void	sig_handler(int sig, siginfo_t *s, void *content)
 {

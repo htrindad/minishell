@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 18:38:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:02:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // The tokens will be stored in a linked list of t_token structs.
 // ex: echo "$HOME path" -> [echo] [./user/home path]
 
-t_case	set_case(char const *c)
+static t_case	set_case(char const *c)
 {
 	if (c[0] == '|')
 		return (PIPE);
@@ -50,7 +50,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->value = duplicator(value);
 	if (!new->value)
-		return (em("Error\nMalloc fail.\n"), true);
+		return (em("Error\nMalloc fail.\n", ms), true);
 	while (ms->input[i])
 	{
 		if (spec_case(ms->input, ms->scases, l, i++))
@@ -59,6 +59,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 			break ;
 		}
 	}
+	*l = i;
 	new->next = NULL;
 	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);
@@ -85,6 +86,7 @@ t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
 	char	***args;
+	size_t	l;
 	int		i;
 
 	head = NULL;
@@ -92,16 +94,16 @@ t_token	*lexing(t_ms *shell)
 	if (!args)
 		return (NULL);
 	i = 0;
+	l = 0;
 	while (args[i])
 	{
-		if (add_token(&head, args[i++], shell))
-		{
-			free_tokens(head);
-			return (NULL);
-		}
+		if (add_token(&head, args[i++], shell, &l))
+			return (free_tokens(head), NULL);
 	}
+	i = 0;
+	while (args[i])
+		free_args(args[i++]);
 	if (DEBUG)
 		print_tokens(head);
-	free_args(args);
 	return (head);
 }

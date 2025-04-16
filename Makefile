@@ -5,7 +5,9 @@ CFLAGS = -Wall -Werror -Wextra -O3
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
-	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/main.c
+	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
+	./src/lex/split_shell_ops.c ./src/error.c ./src/sig_handler.c \
+	./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC)/%.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -47,7 +49,7 @@ $(LIBFT):
 ## Rule to compile the final executable
 $(NAME): $(LIBFT) $(OBJ)
 	@echo "\n$(GREEN)[Linking]$(RESET) $@"
-	@cc $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME)
+	@cc $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -D DEBUG=1 -o $(NAME)
 	@echo "$(GREEN)✔ Build complete!$(RESET)"
 
 # Clean up object files and executable

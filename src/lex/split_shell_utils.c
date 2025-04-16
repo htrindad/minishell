@@ -6,36 +6,34 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 18:39:57 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:01:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	spec_case(char const *sub, const char **cases, size_t *l, size_t y)
+size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 {
 	int	i;
-	int	safe;
 
 	i = -1;
 	*l = 0;
 	while (++i < 5)
 	{
-		safe = y;
-		while (sub[safe])
+		while (sub[y])
 		{
 			if (!ft_strncmp(sub, cases[i], ft_strlen(cases[i])))
 			{
-				*l = safe;
+				*l = y;
 				return (*l);
 			}
-			safe++;
+			y++;
 		}
 	}
 	return (0);
 }
 
-size_t	iteration_cases(const char *s, size_t i, const char **cases, t_ms *ms)
+size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms)
 {
 	char	*tmp;
 	size_t	l;
@@ -50,8 +48,8 @@ size_t	iteration_cases(const char *s, size_t i, const char **cases, t_ms *ms)
 		;
 	else
 		while (s[i + l] && s[i + l] != ' ' && spec_case(tmp, \
-					cases, (size_t *)0))
-			l += iterate_through_q(s, i, ms);
+					cases, (size_t *)0, l))
+			l += iterate_through_q(s, i + l, ms);
 	return (free(tmp), l);
 }
 
