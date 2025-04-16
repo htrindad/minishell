@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 16:02:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:03:34 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_ms(&shell);
 	shell.env = get_env(env);
-	while (shell->running)
+	while (shell.running)
 	{
 		shell.input = readline("minishell> ");
 		if (!shell.input)

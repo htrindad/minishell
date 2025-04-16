@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/16 17:29:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:02:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // The tokens will be stored in a linked list of t_token structs.
 // ex: echo "$HOME path" -> [echo] [./user/home path]
 
-t_case	set_case(char const *c)
+static t_case	set_case(char const *c)
 {
 	if (c[0] == '|')
 		return (PIPE);
@@ -98,13 +98,12 @@ t_token	*lexing(t_ms *shell)
 	while (args[i])
 	{
 		if (add_token(&head, args[i++], shell, &l))
-		{
-			free_tokens(head);
-			return (NULL);
-		}
+			return (free_tokens(head), NULL);
 	}
+	i = 0;
+	while (args[i])
+		free_args(args[i++]);
 	if (DEBUG)
 		print_tokens(head);
-	free_args(args);
 	return (head);
 }

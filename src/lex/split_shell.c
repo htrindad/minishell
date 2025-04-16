@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/16 17:42:22 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:23:46 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	ft_safe_allocate(char **array, int index, size_t len)
 	return (false);
 }
 
-static inline bool	sub(char **array, char const *s, t_ms *ms)
+bool	sub(char **array, char const *s, t_ms *ms)
 {
 	size_t	l;
 	size_t	i;
@@ -64,10 +64,11 @@ char	***ft_split_shell(t_ms *shell)
 {
 	char	***array;
 	char	*new_s;
-	size_t	countl
+	size_t	count;
 
 	if (!shell->input)
 		return (NULL);
+	array = NULL;
 	count = op_funcs(array, shell);
 	if (!array)
 		return (NULL);
