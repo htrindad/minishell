@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/14 18:33:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:43:14 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,10 @@ void				init_ms(t_ms *shell);
 int					quit(t_ms *);
 void				em(char *str, t_ms *ms);
 size_t				spec_case(char *sub, char **cases, size_t *l);
+char				**duplicator(char **arg);
+size_t				op_funcs(char ***array, t_ms *ms);
+t_token				set_case(t_token **head, char *value, t_ms *ms);
+void				sig_handler(int sig, siginfo_t *s, void *content);
+void				refresh(t_ms *);
 
 #endif

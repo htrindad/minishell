@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 18:38:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:37:19 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->value = duplicator(value);
 	if (!new->value)
-		return (em("Error\nMalloc fail.\n"), true);
+		return (em("Error\nMalloc fail.\n", ms), true);
 	while (ms->input[i])
 	{
 		if (spec_case(ms->input, ms->scases, l, i++))
