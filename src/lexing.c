@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/16 16:37:19 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:29:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 			break ;
 		}
 	}
+	*l = i;
 	new->next = NULL;
 	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);
@@ -85,6 +86,7 @@ t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
 	char	***args;
+	size_t	l;
 	int		i;
 
 	head = NULL;
@@ -92,9 +94,10 @@ t_token	*lexing(t_ms *shell)
 	if (!args)
 		return (NULL);
 	i = 0;
+	l = 0;
 	while (args[i])
 	{
-		if (add_token(&head, args[i++], shell))
+		if (add_token(&head, args[i++], shell, &l))
 		{
 			free_tokens(head);
 			return (NULL);

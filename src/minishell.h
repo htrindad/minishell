@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/16 16:43:14 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:41:17 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ typedef struct	s_ms
 // Functions
 t_token				*lexing(t_ms *shell);
 bool				add_token(t_token **head, char *value, t_ms *ms);
-char				**ft_split_shell(t_ms *shell);
+char				***ft_split_shell(t_ms *shell);
 char				*handle_env_var(t_ms *shell);
 size_t				iterate_through_q(const char *s, size_t i,
 						t_ms *ms);
 size_t				iteration_cases(const char *s, size_t i, char **cases, t_ms *ms);
-int					has_env_var(const char *s);
+bool				has_env_var(const char *s);
 char				*extract_env_var(t_ms *shell, int *i);
 char				*var_cases(t_ms *shell, int *i);
 char				*conc_char(char c);
@@ -93,7 +93,7 @@ t_env				*get_env(char **env);
 void				init_ms(t_ms *shell);
 int					quit(t_ms *);
 void				em(char *str, t_ms *ms);
-size_t				spec_case(char *sub, char **cases, size_t *l);
+size_t				spec_case(char const *sub, char **cases, size_t *l);
 char				**duplicator(char **arg);
 size_t				op_funcs(char ***array, t_ms *ms);
 t_token				set_case(t_token **head, char *value, t_ms *ms);

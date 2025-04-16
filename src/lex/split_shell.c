@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/14 16:21:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:42:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static inline bool	sub(char **array, char const *s, t_ms *ms)
 		j++;
 		i += l;
 	}
+	return (false);
 }
 
 static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count) 
@@ -54,7 +55,7 @@ static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 
 	i = 0;
 	while (i < count)
-		if (sub(array[i++], s, ms));
+		if (sub(array[i++], s, ms))
 			return (true);
 	return (false);
 }

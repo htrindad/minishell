@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra -O3
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
 	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
-	./src/lexing/split_shell_ops.c ./src/main.c
+	./src/lex/split_shell_ops.c ./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC)/%.c, $(OBJ_DIR)/%.o, $(SRC))
