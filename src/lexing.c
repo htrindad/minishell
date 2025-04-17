@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/16 18:02:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:32:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->value = duplicator(value);
+	printf("1st\n");
 	if (!new->value)
 		return (em("Error\nMalloc fail.\n", ms), true);
 	while (ms->input[i])
@@ -97,6 +98,7 @@ t_token	*lexing(t_ms *shell)
 	l = 0;
 	while (args[i])
 	{
+		printf("Entrei\n");
 		if (add_token(&head, args[i++], shell, &l))
 			return (free_tokens(head), NULL);
 	}

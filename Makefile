@@ -1,7 +1,7 @@
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -O3
+CFLAGS = -Wall -Werror -Wextra -g -D DEBUG=1
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -10,7 +10,7 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/main.c
 
 OBJ_DIR = ./obj
-OBJ = $(patsubst $(SRC)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 LIBFT_DIR = ./libs/neo_libft
 LIBFT= $(LIBFT_DIR)/neo_libft.a
@@ -31,9 +31,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 ## Compile each .c file into an .o file
-$(OBJ_DIR)/%.o: ./src/%.c | $(OBJ_DIR)
-	@clang $(CFLAGS) -c $< -o $@
-	@$(eval COUNT=$(shell expr $(words $(shell ls $(OBJ_DIR)/*.o 2>/dev/null)) + 1))
+$(OBJ_DIR)/%.o: ./src/%.c
+	@mkdir -p $(dir $@)
+	@cc $(CFLAGS) -c $< -o $@
+	@$(eval COUNT=$(shell expr $(words $(shell find $(OBJ_DIR) -name '*.o' 2>/dev/null)) + 1))
 	@PERCENT=$$(($(COUNT) * 100 / $(TOTAL))); \
 	FILLED=$$((PERCENT / 2)); \
 	EMPTY=$$((50 - FILLED)); \
@@ -49,7 +50,7 @@ $(LIBFT):
 ## Rule to compile the final executable
 $(NAME): $(LIBFT) $(OBJ)
 	@echo "\n$(GREEN)[Linking]$(RESET) $@"
-	@cc $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -D DEBUG=1 -o $(NAME)
+	@cc $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME)
 	@echo "$(GREEN)✔ Build complete!$(RESET)"
 
 # Clean up object files and executable
