@@ -12,28 +12,27 @@
 
 #include "../minishell.h"
 
-static size_t	count_cases(char const *s, t_ms *ms)
+size_t	count_cases(char const *s, t_ms *ms)
 {
 	size_t	i;
 	size_t	count;
 	size_t	tmp;
+	size_t	l;
 
 	i = 0;
+	l = 0;
 	count = 0;
 	tmp = 0;
 	while (s[i])
 	{
-		while (!tmp)
-		{
-			tmp += spec_case(s, ms->scases, NULL, i);
-			i++;
-		}
+		while (!tmp && s[i])
+			tmp += spec_case(s, ms->scases, &l, i++);
 		if (!s[i])
 			break;
 		count++;
 		while (s[i])
 		{
-			tmp += spec_case(s, ms->scases, NULL, i);
+			tmp += spec_case(s, ms->scases, &l, i);
 			count += tmp;
 			i += tmp;
 		}
@@ -81,27 +80,3 @@ static size_t	count_cases(char const *s, t_ms *ms)
 //	if (ptr == NULL || sub(ptr, s, ms))
 //		return (em("Error\nMalloc fail.\n", ms), NULL);
 //}
-
-size_t	op_funcs(char ***array, t_ms *ms)
-{
-	size_t	count;
-	size_t	i;
-	size_t	l;
-	size_t	arr;
-
-	i = 0;
-	l = 0;
-	arr = 0;
-	count = count_cases(ms->input, ms);
-	array = ft_calloc(count + 1, sizeof(char **));
-	if (array == NULL)
-		return (em("Error\nMalloc failed.\n", ms), 0);
-//	while (ms->input[i])
-//	{
-//		i += iteration_cases(ms->input, i, ms->scases, ms);
-//		array[arr++] = fill(ms->input + i, ms);
-//		l = i;
-//	}
-	array[count] = NULL;
-	return (count);
-}

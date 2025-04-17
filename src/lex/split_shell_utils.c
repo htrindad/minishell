@@ -15,19 +15,21 @@
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 {
 	int	i;
+	size_t tmp;
 
 	i = -1;
 	*l = 0;
 	while (++i < 5)
 	{
-		while (sub[y])
+		tmp = y;
+		while (sub[tmp])
 		{
 			if (!ft_strncmp(sub, cases[i], ft_strlen(cases[i])))
 			{
-				*l = y;
+				*l = tmp;
 				return (*l);
 			}
-			y++;
+			tmp++;
 		}
 	}
 	return (0);

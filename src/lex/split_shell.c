@@ -49,7 +49,7 @@ bool	sub(char **array, char const *s, t_ms *ms)
 	return (false);
 }
 
-static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count) 
+static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 {
 	size_t	i;
 
@@ -68,10 +68,11 @@ char	***ft_split_shell(t_ms *shell)
 
 	if (!shell->input)
 		return (NULL);
-	array = NULL;
-	count = op_funcs(array, shell);
+	count = count_cases(shell->input, shell);
+	array = ft_calloc(count + 1, sizeof(char **));
 	if (!array)
 		return (NULL);
+	array[count] = NULL;
 	if (has_env_var(shell->input))
 	{
 		new_s = handle_env_var(shell);

@@ -23,7 +23,7 @@
 
 // Debug mode
 # ifndef DEBUG
-#  define DEBUG 0
+#  define DEBUG 1
 # endif
 
 // Enums
@@ -95,7 +95,7 @@ int					quit(t_ms *);
 void				em(char *str, t_ms *ms);
 size_t				spec_case(char const *sub, char **cases, size_t *l, size_t y);
 char				**duplicator(char **arg);
-size_t				op_funcs(char ***array, t_ms *ms);
+size_t				count_cases(char const *s, t_ms *ms);
 void				sig_handler(int sig, siginfo_t *s, void *content);
 void				refresh(t_ms *);
 bool				sub(char **array, char const *s, t_ms *ms);
