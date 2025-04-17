@@ -30,7 +30,6 @@ static inline t_builtin	*init_bi(void)
 
 void	init_ms(t_ms *shell)
 {
-	shell = ft_calloc(1, sizeof(t_ms));
 	shell->env = NULL;
 	shell->input = NULL;
 	shell->last_status = 0;
