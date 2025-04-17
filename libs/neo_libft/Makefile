@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+         #
+#    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 17:08:01 by htrindad          #+#    #+#              #
-#    Updated: 2024/05/04 12:46:18 by htrindad         ###   ########.fr        #
+#    Updated: 2025/03/26 18:41:23 by mely-pan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,23 +26,23 @@ OBJS = $(SRC:.c=.o)
 
 BONUS_OBJ = $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra  -O3
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 bonus: $(OBJS) $(BONUS_OBJ)
-	ar rcs $(NAME) $(OBJS) $(BONUS_OBJ)
+	@ar rcs $(NAME) $(OBJS) $(BONUS_OBJ)
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 clean_bonus:
-	rm -f $(BONUS_OBJ) $(OBJS)
+	@rm -f $(BONUS_OBJ) $(OBJS)
 
 fclean: clean clean_bonus
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
