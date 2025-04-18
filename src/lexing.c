@@ -6,17 +6,11 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 18:08:37 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:40:41 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// The Purpose of lexing is to separate the user input into tokens the
-// same way the shell does, for that we must have in consideration quotes,
-// special characteres (>, <, |, >>, <<), spaces and $env_var.
-// The tokens will be stored in a linked list of t_token structs.
-// ex: echo "$HOME path" -> [echo] [./user/home path]
 
 static t_case	set_case(char const *c)
 {
@@ -65,6 +59,22 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 	return (false);
 }
 
+static inline void	print_type(t_case ccase)
+{
+	if (ccase == NONE)
+		printf("NONE ");
+	if (ccase == OUT)
+		printf("OUT ");
+	if (ccase == IN)
+		printf("IN ");
+	if (ccase == PIPE)
+		printf("PIPE ");
+	if (ccase == HEREDOC)
+		printf("HEREDOC ");
+	if (ccase == APPEND)
+		printf("APPEND");
+}
+
 static void	print_tokens(t_token *head)
 {
 	t_token	*tmp;
@@ -77,7 +87,8 @@ static void	print_tokens(t_token *head)
 		printf("(");
 		while (tmp->value[i])
 			printf("[%s]", tmp->value[i++]);
-		printf(")");
+		printf(") ");
+		print_type(tmp->cchar);
 		tmp = tmp->next;
 	}
 	printf("\n");

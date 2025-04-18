@@ -27,12 +27,14 @@ size_t	count_cases(char const *s, t_ms *ms)
 		while (!tmp && s[i])
 			tmp += spec_case(s, ms->scases, &l, i++);
 		count++;
+		if (tmp)
+			count++;
 		if (!s[i])
 			break;
 		while (s[i])
 		{
 			tmp += spec_case(s, ms->scases, &l, i);
-			count += tmp;
+			count += i != tmp;
 			i += tmp;
 		}
 	}
@@ -53,14 +55,14 @@ static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
 	return (free(tmp), cas);
 }
 
-size_t	ft_count_words(char const *s, t_ms *ms, size_t max) // The objective of this function is to get the words under a length.
+size_t	ft_count_words(char const *s, t_ms *ms) // The objective of this function is to get the words under a length.
 {
 	size_t	i;
 	size_t	count;
 
 	i = 0;
 	count = 0;
-	while (s[i] && i < max)
+	while (s[i])
 	{
 		while (s[i] == ' ')
 			i++;

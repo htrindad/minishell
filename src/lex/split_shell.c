@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 18:03:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:32:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s)
 		(*array)[itr] = ft_substr(s, i, len - i);
 		if ((*array)[itr++] == NULL)
 			return (free_args(*array), true);
-		i = len;
+		i = ++len;
 	}
 	return (false);
 }
 
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 {
-	size_t	l;
 	size_t	i;
 	size_t	count;
 
@@ -48,8 +47,7 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 		i++;
 	if (!s[i])
 		return (*len += i, false);
-	l = iteration_cases(s, i, ms->scases, ms);
-	count = ft_count_words(s + i, ms, l);
+	count = ft_count_words(s + i, ms);
 	if (ft_safe_allocate(array, count, s + i))
 		return (em("Error\nMalloc Fail.\n", ms), true);
 	*len += i;
