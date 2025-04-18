@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/17 18:54:44 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:00:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,16 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 
 size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms)
 {
-	char	*tmp;
 	size_t	l;
 
 	l = 0;
-	tmp = ft_substr(s, i, 2);
-	if (tmp == NULL)
-		return (em("Error\nMalloc fail.\n", ms), 0);
-	if (s[i] == '\'' || s[i] == '\"')
-		l = iterate_through_q(s, i, ms);
-	else if (spec_case(tmp, cases, &l, i))
+	if (spec_case(s, cases, &l, i))
 		;
 	else
-		while (s[i + l] && s[i + l] != ' ' && spec_case(tmp, \
+		while (s[i + l] && s[i + l] != ' ' && !spec_case(s, \
 					cases, (size_t *)0, l))
 			l += iterate_through_q(s, i + l, ms);
-	return (free(tmp), l);
+	return (l);
 }
 
 size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)

@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/13 18:00:00 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/17 18:40:56 by htrindad         ###   ########.fr       */
+/*   Created: 2025/04/13 18:00:00 by htrindad          #+#    #+#             */ /*   Updated: 2025/04/17 18:40:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +39,39 @@ size_t	count_cases(char const *s, t_ms *ms)
 	return (count);
 }
 
-//static size_t	ft_count_words(char const *s, t_ms *ms, size_t max)
-//{
-//	size_t	i;
-//	size_t	count;
-//	char	*tmp;
-//
-//	i = 0; //len
-//	count = 0; // space
-//	while (s[i] && i < max)
-//	{
-//		while (s[i] == ' ')
-//			i++;
-//		if (!s[i])
-//			break ;
-//		count++;
-//		tmp = ft_substr(s, i, 2);
-//		if (is_special_char(s[i]) || s[i] == '\'' || s[i] == '\"')
-//			i += iteration_cases(s, i, ms->scases, ms);
-//		else
-//		{
-//			while (s[i] && s[i] != ' ' && !is_special_char(s[i]))
-//				i += iterate_through_q(s, i, ms);
-//		}
-//		free(tmp);
-//	}
-//	return (count);
-//}
-//
-//static char	**fill(char const *s, t_ms *ms)
-//{
-//	size_t	i;
-//	size_t	count;
-//	char	**ptr;
-//
-//	i = spec_case(s, ms->scases, NULL, 0);
-//	count = ft_count_words(s, ms, i);
-//	ptr = ft_calloc(count + 1, sizeof(char *));
-//	if (ptr == NULL || sub(ptr, s, ms))
-//		return (em("Error\nMalloc fail.\n", ms), NULL);
-//}
+static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
+{
+	char	*tmp;
+	bool	cas;
+	
+	tmp = ft_substr(s, i, 2);
+	cas = true;
+	if (tmp == NULL)
+		return (em("Error\nMalloc Fail.\n", ms), 0);
+	if (spec_case(tmp, cases, NULL, i))
+		cas = false;
+	return (free(tmp), cas);
+}
+
+size_t	ft_count_words(char const *s, t_ms *ms, size_t max) // The objective of this function is to get the words under a length.
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (s[i] && i < max)
+	{
+		while (s[i] == ' ')
+			i++;
+		if (!s[i])
+			break ;
+		count++;
+		if (s[i] == '\'' || s[i] == '\"')
+			i += iterate_through_q(s, i, ms);
+		else
+			while (s[i] && s[i] != ' ' && check(s, ms->scases, i, ms))
+				i += iterate_through_q(s, i, ms);
+	}
+	return (count);
+}

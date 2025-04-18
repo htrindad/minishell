@@ -6,57 +6,67 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/17 18:39:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:03:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	ft_safe_allocate(char **array, int index, size_t len)
+static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s)
 {
-	array[index] = malloc(len + 1);
-	if (!array[index])
-	{
-		while (index > 0)
-			free(array[--index]);
-		free(array);
+	size_t	i;
+	size_t	itr;
+	size_t	len;
+
+	i = 0;
+	itr = 0;
+	len = 0;
+	*array = ft_calloc(count + 1, sizeof(char *));
+	if (*array == NULL)
 		return (true);
+	(*array)[count] = NULL;
+	while (itr < count)
+	{
+		while (s[len] && s[len] != ' ')
+			len++;
+		(*array)[itr] = ft_substr(s, i, len - i);
+		if ((*array)[itr++] == NULL)
+			return (free_args(*array), true);
+		i = len;
 	}
 	return (false);
 }
 
-bool	sub(char **array, char const *s, t_ms *ms)
+bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 {
 	size_t	l;
 	size_t	i;
-	size_t	j;
+	size_t	count;
 
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		while (s[i] == ' ')
-			i++;
-		if (!s[i])
-			break ;
-		l = iteration_cases(s, i, ms->scases, ms);
-		if (ft_safe_allocate(array, j, l))
-			return (true);
-		ft_strlcpy(array[j], s + i, l + 1);
-		j++;
-		i += l;
-	}
+	i = *len;
+	while (s[i] == ' ')
+		i++;
+	if (!s[i])
+		return (*len += i, false);
+	l = iteration_cases(s, i, ms->scases, ms);
+	count = ft_count_words(s + i, ms, l);
+	if (ft_safe_allocate(array, count, s + i))
+		return (em("Error\nMalloc Fail.\n", ms), true);
+	*len += i;
 	return (false);
 }
 
 static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 {
 	size_t	i;
+	size_t	len;
 
 	i = 0;
+	len = 0;
 	while (i < count)
-		if (sub(array[i++], s, ms))
+		if (sub(&array[i++], s, ms, &len))
 			return (true);
+	array[i] = NULL;
 	return (false);
 }
 
