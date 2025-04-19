@@ -6,33 +6,30 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/19 17:09:08 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:59:49 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s)
+static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, size_t *len)
 {
 	size_t	i;
 	size_t	itr;
-	size_t	len;
 
 	i = 0;
 	itr = 0;
-	len = 0;
 	*array = ft_calloc(count + 1, sizeof(char *));
 	if (*array == NULL)
 		return (true);
 	(*array)[count] = NULL;
 	while (itr < count)
 	{
-		while (s[len] && s[len] != ' ')
-			len++;
-		(*array)[itr] = ft_substr(s, i, len - i);
+		while (s[*len] && s[*len] != ' ')
+			(*len)++;
+		(*array)[itr] = ft_substr(s, i, *len - i);
 		if ((*array)[itr++] == NULL)
 			return (free_args(*array), true);
-		i = ++len;
+		i = ++(*len);
 	}
 	return (false);
 }
@@ -43,12 +40,12 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	size_t	count;
 
 	i = *len;
-	while (s[i] == ' ')
+	while (s[i] == ' ' || spec_case(s, ms->scases, (size_t *)0, i, NULL))
 		i++;
 	if (!s[i])
 		return (*len += i, false);
 	count = ft_count_words(s + i, ms);
-	if (ft_safe_allocate(array, count, s + *len))
+	if (ft_safe_allocate(array, count, s, len))
 		return (em("Error\nMalloc Fail.\n", ms), true);
 	return (false);
 }
