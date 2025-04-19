@@ -22,21 +22,18 @@ size_t	count_cases(char const *s, t_ms *ms)
 	l = 0;
 	count = 0;
 	tmp = 0;
+	while (!tmp && s[i])
+		tmp += spec_case(s, ms->scases, &l, i++);
+	if (!tmp)
+		count++;
+	if (!s[i])
+		return (count);
 	while (s[i])
 	{
-		while (!tmp && s[i])
-			tmp += spec_case(s, ms->scases, &l, i++);
-		count++;
-		if (tmp)
+		tmp += spec_case(s, ms->scases, &l, i);
+		if (i != tmp)
 			count++;
-		if (!s[i])
-			break;
-		while (s[i])
-		{
-			tmp += spec_case(s, ms->scases, &l, i);
-			count += i != tmp;
-			i += tmp;
-		}
+		i += tmp;
 	}
 	return (count);
 }
@@ -45,17 +42,19 @@ static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
 {
 	char	*tmp;
 	bool	cas;
+	size_t	l;
 	
 	tmp = ft_substr(s, i, 2);
 	cas = true;
+	l = 0;
 	if (tmp == NULL)
 		return (em("Error\nMalloc Fail.\n", ms), 0);
-	if (spec_case(tmp, cases, NULL, i))
+	if (spec_case(tmp, cases, &l, 0))
 		cas = false;
 	return (free(tmp), cas);
 }
 
-size_t	ft_count_words(char const *s, t_ms *ms) // The objective of this function is to get the words under a length.
+size_t	ft_count_words(char const *s, t_ms *ms)
 {
 	size_t	i;
 	size_t	count;
@@ -66,7 +65,7 @@ size_t	ft_count_words(char const *s, t_ms *ms) // The objective of this function
 	{
 		while (s[i] == ' ')
 			i++;
-		if (!s[i])
+		if (!s[i] || !check(s, ms->scases, i, ms))
 			break ;
 		count++;
 		if (s[i] == '\'' || s[i] == '\"')

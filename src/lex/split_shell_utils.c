@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 18:49:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:00:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 			{
 				if (l)
 					*l = tmp;
+				if (!*l)
+					(*l)++;
 				return (*l);
 			}
 			tmp++;

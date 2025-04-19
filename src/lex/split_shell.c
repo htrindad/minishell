@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 18:32:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:09:08 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	if (!s[i])
 		return (*len += i, false);
 	count = ft_count_words(s + i, ms);
-	if (ft_safe_allocate(array, count, s + i))
+	if (ft_safe_allocate(array, count, s + *len))
 		return (em("Error\nMalloc Fail.\n", ms), true);
-	*len += i;
 	return (false);
 }
 
