@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/19 17:31:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:48:13 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 			break ;
 		}
 	}
-	*l = i;
+	(*l)++;
 	new->next = NULL;
 	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);

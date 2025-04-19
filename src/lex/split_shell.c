@@ -6,17 +6,18 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/19 17:59:49 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:40:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, size_t *len)
 {
 	size_t	i;
 	size_t	itr;
 
-	i = 0;
+	i = *len;
 	itr = 0;
 	*array = ft_calloc(count + 1, sizeof(char *));
 	if (*array == NULL)
@@ -34,16 +35,28 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, 
 	return (false);
 }
 
+static inline bool	mini_spec_case(char const *s, char **cases)
+{
+	int	i;
+
+	i = -1;
+	while (cases[++i])
+		if (!ft_strncmp(s, cases[i], ft_strlen(cases[i])))
+			return (true);
+	return (false);
+}
+
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 {
 	size_t	i;
 	size_t	count;
 
 	i = *len;
-	while (s[i] == ' ' || spec_case(s, ms->scases, (size_t *)0, i, NULL))
+	while (s[i] == ' ' || mini_spec_case(s + i, ms->scases))
 		i++;
+	*len = i;
 	if (!s[i])
-		return (*len += i, false);
+		return (false);
 	count = ft_count_words(s + i, ms);
 	if (ft_safe_allocate(array, count, s, len))
 		return (em("Error\nMalloc Fail.\n", ms), true);
