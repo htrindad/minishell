@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/19 18:08:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:51:49 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,27 @@
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 {
 	int	i;
-	size_t tmp;
+	//size_t tmp;
 
-	i = -1;
 	if (cas)
 		*cas = true;
 	if (l)
 		*l = 0;
-	while (++i < 5)
+	while (sub[y])
 	{
-		tmp = y;
-		while (sub[tmp])
+		i = -1;
+		while (++i < 5)
 		{
-			if (!ft_strncmp(sub + tmp, cases[i], ft_strlen(cases[i])))
+			if (!ft_strncmp(sub + y, cases[i], ft_strlen(cases[i])))
 			{
 				if (l)
-					*l = tmp;
+					*l = y;
 				if (cas)
 					*cas = false;
-				return (tmp);
+				return (y);
 			}
-			tmp++;
 		}
+		y++;
 	}
 	return (0);
 }
