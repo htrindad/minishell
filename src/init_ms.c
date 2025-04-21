@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:41:07 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:04:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_ms(t_ms *shell)
 	shell->last_status = 0;
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
-	shell->running = (bool *)true;
+	(*shell)->running = true;
 	shell->builtin = init_bi();
 	if (!shell->scases || !shell->builtin)
 		em("Malloc\nFail.\n", shell);

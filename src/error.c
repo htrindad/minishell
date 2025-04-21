@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:10:45 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/17 18:31:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:04:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	em(char *str, t_ms *ms)
 {
 	perror(str);
-	ms->running = (bool *)false;
+	(*ms)->running = false;
 }

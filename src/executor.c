@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 17:17:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:18:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,45 @@ static char	**comp_env(t_env *env)
 	return (ptr);
 }
 
-void	executor(t_ms *ms)
+static void	han_case(t_token *tok) //In case it is not meant to output to stdout
+{
+	//TODO
+}
+
+static void	ex_loop(t_ms *ms, t_token *tok, char **env) //It will run while we have commands
 {
 	char	*tmp;
-	char	**env;
 
 	tmp = comp_path(ms->tokens, ms->env, ms);
-	env = comp_env(ms->env);
 	if (tmp == NULL)
+	{
+		em("Error\nMalloc Fail.\n", ms);
 		return ;
-	ms->pid = fork();
-	if (!ms->pid)
-		execve(tmp, ms->tokens->value, env);
-	else
-		wait();
+	}
+	while (tok)
+	{
+		if (tok->cchar != OUT)
+			//TODO
+		ms->pid = fork();
+		if (!ms->pid)
+			execve(tmp, ms->tokens->value, env);
+		else
+			wait();
+		tok = tok->next;
+	}
 	free(tmp);
+}
+
+void	executor(t_ms *ms) //This is the function that will execute the commands from the parsing
+{
+	char	**env;
+
+	env = comp_env(ms->env);
+	if (env == NULL)
+	{
+		em("Error\nMalloc Fail.\n", ms);
+		return ;
+	}
+	ex_loop(ms, ms->token, env);
 	free_args(env);
 }
