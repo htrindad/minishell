@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/19 18:35:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:41:45 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	count_cases(char const *s, t_ms *ms)
 
 	i = 0;
 	l = 0;
-	count = 0;
+	count = 1;
 	tmp = 0;
 	while (!tmp && s[i])
 		tmp += spec_case(s, ms->scases, &l, i++, NULL);
