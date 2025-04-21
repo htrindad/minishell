@@ -3,9 +3,11 @@ NAME = minishell
 
 CFLAGS = -Wall -Werror -Wextra -O3
 
-SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle_env_var.c \
-	./src/lex_split_shell.c ./src/lex_split_shell_utils.c ./src/lexing.c \
-	./src/handle_env_var_utils.c ./src/main.c
+SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
+	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
+	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
+	./src/lex/split_shell_ops.c ./src/error.c ./src/sig_handler.c \
+	./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -29,9 +31,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 ## Compile each .c file into an .o file
-$(OBJ_DIR)/%.o: ./src/%.c | $(OBJ_DIR)
-	@clang $(CFLAGS) -c $< -o $@
-	@$(eval COUNT=$(shell expr $(words $(shell ls $(OBJ_DIR)/*.o 2>/dev/null)) + 1))
+$(OBJ_DIR)/%.o: ./src/%.c
+	@mkdir -p $(dir $@)
+	@cc $(CFLAGS) -c $< -o $@
+	@$(eval COUNT=$(shell expr $(words $(shell find $(OBJ_DIR) -name '*.o' 2>/dev/null)) + 1))
 	@PERCENT=$$(($(COUNT) * 100 / $(TOTAL))); \
 	FILLED=$$((PERCENT / 2)); \
 	EMPTY=$$((50 - FILLED)); \

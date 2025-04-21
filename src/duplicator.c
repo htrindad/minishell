@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_handler.c                                      :+:      :+:    :+:   */
+/*   duplicator.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/16 18:45:22 by htrindad         ###   ########.fr       */
+/*   Created: 2025/04/14 18:08:59 by htrindad          #+#    #+#             */
+/*   Updated: 2025/04/14 18:13:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_ms	*g_ms;
-
-static void	si(int pid)
+char	**duplicator(char **arg)
 {
-	kill(pid, SIGINT);
-	ft_putstr_fd(" ^C\n", 1);
-}
+	size_t	max;
+	size_t	i;
+	char	**ptr;
 
-//static void	sq(int pid)
-//{
-//	//TODO
-//}
-
-void	sig_handler(int sig, siginfo_t *s, void *content)
-{
-	(void)content;
-	(void)s;
-	if (sig == SIGINT)
-		si(g_ms->pid);
-	if (sig == SIGQUIT)
-		kill(g_ms->pid, SIGQUIT);
-}
-
-void	refresh(t_ms *ms)
-{
-	g_ms = ms;
+	max = 0;
+	i = 0;
+	while (arg[max])
+		max++;
+	ptr = ft_calloc(max + 1, sizeof(char *));
+	while (i < max)
+	{
+		ptr[i] = ft_strdup(arg[i]);
+		i++;
+	}
+	ptr[max] = NULL;
+	return (ptr);
 }

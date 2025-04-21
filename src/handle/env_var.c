@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_env_var.c                                   :+:      :+:    :+:   */
+/*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 20:14:29 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:05:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // returns a positive int if the character next to the $ is a valid
 // character for an env var (alphanumeric, '_' or '?' just after the $)
 // Return 0 if it does not contain a valid env var
-int	has_env_var(const char *s)
+bool	has_env_var(const char *s)
 {
 	int	i;
 
@@ -29,13 +29,13 @@ int	has_env_var(const char *s)
 		{
 			i++;
 			if (s[i] == '?')
-				return (1);
+				return (true);
 			if (ft_isalpha(s[i]) || s[i] == '_')
-				return (1);
+				return (true);
 		}
 		i++;
 	}
-	return (0);
+	return (false);
 }
 
 char	*ft_strjoin_free(char *s1, char *s2)
@@ -89,6 +89,7 @@ char	*extract_env_var(t_ms *shell, int *i)
 }
 
 // Extracts the env var from the string and returns it
+// Note: This function surpasses the 25 lines, it needs a serious rework
 char	*handle_env_var(t_ms *shell)
 {
 	char	*new_s;

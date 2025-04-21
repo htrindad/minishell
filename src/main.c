@@ -6,36 +6,38 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/03/27 19:27:37 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:03:34 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+int	main(int ac, char **av, char **env)
 {
-	t_ms	shell;
+	t_ms	*shell;
 
-	(void)argv;
-	if (argc != 1)
-		ft_putstr_fd("Run ./minishell with no args!", 2);
-	init_ms(&shell);
-	shell.env = get_env(env);
-	while (1)
+	(void)ac;
+	(void)av;
+	shell = ft_calloc(1, sizeof(t_ms));
+	if (!shell)
+		return (1);
+	init_ms(shell);
+	shell->env = get_env(env);
+	while (shell->running)
 	{
-		shell.input = readline("minishell> ");
-		if (!shell.input)
+		shell->input = readline("minishell> ");
+		if (!shell->input)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
-		if (shell.input)
-			add_history(shell.input);
-		shell.tokens = lexing(&shell);
-		if (ft_strncmp(shell.input, "exit", 4) == 0)
+		if (shell->input)
+			add_history(shell->input);
+		shell->tokens = lexing(shell);
+		if (!ft_strncmp(shell->input, "exit", 4))
 			break ;
-		free(shell.input);
+		free(shell->input);
 	}
-	clean_ms(&shell);
+	clean_ms(shell);
 	return (0);
 }
