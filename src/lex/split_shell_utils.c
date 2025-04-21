@@ -15,7 +15,6 @@
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 {
 	int	i;
-	//size_t tmp;
 
 	if (cas)
 		*cas = true;
