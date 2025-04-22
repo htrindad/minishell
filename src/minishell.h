@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 18:08:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:52:53 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <limits.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -36,6 +37,13 @@ typedef enum	e_case
 	IN,
 	HEREDOC,
 }		t_case;
+
+typedef enum	e_chcas
+{
+	NORMAL,
+	BACK,
+	DOT,
+}
 
 // Typedefs
 typedef struct s_ms	t_ms;
@@ -92,7 +100,6 @@ void	free_tokens(t_token *tokens);
 void	clean_ms(t_ms *shell);
 t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
-int		quit(t_ms *);
 void	em(char *str, t_ms *ms);
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas);
 char	**duplicator(char **arg);
@@ -102,5 +109,12 @@ void	refresh(t_ms *);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 void	executor(t_ms *ms);
+int		quit(t_ms *);
+int		pwd(t_ms *);
+int		env(t_ms *);
+int		change_dir(t_ms *);
+t_env	*get_pwd(t_env *);
+char	*get_home(t_env *);
+void	set_pwd(char *c, t_env *env, t_ms *ms);
 
 #endif
