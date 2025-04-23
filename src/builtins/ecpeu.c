@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 16:29:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:12:14 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,26 @@ int	change_dir(t_ms *ms)
 	}
 }
 
-bool	bi_export(t_ms *ms)
+bool	unset(t_ms *ms)
 {
-	char	**str;
 	int		i;
-	int		ret;
+	char	**str;
 	char	**arg;
+	bool	ret;
 
 	ret = true;
 	i = 0;
-	arg = ms->token->value;
+	arg = ms->token->value + 1;
 	while (arg[i])
 	{
-		if (check_exp_arg(arg))
+		if (check_unst(arg[i]))
 		{
 			i++;
-			continue ;
 			ret = false;
+			continue ;
 		}
-		str = ft_split(arg, '=');
-		
+		rm_env(&ms->env, arg[0]);
+		i++;
 	}
 	return (ret);
 }

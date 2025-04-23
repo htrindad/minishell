@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 16:42:07 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 17:13:25 by htrindad         ###   ########.fr       */
+/*   Created: 2025/04/23 16:58:59 by htrindad          #+#    #+#             */
+/*   Updated: 2025/04/23 17:03:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+static inline bool	er_id(char *arg)
 {
-	t_list	*last;
+	perror("unset: '");
+	perror(arg);
+	perror("': not a valid identifier\n");
+	return (true);
+}
 
-	if (lst)
-	{
-		if (*lst)
-		{
-			last = ft_lstlast(*lst);
-			last->next = new;
-			new->prev = last;
-		}
-		else
-			*lst = new;
-	}
+bool	check_unst(char *arg)
+{
+	size_t	i;
+
+	i = 0;
+	if (!ft_islpha(arg[i]) && arg[i] != '_')
+		return (er_id(arg));
+	while (arg[++i])
+		if ((!ft_isalnum(arg[i]) && arg[i] != '_') || arg[i] == '=')
+			return (er_id(arg));
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/13 16:12:46 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:06:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // a char **envp. (I will do that in another function furthermore the project)
 // and use it inside each forked process. (so it's clean and doesn't affect
 // the parent process)
-static bool	add_env(t_env **head, char *env)
+bool	add_env(t_env **head, char *env)
 {
 	t_env	*new;
 	char	*equal_sign;
@@ -37,6 +37,39 @@ static bool	add_env(t_env **head, char *env)
 		return (free(new->key), free(new), false);
 	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);
+}
+
+void	null_case(t_env **head, t_env *tmp)
+{
+	tmp = *head;
+	*head = (*head)->next;
+	(*head)->prev = NULL;
+	free(tmp);
+}
+
+bool	rm_env(t_env **head, char *arg)
+{
+	t_env	*tmp;
+
+	tmp = NULL;
+	while (*head)
+	{
+		if (!ft_strncmp((*head)->key, arg, ft_strlen(arg)))
+		{
+			if ((*head)->prev)
+			{
+				*head = (*head)->prev;
+				tmp = (*head)->next;
+				(*head)->next = (*head)->next->next;
+				(*head)->next->prev = *head;
+				free(tmp);
+			}
+			else
+				null_case(head, tmp);
+			break ;
+		}
+		*head = (*head)->next;
+	}
 }
 
 t_env	*get_env(char **env)
