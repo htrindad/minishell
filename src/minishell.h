@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 18:26:32 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:33:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ bool	add_env(t_env **head, char *env);
 bool	check_unst(char *);
 bool	rm_env(t_env **head, char *arg);
 bool	unset(t_ms *);
+int		echo(t_ms *);
 
 #endif
