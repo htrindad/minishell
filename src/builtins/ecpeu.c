@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/22 19:38:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:29:01 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,28 @@ int	change_dir(t_ms *ms)
 		perror(": No such file or directory\n");
 		return (-1);
 	}
+}
+
+bool	bi_export(t_ms *ms)
+{
+	char	**str;
+	int		i;
+	int		ret;
+	char	**arg;
+
+	ret = true;
+	i = 0;
+	arg = ms->token->value;
+	while (arg[i])
+	{
+		if (check_exp_arg(arg))
+		{
+			i++;
+			continue ;
+			ret = false;
+		}
+		str = ft_split(arg, '=');
+		
+	}
+	return (ret);
 }
