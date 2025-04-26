@@ -14,6 +14,6 @@
 
 int	quit(t_ms *ms)
 {
-	(*ms)->running = false;
+	ms->running = false;
 	return (exit(0), 0);
 }

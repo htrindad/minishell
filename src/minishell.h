@@ -17,13 +17,15 @@
 # include "../libs/neo_libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdbool.h>
 
 // Debug mode
 # ifndef DEBUG
-#  define DEBUG 0
+#  define DEBUG 1
 # endif
 
 // Enums
@@ -42,10 +44,20 @@ typedef struct s_ms	t_ms;
 typedef struct s_token	t_token;
 
 // Structs
+typedef struct s_fds
+{
+	int in;
+	int out;
+	char *infile;
+	char *outfile;
+	bool append;
+	bool heredoc;
+}		t_fds;
+
 typedef struct	s_builtin
 {
 	const char	*name;
-	int			(*f)(t_token *);
+	int			(*f)(t_ms *);
 }		t_builtin;
 
 typedef struct	s_token
@@ -67,7 +79,7 @@ typedef struct	s_ms
 	t_env			*env;
 	char			*input;
 	char			**scases;
-	bool			*running;
+	bool			running;
 	int				pid;
 	int				last_status;
 	t_builtin		*builtin;
@@ -101,6 +113,10 @@ void	sig_handler(int sig, siginfo_t *s, void *content);
 void	refresh(t_ms *);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
+bool	is_builtin(char *cmd);
+int		exec_builtin(t_token *token, t_ms *ms, bool is_parent);
+char	**get_paths(char **env);
+char	*find_command(char *cmd_args, char **env);
 void	executor(t_ms *ms);
 
 #endif
