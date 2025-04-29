@@ -34,8 +34,10 @@ int	main(int ac, char **av, char **env)
 		if (shell->input)
 			add_history(shell->input);
 		shell->tokens = lexing(shell);
+		executor(shell);
 		if (!ft_strncmp(shell->input, "exit", 4))
 			break ;
+
 		free(shell->input);
 	}
 	clean_ms(shell);

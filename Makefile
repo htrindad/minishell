@@ -7,6 +7,7 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
 	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
 	./src/lex/split_shell_ops.c ./src/error.c ./src/sig_handler.c \
+	./src/execute/executor.c ./src/execute/executor_utils.c \
 	./src/builtins/dir.c ./src/builtins/echo.c ./src/builtins/export.c \
 	./src/builtins/unset.c ./src/main.c
 

@@ -39,7 +39,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 	size_t	i;
 
 	i = *l;
-	new = malloc(sizeof(t_token));
+	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->value = duplicator(value);
@@ -109,8 +109,12 @@ t_token	*lexing(t_ms *shell)
 	l = 0;
 	while (args[i])
 	{
-		if (add_token(&head, args[i++], shell, &l))
-			return (free_tokens(head), NULL);
+		if (args[i][0][0] != '\0')
+		{
+			if (add_token(&head, args[i], shell, &l))
+				return (free_tokens(head), NULL);
+		}
+		i++;
 	}
 	i = 0;
 	while (args[i])

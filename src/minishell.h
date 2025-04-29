@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 18:33:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:08:41 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "../libs/neo_libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdbool.h>
@@ -24,7 +26,7 @@
 
 // Debug mode
 # ifndef DEBUG
-#  define DEBUG 0
+#  define DEBUG 1
 # endif
 
 // Enums
@@ -50,6 +52,16 @@ typedef struct s_ms	t_ms;
 typedef struct s_token	t_token;
 
 // Structs
+typedef struct s_fds
+{
+	int in;
+	int out;
+	char *infile;
+	char *outfile;
+	bool append;
+	bool heredoc;
+}		t_fds;
+
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -76,7 +88,7 @@ typedef struct	s_ms
 	t_env			*env;
 	char			*input;
 	char			**scases;
-	bool			*running;
+	bool			running;
 	int				pid;
 	int				last_status;
 	t_builtin		*builtin;
@@ -101,6 +113,7 @@ void	free_tokens(t_token *tokens);
 void	clean_ms(t_ms *shell);
 t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
+int		quit(t_ms *);
 void	em(char *str, t_ms *ms);
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas);
 char	**duplicator(char **arg);
@@ -109,8 +122,11 @@ void	sig_handler(int sig, siginfo_t *s, void *content);
 void	refresh(t_ms *);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
+bool	is_builtin(char *cmd);
+int		exec_builtin(t_token *token, t_ms *ms, bool is_parent);
+char	**get_paths(char **env);
+char	*find_command(char *cmd_args, char **env);
 void	executor(t_ms *ms);
-int		quit(t_ms *);
 int		pwd(t_ms *);
 int		env(t_ms *);
 int		change_dir(t_ms *);

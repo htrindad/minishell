@@ -30,7 +30,9 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, 
 		(*array)[itr] = ft_substr(s, i, *len - i);
 		if ((*array)[itr++] == NULL)
 			return (free_args(*array), true);
-		i = ++(*len);
+		if (s[*len])
+			(*len)++;
+		i = *len;
 	}
 	return (false);
 }
@@ -52,7 +54,7 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	size_t	count;
 
 	i = *len;
-	while (s[i] == ' ' || mini_spec_case(s + i, ms->scases))
+	while (s[i] && (s[i] == ' ' || mini_spec_case(s + i, ms->scases)))
 		i++;
 	*len = i;
 	if (!s[i])

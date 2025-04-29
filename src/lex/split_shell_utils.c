@@ -14,7 +14,8 @@
 
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 {
-	int	i;
+	int		i;
+	size_t	cases_len;
 
 	if (cas)
 		*cas = true;
@@ -25,7 +26,8 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 		i = -1;
 		while (++i < 5)
 		{
-			if (!ft_strncmp(sub + y, cases[i], ft_strlen(cases[i])))
+			cases_len = ft_strlen(cases[i]);
+			if (ft_strlen(sub + y) >= cases_len && !ft_strncmp(sub + y, cases[i], cases_len))
 			{
 				if (l)
 					*l = y;
