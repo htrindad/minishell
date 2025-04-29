@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <limits.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -38,6 +39,13 @@ typedef enum	e_case
 	IN,
 	HEREDOC,
 }		t_case;
+
+typedef enum	e_chcas
+{
+	NORMAL,
+	BACK,
+	DOT,
+}
 
 // Typedefs
 typedef struct s_ms	t_ms;
@@ -57,7 +65,7 @@ typedef struct s_fds
 typedef struct	s_builtin
 {
 	const char	*name;
-	int			(*f)(t_ms *);
+	int			(*f)(t_token *);
 }		t_builtin;
 
 typedef struct	s_token
@@ -70,6 +78,7 @@ typedef struct	s_token
 typedef struct	s_env
 {
 	char			*key;
+	struct s_env	*prev;
 	struct s_env	*next;
 	char			*value;
 }		t_env;
@@ -118,5 +127,19 @@ int		exec_builtin(t_token *token, t_ms *ms, bool is_parent);
 char	**get_paths(char **env);
 char	*find_command(char *cmd_args, char **env);
 void	executor(t_ms *ms);
+int		pwd(t_ms *);
+int		env(t_ms *);
+int		change_dir(t_ms *);
+t_env	*get_pwd(t_env *);
+char	*get_home(t_env *);
+void	set_pwd(char *c, t_env *env, t_ms *ms);
+int		error_exp(char *);
+bool	check_exp_arg(char *);
+bool	bi_export(t_ms *);
+bool	add_env(t_env **head, char *env);
+bool	check_unst(char *);
+bool	rm_env(t_env **head, char *arg);
+bool	unset(t_ms *);
+int		echo(t_ms *);
 
 #endif
