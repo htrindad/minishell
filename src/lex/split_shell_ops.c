@@ -44,7 +44,7 @@ static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
 	char	*tmp;
 	bool	cas;
 	size_t	l;
-	
+
 	tmp = ft_substr(s, i, 2);
 	cas = true;
 	l = 0;
@@ -65,7 +65,9 @@ size_t	ft_count_words(char const *s, t_ms *ms)
 	{
 		while (s[i] == ' ')
 			i++;
-		if (!s[i] || !check(s, ms->scases, i, ms))
+		if (!s[i])
+			break ;
+		if (!check(s, ms->scases, i, ms))
 			break ;
 		count++;
 		if (s[i] == '\'' || s[i] == '\"')

@@ -74,7 +74,7 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 			return (em("Error\nPipe Fail.\n", ms));
 	}
 	pid = fork();
-	if (pid == -1)
+	if (pid < 0)
 		return (em("Error\nFork Fail.\n", ms));
 	if (pid == 0)
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
