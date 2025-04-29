@@ -35,7 +35,7 @@ void	init_ms(t_ms *shell)
 	shell->last_status = 0;
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
-	shell->running = true;
+	(*shell)->running = true;
 	shell->builtin = init_bi();
 	if (!shell->scases || !shell->builtin)
 		em("Malloc\nFail.\n", shell);
