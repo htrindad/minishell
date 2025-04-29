@@ -1,30 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/04/29 19:26:14 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 bool	is_builtin(char *cmd)
 {
-	return (ft_strncmp(cmd, "echo", 5) == 0
-		|| ft_strncmp(cmd, "cd", 3) == 0
-		|| ft_strncmp(cmd, "pwd", 4) == 0
-		|| ft_strncmp(cmd, "export", 7) == 0
-		|| ft_strncmp(cmd, "unset", 6) == 0
-		|| ft_strncmp(cmd, "env", 4) == 0
+	return (ft_strncmp(cmd, "echo", 5) == 0 || ft_strncmp(cmd, "cd", 3) == 0
+		|| ft_strncmp(cmd, "pwd", 4) == 0 || ft_strncmp(cmd, "export", 7) == 0
+		|| ft_strncmp(cmd, "unset", 6) == 0 || ft_strncmp(cmd, "env", 4) == 0
 		|| ft_strncmp(cmd, "exit", 5) == 0);
 }
 
 int	exec_builtin(t_token *token, t_ms *ms, bool is_parent)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (ms->builtin[i].name)
 	{
-		if (token->value[0] && ms->builtin[i].name &&
-			ft_strncmp(token->value[0], ms->builtin[i].name, ft_strlen(ms->builtin[i].name) + 1) == 0)
+		if (token->value[0] && ms->builtin[i].name
+			&& ft_strncmp(token->value[0], ms->builtin[i].name,
+				ft_strlen(ms->builtin[i].name) + 1) == 0)
 		{
-			if (is_parent && token->value && (
-					!ft_strncmp(token->value[0], "cd", 3) ||
-					!ft_strncmp(token->value[0], "export", 7) ||
-					!ft_strncmp(token->value[0], "unset", 6) ||
-					!ft_strncmp(token->value[0], "exit", 5)))
-				return ms->builtin[i].f(ms);
+			if (is_parent && token->value && (!ft_strncmp(token->value[0], "cd",
+						3) || !ft_strncmp(token->value[0], "export", 7)
+					|| !ft_strncmp(token->value[0], "unset", 6)
+					|| !ft_strncmp(token->value[0], "exit", 5)))
+				return (ms->builtin[i].f(ms));
 			else if (!is_parent)
 				exit(ms->builtin[i].f(ms));
 		}
