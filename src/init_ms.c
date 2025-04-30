@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/21 18:04:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:19:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static inline t_builtin	*init_bi(void)
 
 	builtin = ft_calloc(8, sizeof(t_builtin));
 	builtin[0] = (t_builtin){.name="exit", .f=quit},
-	builtin[1] = (t_builtin){.name="cd", .f=NULL},
-	builtin[2] = (t_builtin){.name="echo", .f=NULL},
-	builtin[3] = (t_builtin){.name="pwd", .f=NULL},
-	builtin[4] = (t_builtin){.name="export", .f=NULL},
-	builtin[5] = (t_builtin){.name="env", .f=NULL},
-	builtin[6] = (t_builtin){.name="unset", .f=NULL},
+	builtin[1] = (t_builtin){.name="cd", .f=change_dir},
+	builtin[2] = (t_builtin){.name="echo", .f=echo},
+	builtin[3] = (t_builtin){.name="pwd", .f=pwd},
+	builtin[4] = (t_builtin){.name="export", .f=bi_export},
+	builtin[5] = (t_builtin){.name="env", .f=env},
+	builtin[6] = (t_builtin){.name="unset", .f=unset},
 	builtin[7] = (t_builtin){.name=NULL, .f=NULL};
 	return (builtin);
 }

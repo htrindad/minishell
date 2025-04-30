@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 18:03:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:17:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int	pwd(t_ms *ms)
 	env = ms->env;
 	while (1)
 	{
-		if (!ft_strncmp(ms->key, "PWD", 3) || !env)
+		if (!ft_strncmp(env->key, "PWD", 3) || !env)
 			break ;
 		env = env->next;
 	}
 	if (env == NULL)
 		return (-1);
-	printf("%s=%s\n", env->key, env->value);
+	printf("%s\n", env->value);
 	return (0);
 }
 

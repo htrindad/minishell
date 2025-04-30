@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/29 20:50:29 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:27:21 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**get_paths(char **env, t_ms *ms)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		if (!ft_strncmp(env[i], "PATH=", 5))
 		{
 			path_var = env[i] + 5;
 			paths = ft_split(path_var, ':');
