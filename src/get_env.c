@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/23 18:06:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:04:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ bool	rm_env(t_env **head, char *arg)
 				(*head)->next = (*head)->next->next;
 				(*head)->next->prev = *head;
 				free(tmp);
+				return (true);
 			}
 			else
 				null_case(head, tmp);
@@ -70,6 +71,7 @@ bool	rm_env(t_env **head, char *arg)
 		}
 		*head = (*head)->next;
 	}
+	return (false);
 }
 
 t_env	*get_env(char **env)

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/30 20:17:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:09:30 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	change_dir(t_ms *ms)
 	char	c[PATH_MAX];
 	t_token	*tok;
 
-	tok = ms->token;
+	tok = ms->tokens;
 	if (tok->value[1] == NULL)
 	{
 		tok->value[1] = get_home(ms->env);
@@ -61,7 +61,7 @@ int	change_dir(t_ms *ms)
 			return (printf("cd: HOME not set\n"));
 	}
 	getcwd(c, sizeof(c));
-	if (chdir(tok->value[1] < 0))
+	if (chdir(tok->value[1]) < 0)
 	{
 		if (!tok->value[1][0])
 			return (-1);
@@ -70,24 +70,24 @@ int	change_dir(t_ms *ms)
 		perror(": No such file or directory\n");
 		return (-1);
 	}
+	return (0);
 }
 
-bool	unset(t_ms *ms)
+int	unset(t_ms *ms)
 {
 	int		i;
-	char	**str;
 	char	**arg;
 	bool	ret;
 
-	ret = true;
+	ret = 1;
 	i = 0;
-	arg = ms->token->value + 1;
+	arg = ms->tokens->value + 1;
 	while (arg[i])
 	{
 		if (check_unst(arg[i]))
 		{
 			i++;
-			ret = false;
+			ret = 0;
 			continue ;
 		}
 		rm_env(&ms->env, arg[0]);

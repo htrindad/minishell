@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 18:08:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:12:15 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef enum	e_chcas
 	NORMAL,
 	BACK,
 	DOT,
-}
+}		t_chcas;
 
 // Typedefs
 typedef struct s_ms	t_ms;
@@ -65,7 +65,7 @@ typedef struct s_fds
 typedef struct	s_builtin
 {
 	const char	*name;
-	int			(*f)(t_token *);
+	int			(*f)(t_ms *);
 }		t_builtin;
 
 typedef struct	s_token
@@ -124,8 +124,8 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
 int		exec_builtin(t_token *token, t_ms *ms, bool is_parent);
-char	**get_paths(char **env);
-char	*find_command(char *cmd_args, char **env);
+char	**get_paths(char **env, t_ms *ms);
+char	*find_command(char *cmd_args, char **env, t_ms *ms);
 void	executor(t_ms *ms);
 int		pwd(t_ms *);
 int		env(t_ms *);
@@ -134,12 +134,11 @@ t_env	*get_pwd(t_env *);
 char	*get_home(t_env *);
 void	set_pwd(char *c, t_env *env, t_ms *ms);
 int		error_exp(char *);
-bool	check_exp_arg(char *);
-bool	bi_export(t_ms *);
+int		bi_export(t_ms *);
 bool	add_env(t_env **head, char *env);
 bool	check_unst(char *);
 bool	rm_env(t_env **head, char *arg);
-bool	unset(t_ms *);
+int		unset(t_ms *);
 int		echo(t_ms *);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:12:35 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 17:04:46 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:11:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ static bool	check_exp_arg(char *arg)
 	return (false);
 }
 
-bool	bi_export(t_ms *ms)
+int	bi_export(t_ms *ms)
 {
 	int		i;
 	bool	ret;
 	char	**arg;
 
-	ret = true;
+	ret = 1;
 	i = 0;
-	arg = ms->token->value + 1;
+	arg = ms->tokens->value + 1;
 	while (arg[i])
 	{
 		if (check_exp_arg(arg[i]))
 		{
 			i++;
-			ret = false;
+			ret = 0;
 			continue ;
 		}
 		add_env(&ms->env, arg[i]);

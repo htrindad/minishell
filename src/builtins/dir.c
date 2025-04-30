@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:22:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 16:12:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:11:07 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void	set_pwd(char *c, t_env *env, t_ms *ms)
 	free(pwd->value);
 	pwd->value = ft_strdup(c);
 	if (pwd->value == NULL)
-		em("Error\nMalloc Fail.\n");
+		em("Error\nMalloc Fail.\n", ms);
 }
