@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/30 21:04:32 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:38:12 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ bool	add_env(t_env **head, char *env)
 	if (!new->value)
 		return (free(new->key), free(new), false);
 	ft_lstadd_back((t_list **)head, (t_list *)new);
+	while ((*head)->prev)
+		*head = (*head)->prev;
 	return (false);
 }
 
