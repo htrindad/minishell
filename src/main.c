@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/04 15:02:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:01:13 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	main(int ac, char **av, char **env)
 			add_history(shell->input);
 		shell->tokens = lexing(shell);
 		executor(shell);
-		if (!ft_strncmp(shell->input, "exit", 4))
-			break ;
 		free(shell->input);
 	}
 	clean_ms(shell);

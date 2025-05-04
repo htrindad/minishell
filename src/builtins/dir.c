@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:22:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/30 21:11:07 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:33:05 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ static inline void	ch_oldpwd(char *c, t_env *env, t_ms *ms)
 			env->value = ft_strdup(c);
 			if (env->value == NULL)
 				em("Error\nMalloc Fail.\n", ms);
+			break ;
 		}
 		env = env->next;
 	}
 }
 
-void	set_pwd(char *c, t_env *env, t_ms *ms)
+void	set_pwd(char *c, size_t size, t_env *env, t_ms *ms)
 {
 	t_env	*pwd;
 
 	pwd = get_pwd(env);
 	ch_oldpwd(c, env, ms);
-	getcwd(c, sizeof(c));
+	getcwd(c, size);
 	free(pwd->value);
 	pwd->value = ft_strdup(c);
 	if (pwd->value == NULL)

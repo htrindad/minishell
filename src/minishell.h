@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/04 14:41:37 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:32:45 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		env(t_ms *);
 int		change_dir(t_ms *);
 t_env	*get_pwd(t_env *);
 char	*get_home(t_env *);
-void	set_pwd(char *c, t_env *env, t_ms *ms);
+void	set_pwd(char *c, size_t size, t_env *env, t_ms *ms);
 int		error_exp(char *);
 int		bi_export(t_ms *);
 bool	add_env(t_env **head, char *env);

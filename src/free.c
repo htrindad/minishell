@@ -6,13 +6,11 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:32:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:43:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:04:12 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// A file to keep customized free() functions for lists, strings etc.
 
 void	free_args(char **args)
 {
@@ -64,8 +62,6 @@ void	clean_ms(t_ms *shell)
 
 	if (!shell)
 		return ;
-	free(shell->input);
-	shell->input = NULL;
 	i = 0;
 	while (i < 5)
 		free(shell->scases[i++]);
