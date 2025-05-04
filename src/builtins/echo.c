@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 18:27:50 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/30 21:11:28 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:07:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	echo(t_ms *ms)
 
 	arg = ms->tokens->value + 1;
 	i = -1;
+	nl = true;
 	if (arg[0] == NULL)
 		return (-1);
 	while (!h_nl(arg[++i]))
