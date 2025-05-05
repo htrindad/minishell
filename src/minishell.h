@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/04 17:32:45 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:25:38 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ typedef enum	e_chcas
 }		t_chcas;
 
 // Typedefs
-typedef struct s_ms	t_ms;
-typedef struct s_token	t_token;
+typedef struct s_ms			t_ms;
+typedef struct s_token			t_token;
+typedef struct sigaction	t_sa;
 
 // Structs
 typedef struct s_fds

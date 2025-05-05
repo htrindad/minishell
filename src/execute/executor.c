@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/04 17:08:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:30:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
 	else
 	{
+		ms->pid = pid;
+		refresh(ms);
 		wait(NULL);
 		if (*prev_fd != -1)
 			close(*prev_fd);
