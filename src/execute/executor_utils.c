@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/04 16:11:52 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:54:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	exec_builtin(t_token *token, t_ms *ms, bool is_parent)
 			&& !ft_strncmp(token->value[0], ms->builtin[i].name,
 				ft_strlen(ms->builtin[i].name) + 1))
 		{
-			if (is_parent && token->value && is_builtin(token->value[0]))
-				return (ms->builtin[i].f(ms));
+			if(is_parent && token->value && is_builtin(token->value[0]))
+				return (ms->builtin[i].f(ms), -1);
 			else if (!is_parent)
-				exit(0); //wtf?
+				exit(ms->builtin[i].f(ms));
 		}
 		i++;
 	}

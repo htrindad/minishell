@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/05 20:30:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:53:50 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 
 	if (token->cchar == PIPE && token->next)
 	{
-		if (pipe(pipe_fd) == -1)
+		if (pipe(pipe_fd) < 0)
 			return (em("Error\nPipe Fail.\n", ms));
 	}
 	pid = fork();
