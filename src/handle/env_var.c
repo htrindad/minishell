@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/08 21:05:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:07:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // Return 0 if it does not contain a valid env var
 bool	has_env_var(const char *s)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (s[i])
