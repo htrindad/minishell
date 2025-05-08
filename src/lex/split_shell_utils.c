@@ -6,11 +6,33 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/21 17:51:05 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:23:30 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static size_t	gnq(size_t *len, char const *s)
+{
+	char const	qt = s[(*len)++];
+
+	while (s[*len] != qt)
+		(*len)++;
+	if (!s[*len])
+		perror("Unclosed quotes.\n");
+	return (++(*len));
+}
+
+void	c_len(size_t *len, char const *s)
+{
+	while (s[*len] && s[*len] != ' ')
+	{
+		if (s[*len] == '\'' || s[*len] == '\"')
+			*len = gnq(len, s);
+		else
+			(*len)++;
+	}
+}
 
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 {
@@ -68,7 +90,7 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 		while (s[i] && s[i] != quote_type)
 			i++;
 		if (!s[i])
-			return (em("Error:\nUnclosed quotes\n", ms), 0);
+			return (em("Error\nUnclosed quotes\n", ms), ft_strlen(s + start));
 		quote_type = 0;
 	}
 	if (s[i])

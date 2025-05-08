@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/05 20:25:38 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:03:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ bool	check_unst(char *);
 bool	rm_env(t_env **head, char *arg);
 int		unset(t_ms *);
 int		echo(t_ms *);
+void	c_len(size_t *len, char const *s);
 
 #endif
