@@ -6,11 +6,23 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 16:41:45 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:03:01 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	trimmer(char ***array, char *tmp, size_t itr)
+{
+	char	c;
+
+	c = *tmp;
+	if (c == '\'' || c == '\"')
+		(*array)[itr] = ft_strtrim(tmp, &c);
+	else
+		(*array)[itr] = ft_strdup(tmp);
+	free(tmp);
+}
 
 size_t	count_cases(char const *s, t_ms *ms)
 {

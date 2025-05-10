@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/04/19 18:40:28 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:59:18 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, 
 {
 	size_t	i;
 	size_t	itr;
+	char	*tmp;
 
 	i = *len;
 	itr = 0;
@@ -25,9 +26,11 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, 
 	(*array)[count] = NULL;
 	while (itr < count)
 	{
-		while (s[*len] && s[*len] != ' ')
-			(*len)++;
-		(*array)[itr] = ft_substr(s, i, *len - i);
+		c_len(len, s);
+		tmp = ft_substr(s, i, *len - i);
+		if (tmp == NULL)
+			return (true);
+		trimmer(array, tmp, itr);
 		if ((*array)[itr++] == NULL)
 			return (free_args(*array), true);
 		if (s[*len])

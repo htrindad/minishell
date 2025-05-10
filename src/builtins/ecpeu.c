@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 18:03:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:54:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	quit(t_ms *ms)
 {
 	ms->running = false;
-	return (exit(0), 0);
+	printf("exit\n");
+	return (0);
 }
 
 int	env(t_ms *ms)
@@ -38,13 +39,13 @@ int	pwd(t_ms *ms)
 	env = ms->env;
 	while (1)
 	{
-		if (!ft_strncmp(ms->key, "PWD", 3) || !env)
+		if (!ft_strncmp(env->key, "PWD", 3) || !env)
 			break ;
 		env = env->next;
 	}
 	if (env == NULL)
 		return (-1);
-	printf("%s=%s\n", env->key, env->value);
+	printf("%s\n", env->value);
 	return (0);
 }
 
@@ -53,7 +54,7 @@ int	change_dir(t_ms *ms)
 	char	c[PATH_MAX];
 	t_token	*tok;
 
-	tok = ms->token;
+	tok = ms->tokens;
 	if (tok->value[1] == NULL)
 	{
 		tok->value[1] = get_home(ms->env);
@@ -61,7 +62,7 @@ int	change_dir(t_ms *ms)
 			return (printf("cd: HOME not set\n"));
 	}
 	getcwd(c, sizeof(c));
-	if (chdir(tok->value[1] < 0))
+	if (chdir(tok->value[1]) < 0)
 	{
 		if (!tok->value[1][0])
 			return (-1);
@@ -70,24 +71,25 @@ int	change_dir(t_ms *ms)
 		perror(": No such file or directory\n");
 		return (-1);
 	}
+	set_pwd(c, sizeof(c), ms->env, ms);
+	return (0);
 }
 
-bool	unset(t_ms *ms)
+int	unset(t_ms *ms)
 {
 	int		i;
-	char	**str;
 	char	**arg;
 	bool	ret;
 
-	ret = true;
+	ret = 1;
 	i = 0;
-	arg = ms->token->value + 1;
+	arg = ms->tokens->value + 1;
 	while (arg[i])
 	{
 		if (check_unst(arg[i]))
 		{
 			i++;
-			ret = false;
+			ret = 0;
 			continue ;
 		}
 		rm_env(&ms->env, arg[0]);

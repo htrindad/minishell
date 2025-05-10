@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:58:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/23 17:03:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:12:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	check_unst(char *arg)
 	size_t	i;
 
 	i = 0;
-	if (!ft_islpha(arg[i]) && arg[i] != '_')
+	if (!ft_isalpha(arg[i]) && arg[i] != '_')
 		return (er_id(arg));
 	while (arg[++i])
 		if ((!ft_isalnum(arg[i]) && arg[i] != '_') || arg[i] == '=')

@@ -6,11 +6,24 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/21 18:18:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:53:50 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static inline size_t	envsize(t_env *env)
+{
+	size_t	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
 
 static char	**comp_env(t_env *env)
 {
@@ -19,9 +32,9 @@ static char	**comp_env(t_env *env)
 	size_t	i;
 	size_t	j;
 
-	i = ft_lstsize((t_list *)env);
+	i = envsize(env);
 	j = 0;
-	if (i == 0)
+	if (!i)
 		return (NULL);
 	ptr = ft_calloc(i + 1, sizeof(char *));
 	if (!ptr)
@@ -58,8 +71,8 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 	//	handle_redirections(token);
 	if (is_builtin(token->value[0]))
 		exit(exec_builtin(token, ms, false));
-	execve(find_command(token->value[0], env), token->value, env);
-	perror("execve");
+	execve(find_command(token->value[0], env, ms), token->value, env);
+	perror("execve\n");
 	exit(127);
 }
 
@@ -70,16 +83,19 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 
 	if (token->cchar == PIPE && token->next)
 	{
-		if (pipe(pipe_fd) == -1)
+		if (pipe(pipe_fd) < 0)
 			return (em("Error\nPipe Fail.\n", ms));
 	}
 	pid = fork();
 	if (pid < 0)
 		return (em("Error\nFork Fail.\n", ms));
-	if (pid == 0)
+	if (!pid)
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
 	else
 	{
+		ms->pid = pid;
+		refresh(ms);
+		wait(NULL);
 		if (*prev_fd != -1)
 			close(*prev_fd);
 		if (token->cchar == PIPE && token->next)
@@ -108,7 +124,7 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 	{
 		if (!token->next && is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, ms, true) == -1)
+			if (exec_builtin(token, ms, true) < 0)
 				break ;
 		}
 		exec_cmd(ms, token, env, &prev_fd);
