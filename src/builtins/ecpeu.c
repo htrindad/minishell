@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/06 20:43:39 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:54:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	quit(t_ms *ms)
 {
 	ms->running = false;
+	printf("exit\n");
 	return (0);
 }
 
