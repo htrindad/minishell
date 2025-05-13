@@ -75,7 +75,7 @@ static inline void	print_type(t_case ccase)
 		printf("APPEND");
 }
 
-static void	print_tokens(t_token *head)
+void	print_tokens(t_token *head)
 {
 	t_token	*tmp;
 	size_t	i;
