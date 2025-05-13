@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/16 18:45:22 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/13 20:22:35 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,33 @@ static t_ms	*g_ms;
 
 static void	si(int pid)
 {
-	kill(pid, SIGINT);
-	ft_putstr_fd(" ^C\n", 1);
+	if (!g_ms)
+		return ;
+	if (pid > 0)
+		kill(pid, SIGINT);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-//static void	sq(int pid)
-//{
-//	//TODO
-//}
+static void	sq(int pid)
+{
+	if (g_ms && pid > 0)
+	{
+		kill(pid, SIGQUIT);
+		ft_putstr_fd("\nQuit: 3\n", 2);
+	}
+}
 
 void	sig_handler(int sig, siginfo_t *s, void *content)
 {
 	(void)content;
 	(void)s;
 	if (sig == SIGINT)
-		si(g_ms->pid);
+			si(g_ms->pid);
 	if (sig == SIGQUIT)
-		kill(g_ms->pid, SIGQUIT);
+			sq(g_ms->pid);
 }
 
 void	refresh(t_ms *ms)
