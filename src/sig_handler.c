@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/14 19:26:46 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:39:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	sq(void)
 	if (g_pid > 0)
 	{
 		kill(g_pid, SIGQUIT);
-		ft_putstr_fd("Quit (core dumped)", 1);
+		printf("Quit (core dumped)");
 	}
 }
 
@@ -37,10 +37,7 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 		si();
 	if (sig == SIGQUIT)
 		sq();
-	ft_putchar_fd('\n', 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	printf("\n");
 }
 
 void	refresh(int pid)
