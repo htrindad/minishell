@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/06 20:53:50 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:36:10 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-	if (token->fds) {
-		if (handle_redirections(&token))
-			em("Failed.", ms);
-	}
+//	if (token->fds) {
+//		if (handle_redirections(&token))
+//			em("Failed.", ms);
+//	}
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
@@ -76,8 +76,7 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 	if (DEBUG)
 		print_tokens(token);
 	execve(find_command(token->value[0], env, ms), token->value, env);
-	perror("execve\n");
-	exit(127);
+	exit(0);
 }
 
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It will run while we have commands
@@ -98,8 +97,9 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	else
 	{
 		ms->pid = pid;
-		refresh(ms);
-		wait(NULL);
+		refresh(ms->pid);
+		while (wait(NULL) > 0)
+			;
 		if (*prev_fd != -1)
 			close(*prev_fd);
 		if (token->cchar == PIPE && token->next)

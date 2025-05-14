@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/13 19:39:17 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:47:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas);
 char	**duplicator(char **arg);
 size_t	count_cases(char const *s, t_ms *ms);
 void	sig_handler(int sig, siginfo_t *s, void *content);
-void	refresh(t_ms *);
+void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);

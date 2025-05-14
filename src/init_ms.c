@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/13 20:30:15 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:40:59 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,8 @@ static inline t_builtin	*init_bi(void)
 	return (builtin);
 }
 
-static inline void	dqp(void)
-{
-	struct termios	term;
-
-	tcgetattr(0, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &term);
-}
-
 void	init_ms(t_ms *shell)
 {
-	dqp();
 	shell->env = NULL;
 	shell->input = NULL;
 	shell->last_status = 0;
