@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/14 19:36:10 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:59:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static char	**comp_env(t_env *env)
 
 static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);

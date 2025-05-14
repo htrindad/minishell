@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/14 19:39:36 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:44:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,12 @@ static void	si(void)
 		kill(g_pid, SIGINT);
 }
 
-static void	sq(void)
-{
-	if (g_pid > 0)
-	{
-		kill(g_pid, SIGQUIT);
-		printf("Quit (core dumped)");
-	}
-}
-
 void	sig_handler(int sig, siginfo_t *s, void *content)
 {
 	(void)content;
 	(void)s;
 	if (sig == SIGINT)
 		si();
-	if (sig == SIGQUIT)
-		sq();
 	printf("\n");
 }
 

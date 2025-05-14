@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/14 19:37:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:58:45 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static inline t_sa	setup(t_ms *shell, char **env)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = sig_handler;
 	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 	return (sa);
 }
 
