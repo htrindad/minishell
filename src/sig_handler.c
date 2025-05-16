@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/14 19:44:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:58:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 	(void)s;
 	if (sig == SIGINT)
 		si();
-	printf("\n");
+	ft_putchar_fd('\n', 1);
+	if (!g_pid)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	refresh(int pid)

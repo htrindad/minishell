@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/14 18:47:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:24:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ typedef struct	s_ms
 	bool			running;
 	int				pid;
 	int				last_status;
+	t_sa			si;
+	t_sa			sq;
 	t_builtin		*builtin;
 	t_token			*tokens;
 }		t_ms;

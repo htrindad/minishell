@@ -6,37 +6,35 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/14 19:58:45 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:27:44 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static inline t_sa	setup(t_ms *shell, char **env)
+static inline void	setup(t_ms *shell, char **env)
 {
-	t_sa	sa;
-
 	init_ms(shell);
 	shell->env = get_env(env);
-	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_sigaction = sig_handler;
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
-	return (sa);
+	shell->si.sa_flags = SA_SIGINFO;
+	sigemptyset(&shell->si.sa_mask);
+	sigemptyset(&shell->sq.sa_mask);
+	shell->si.sa_sigaction = sig_handler;
+	shell->sq.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &shell->si, NULL);
+	sigaction(SIGQUIT, &shell->sq, NULL);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_ms	*shell;
-	t_sa	sa;
 
 	(void)ac;
 	(void)av;
 	shell = ft_calloc(1, sizeof(t_ms));
 	if (shell == NULL)
 		return (1);
-	sa = setup(shell, env);
+	setup(shell, env);
 	while (shell->running)
 	{
 		shell->pid = 0;
