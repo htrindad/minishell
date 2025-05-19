@@ -60,7 +60,7 @@ int	handle_redirections(t_token **tokens)
 
 bool	is_redirection(t_case type)
 {
-	if (type != NONE || type != PIPE)
+	if (type != NONE && type != PIPE)
 		return (true);
 	return (false);
 }
