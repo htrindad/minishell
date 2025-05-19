@@ -48,7 +48,7 @@ static void	remove_redir(t_token **tokens, t_token *prev, t_token *redir)
 	else
 	{
 		if (DEBUG)
-			printf("Removing %s", file->value[0]);
+			printf("Removing %s\n", file->value[0]);
 		if (file)
 		{
 			redir->next = file->next;
