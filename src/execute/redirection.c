@@ -55,7 +55,6 @@ int	handle_redirections(t_token **tokens)
 		close(fd);
 		redir = redir->next;
 	}
-	cleanup_redir(tokens);
 	return (0);
 }
 
@@ -103,5 +102,6 @@ int	parse_redirections(t_token **tokens)
 		}
 		curr = curr->next;
 	}
+	cleanup_redir(tokens);
 	return (0);
 }
