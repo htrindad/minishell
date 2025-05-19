@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/16 18:27:44 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:28:46 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	main(int ac, char **av, char **env)
 		shell->input = readline("minishell> ");
 		if (shell->input == NULL)
 			break ;
-		else
-			add_history(shell->input);
+		add_history(shell->input);
 		shell->tokens = lexing(shell);
 		parse_redirections(&shell->tokens);
 		executor(shell);
