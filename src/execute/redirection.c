@@ -55,13 +55,12 @@ int	handle_redirections(t_token **tokens)
 		close(fd);
 		redir = redir->next;
 	}
-	cleanup_redir(tokens);
 	return (0);
 }
 
 bool	is_redirection(t_case type)
 {
-	if (type == APPEND || type == IN || type == OUT || type == HEREDOC)
+	if (type != NONE || type != PIPE)
 		return (true);
 	return (false);
 }
@@ -103,5 +102,6 @@ int	parse_redirections(t_token **tokens)
 		}
 		curr = curr->next;
 	}
+	cleanup_redir(tokens);
 	return (0);
 }
