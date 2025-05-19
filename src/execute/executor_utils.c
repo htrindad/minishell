@@ -55,7 +55,7 @@ char	*find_command(char *cmd_args, char **env, t_ms *ms)
 	while (paths[i])
 	{
 		path_len = ft_strlen(paths[i]);
-		full_path = ft_calloc(path_len + ft_strlen(cmd_args + 2), 1);
+		full_path = ft_calloc(path_len + ft_strlen(cmd_args) + 2, 1);
 		if (!full_path)
 			return (free_args(paths), NULL);
 		ft_strlcpy(full_path, paths[i], path_len + 1);

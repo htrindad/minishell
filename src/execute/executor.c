@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/06 20:53:50 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:12:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,22 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
+//	if (token->fds) {
+//		if (handle_redirections(&token))
+//			em("Failed.", ms);
+//	}
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	//if (has_redirections(token))
-	//	handle_redirections(token);
-	if (is_builtin(token->value[0]))
+	if (token->value && is_builtin(token->value[0]))
 		exit(exec_builtin(token, ms, false));
+	if (DEBUG)
+		print_tokens(token);
 	execve(find_command(token->value[0], env, ms), token->value, env);
-	perror("execve\n");
-	exit(127);
+	exit(0);
 }
 
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It will run while we have commands
@@ -94,8 +97,9 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	else
 	{
 		ms->pid = pid;
-		refresh(ms);
-		wait(NULL);
+		refresh(ms->pid);
+		while (wait(NULL) > 0)
+			;
 		if (*prev_fd != -1)
 			close(*prev_fd);
 		if (token->cchar == PIPE && token->next)
@@ -110,6 +114,7 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 {
 	char	**env;
 	t_token *token;
+	t_token	*next;
 	int		prev_fd;
 
 	token = ms->tokens;
@@ -122,13 +127,14 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 	}
 	while (token)
 	{
-		if (!token->next && is_builtin(token->value[0]))
+		next = token->next;
+		if (!token->next && token->value && is_builtin(token->value[0]))
 		{
 			if (exec_builtin(token, ms, true) < 0)
 				break ;
 		}
 		exec_cmd(ms, token, env, &prev_fd);
-		token = token->next;
+		token = next;
 	}
 	free_args(env);
 }

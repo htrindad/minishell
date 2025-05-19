@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/08 20:57:28 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:24:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <termios.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -49,18 +51,21 @@ typedef enum	e_chcas
 
 // Typedefs
 typedef struct s_ms			t_ms;
-typedef struct s_token			t_token;
+typedef struct s_token		t_token;
 typedef struct sigaction	t_sa;
 
 // Structs
+typedef	struct s_redir
+{
+	char			*filename;
+	t_case			type;
+	struct s_redir	*next;
+}		t_redir;
+
 typedef struct s_fds
 {
-	int in;
-	int out;
-	char *infile;
-	char *outfile;
-	bool append;
-	bool heredoc;
+	t_redir	*in;
+	t_redir	*out;
 }		t_fds;
 
 typedef struct	s_builtin
@@ -73,14 +78,15 @@ typedef struct	s_token
 {
 	char			**value;
 	struct s_token	*next;
+	t_fds			*fds;
 	t_case			cchar;
 }		t_token;
 
 typedef struct	s_env
 {
 	char			*key;
-	struct s_env	*prev;
 	struct s_env	*next;
+	struct s_env	*prev;
 	char			*value;
 }		t_env;
 
@@ -92,6 +98,8 @@ typedef struct	s_ms
 	bool			running;
 	int				pid;
 	int				last_status;
+	t_sa			si;
+	t_sa			sq;
 	t_builtin		*builtin;
 	t_token			*tokens;
 }		t_ms;
@@ -120,7 +128,7 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas);
 char	**duplicator(char **arg);
 size_t	count_cases(char const *s, t_ms *ms);
 void	sig_handler(int sig, siginfo_t *s, void *content);
-void	refresh(t_ms *);
+void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
@@ -143,5 +151,12 @@ int		unset(t_ms *);
 int		echo(t_ms *);
 void	c_len(size_t *len, char const *s);
 void	trimmer(char ***array, char *tmp, size_t itr);
+int		parse_redirections(t_token **tokens);
+int		handle_redirections(t_token **tokens);
+void	cleanup_redir(t_token **tokens);
+void	remove_token(t_token **head, t_token *to_remove);
+void	cleanup_redir(t_token **tokens);
+bool	is_redirection(t_case type);
+void	print_tokens(t_token *head);
 
 #endif
