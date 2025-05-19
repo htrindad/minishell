@@ -60,7 +60,7 @@ int	handle_redirections(t_token **tokens)
 
 bool	is_redirection(t_case type)
 {
-	if (type == APPEND || type == IN || type == OUT || type == HEREDOC)
+	if (type != NONE || type != PIPE)
 		return (true);
 	return (false);
 }
