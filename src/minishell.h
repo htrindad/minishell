@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/16 18:24:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:57:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <fcntl.h>
-# include <termios.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -60,13 +59,13 @@ typedef	struct s_redir
 	char			*filename;
 	t_case			type;
 	struct s_redir	*next;
-}		t_redir;
+}	t_redir;
 
 typedef struct s_fds
 {
 	t_redir	*in;
 	t_redir	*out;
-}		t_fds;
+}	t_fds;
 
 typedef struct	s_builtin
 {
@@ -157,6 +156,9 @@ void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
+
+
 void	print_tokens(t_token *head);
+
 
 #endif

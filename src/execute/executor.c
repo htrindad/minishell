@@ -61,10 +61,10 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-//	if (token->fds) {
-//		if (handle_redirections(&token))
-//			em("Failed.", ms);
-//	}
+	if (token->fds) {
+		if (handle_redirections(&token))
+			em("Failed.", ms);
+	}
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
