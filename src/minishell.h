@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/16 18:24:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:30:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,8 @@ void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
 void	print_tokens(t_token *head);
+int		single_exec(t_token *token, t_ms *ms, bool is_parent);
+char	**comp_env(t_env *env);
+int		redir_exec(t_token *token, t_ms *ms);
 
 #endif

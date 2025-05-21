@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/20 20:32:08 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:23:19 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline size_t	envsize(t_env *env)
 	return (i);
 }
 
-static char	**comp_env(t_env *env)
+char	**comp_env(t_env *env)
 {
 	char	**ptr;
 	char	*tmp;
@@ -54,7 +54,7 @@ static char	**comp_env(t_env *env)
 	return (ptr);
 }
 
-static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
+static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -76,7 +76,8 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		exit(exec_builtin(token, ms, false));
 	if (DEBUG)
 		print_tokens(token);
-	execve(find_command(token->value[0], env, ms), token->value, env);
+	if (!is_builtin(token->value[0]))
+		execve(find_command(token->value[0], env, ms), token->value, env);
 	exit(0);
 }
 
@@ -88,11 +89,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	if (token->cchar == PIPE && token->next)
 	{
 		if (pipe(pipe_fd) < 0)
-			return (em("Error\nPipe Fail.\n", ms));
+			return (em("Error\nPipe Fail.", ms));
 	}
 	pid = fork();
 	if (pid < 0)
-		return (em("Error\nFork Fail.\n", ms));
+		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
 	else
@@ -131,7 +132,6 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 		next = token->next;
 		if (!token->next && token->value && is_builtin(token->value[0]))
 		{
-			printf("Entrei\n");
 			if (exec_builtin(token, ms, true) < 0)
 				break ;
 		}
