@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/21 18:23:19 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:54:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	**comp_env(t_env *env)
 		return (NULL);
 	while (env)
 	{
+		if (env->key == NULL || env->value == NULL)
+		{
+			env = env->next;
+			continue ;
+		}
 		tmp = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
 		if (tmp == NULL)
 			return (free_args(ptr), NULL);
