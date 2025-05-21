@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/16 19:12:40 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:32:08 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-//	if (token->fds) {
-//		if (handle_redirections(&token))
-//			em("Failed.", ms);
-//	}
+	if (token->fds)
+	{
+		if (handle_redirections(&token))
+			em("Failed.", ms);
+	}
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
@@ -130,10 +131,12 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 		next = token->next;
 		if (!token->next && token->value && is_builtin(token->value[0]))
 		{
+			printf("Entrei\n");
 			if (exec_builtin(token, ms, true) < 0)
 				break ;
 		}
-		exec_cmd(ms, token, env, &prev_fd);
+		else
+			exec_cmd(ms, token, env, &prev_fd);
 		token = next;
 	}
 	free_args(env);
