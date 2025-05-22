@@ -128,7 +128,7 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 	while (token)
 	{
 		next = token->next;
-		if (!token->next && token->value && is_builtin(token->value[0]))
+		if (!token->next && !token->fds && token->value && is_builtin(token->value[0]))
 		{
 			if (exec_builtin(token, ms, true) < 0)
 				break ;
