@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/22 17:53:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:27:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(prev_fd);
 	}
 	if (token->fds)
-	{
 		if (handle_redirections(&token))
 			em("Failed.", ms);
-	}
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
