@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/21 20:51:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:20:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,16 @@ bool	rm_env(t_env **head, char *arg)
 			{
 				*head = (*head)->prev;
 				tmp = (*head)->next;
-				(*head)->next = (*head)->next->next;
-				(*head)->next->prev = *head;
+				if ((*head)->next->next != NULL)
+				{
+					(*head)->next = (*head)->next->next;
+					(*head)->next->prev = *head;
+				}
+				else
+					(*head)->next = NULL;
 				free(tmp);
+				while ((*head)->prev)
+					*head = (*head)->prev;
 				return (true);
 			}
 			else

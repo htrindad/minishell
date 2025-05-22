@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/21 19:56:15 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:55:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int	redir_exec(t_token *token, t_ms *ms)
 	if (env == NULL)
 		return (em("Error\nMalloc Fail.", ms), -1);
 	if (token->fds)
+	{
 		if (bi_redirections(&token, ms))
 			return (em("Failed.", ms), -1);
+	}
+	else
+		single_exec(token, ms, true);
 	exit(0);
 	return (0);
 }

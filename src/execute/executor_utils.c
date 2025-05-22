@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/21 19:44:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:56:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,38 @@
 
 bool	is_builtin(char *cmd)
 {
-	return (!ft_strncmp(cmd, "echo", 5) || !ft_strncmp(cmd, "cd", 3)
-		|| !ft_strncmp(cmd, "pwd", 4) || !ft_strncmp(cmd, "export", 7) \
-		|| !ft_strncmp(cmd, "unset", 6) || !ft_strncmp(cmd, "env", 4) \
-		|| !ft_strncmp(cmd, "exit", 5));
+	return (!ft_strncmp(cmd, "echo", 4) || !ft_strncmp(cmd, "cd", 2)
+		|| !ft_strncmp(cmd, "pwd", 3) || !ft_strncmp(cmd, "export", 6) \
+		|| !ft_strncmp(cmd, "unset", 5) || !ft_strncmp(cmd, "env", 3) \
+		|| !ft_strncmp(cmd, "exit", 4));
 }
 
-int	exec_builtin(t_token *token, t_ms *ms, bool is_parent)
+int	exec_builtin(t_token *token, t_ms *ms)
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid < 0)
-		return (em("Error\nFork fail.\n", ms), -1);
-	if (!pid)
-		if (redir_exec(token, ms))
-			return (-1);
-	if (pid)
+	if (!ft_strncmp(token->value[0], "exit", 5) \
+			|| !ft_strncmp(token->value[0], "export", 6) \
+			|| !ft_strncmp(token->value[0], "unset", 5))
 	{
-		ms->pid = pid;
-		refresh(ms->pid);
-		while (wait(NULL) < 0)
-			;
-		if (single_exec(token, ms, is_parent))
-			return (-1);
+		(void)pid;
+		single_exec(token, ms, true);
+	}
+	else
+	{
+		pid = fork();
+		if (pid < 0)
+			return (em("Error\nFork fail.\n", ms), -1);
+		if (!pid)
+			if (redir_exec(token, ms))
+				return (-1);
+		if (pid)
+		{
+			ms->pid = pid;
+			refresh(ms->pid);
+			while (wait(NULL) < 0)
+				;
+		}
 	}
 	return (0); // not a b-in
 }
