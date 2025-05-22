@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/06 20:54:52 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:56:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,38 @@
 
 bool	is_builtin(char *cmd)
 {
-	return (!ft_strncmp(cmd, "echo", 5) || !ft_strncmp(cmd, "cd", 3)
-		|| !ft_strncmp(cmd, "pwd", 4) || !ft_strncmp(cmd, "export", 7)
-		|| !ft_strncmp(cmd, "unset", 6) || !ft_strncmp(cmd, "env", 4)
-		|| !ft_strncmp(cmd, "exit", 5));
+	return (!ft_strncmp(cmd, "echo", 4) || !ft_strncmp(cmd, "cd", 2)
+		|| !ft_strncmp(cmd, "pwd", 3) || !ft_strncmp(cmd, "export", 6) \
+		|| !ft_strncmp(cmd, "unset", 5) || !ft_strncmp(cmd, "env", 3) \
+		|| !ft_strncmp(cmd, "exit", 4));
 }
 
-int	exec_builtin(t_token *token, t_ms *ms, bool is_parent)
+int	exec_builtin(t_token *token, t_ms *ms)
 {
-	int	i;
+	pid_t	pid;
 
-	i = 0;
-	while (ms->builtin[i].name)
+	if (!ft_strncmp(token->value[0], "exit", 5) \
+			|| !ft_strncmp(token->value[0], "export", 6) \
+			|| !ft_strncmp(token->value[0], "unset", 5))
 	{
-		if (token->value[0] && ms->builtin[i].name
-			&& !ft_strncmp(token->value[0], ms->builtin[i].name,
-				ft_strlen(ms->builtin[i].name) + 1))
+		(void)pid;
+		single_exec(token, ms, true);
+	}
+	else
+	{
+		pid = fork();
+		if (pid < 0)
+			return (em("Error\nFork fail.\n", ms), -1);
+		if (!pid)
+			if (redir_exec(token, ms))
+				return (-1);
+		if (pid)
 		{
-			if(is_parent && token->value && is_builtin(token->value[0]))
-				return (ms->builtin[i].f(ms), -1);
-			else if (!is_parent)
-				exit(ms->builtin[i].f(ms));
+			ms->pid = pid;
+			refresh(ms->pid);
+			while (wait(NULL) < 0)
+				;
 		}
-		i++;
 	}
 	return (0); // not a b-in
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 20:34:14 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/05/20 20:28:59 by htrindad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	add_redir(t_redir **redir_list, t_case type, char *filename)
@@ -73,10 +85,8 @@ static int	set_redir(t_token *tok)
 			return (1);
 	}
 	else
-	{
 		if (add_redir(&tok->fds->out, tok->cchar, tok->next->value[0]))
 			return (1);
-	}
 	return (0);
 }
 

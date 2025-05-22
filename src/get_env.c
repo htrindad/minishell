@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/04 16:38:12 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:20:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@
 // a char **envp. (I will do that in another function furthermore the project)
 // and use it inside each forked process. (so it's clean and doesn't affect
 // the parent process)
+
+static void	add_back(t_env **head, t_env *new)
+{
+	t_env	*last;
+
+	if (head)
+	{
+		if (*head)
+		{
+			last = *head;
+			while (last->next)
+				last = last->next;
+			last->next = new;
+			new->prev = last;
+		}
+		else
+			*head = new;
+	}
+}
+
 bool	add_env(t_env **head, char *env)
 {
 	t_env	*new;
@@ -26,16 +46,20 @@ bool	add_env(t_env **head, char *env)
 
 	equal_sign = ft_strchr(env, '=');
 	new = ft_calloc(1, sizeof(t_env));
-	if (!new || !equal_sign)
+	if (!new)
 		return (true);
 	new->next = NULL;
-	new->key = ft_substr(env, 0, ft_strlen(env) - ft_strlen(equal_sign));
+	if (equal_sign)
+		new->key = ft_substr(env, 0, ft_strlen(env) - ft_strlen(equal_sign));
+	else
+		new->key = ft_strdup(env);
 	if (!new->key)
 		return (free(new), false);
-	new->value = ft_strdup(equal_sign + 1);
-	if (!new->value)
-		return (free(new->key), free(new), false);
-	ft_lstadd_back((t_list **)head, (t_list *)new);
+	if (equal_sign == NULL)
+		new->value = NULL;
+	else
+		new->value = ft_strdup(equal_sign + 1);
+	add_back(head, new);
 	while ((*head)->prev)
 		*head = (*head)->prev;
 	return (false);
@@ -62,9 +86,16 @@ bool	rm_env(t_env **head, char *arg)
 			{
 				*head = (*head)->prev;
 				tmp = (*head)->next;
-				(*head)->next = (*head)->next->next;
-				(*head)->next->prev = *head;
+				if ((*head)->next->next != NULL)
+				{
+					(*head)->next = (*head)->next->next;
+					(*head)->next->prev = *head;
+				}
+				else
+					(*head)->next = NULL;
 				free(tmp);
+				while ((*head)->prev)
+					*head = (*head)->prev;
 				return (true);
 			}
 			else

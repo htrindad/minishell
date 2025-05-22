@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/16 19:12:40 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:27:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline size_t	envsize(t_env *env)
 	return (i);
 }
 
-static char	**comp_env(t_env *env)
+char	**comp_env(t_env *env)
 {
 	char	**ptr;
 	char	*tmp;
@@ -41,6 +41,11 @@ static char	**comp_env(t_env *env)
 		return (NULL);
 	while (env)
 	{
+		if (env->key == NULL || env->value == NULL)
+		{
+			env = env->next;
+			continue ;
+		}
 		tmp = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
 		if (tmp == NULL)
 			return (free_args(ptr), NULL);
@@ -54,17 +59,16 @@ static char	**comp_env(t_env *env)
 	return (ptr);
 }
 
-static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
+static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-//	if (token->fds) {
-//		if (handle_redirections(&token))
-//			em("Failed.", ms);
-//	}
+	if (token->fds)
+		if (handle_redirections(&token))
+			em("Failed.", ms);
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
@@ -72,10 +76,9 @@ static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(pipe_fd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		exit(exec_builtin(token, ms, false));
-	if (DEBUG)
-		print_tokens(token);
-	execve(find_command(token->value[0], env, ms), token->value, env);
+		exit(single_exec(token, ms, false));
+	if (!is_builtin(token->value[0]))
+		execve(find_command(token->value[0], env, ms), token->value, env);
 	exit(0);
 }
 
@@ -87,11 +90,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	if (token->cchar == PIPE && token->next)
 	{
 		if (pipe(pipe_fd) < 0)
-			return (em("Error\nPipe Fail.\n", ms));
+			return (em("Error\nPipe Fail.", ms));
 	}
 	pid = fork();
 	if (pid < 0)
-		return (em("Error\nFork Fail.\n", ms));
+		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
 	else
@@ -130,10 +133,11 @@ void	executor(t_ms *ms) //This is the function that will execute the commands fr
 		next = token->next;
 		if (!token->next && token->value && is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, ms, true) < 0)
+			if (exec_builtin(token, ms) < 0)
 				break ;
 		}
-		exec_cmd(ms, token, env, &prev_fd);
+		else
+			exec_cmd(ms, token, env, &prev_fd);
 		token = next;
 	}
 	free_args(env);
