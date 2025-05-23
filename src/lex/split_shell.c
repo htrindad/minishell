@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/08 20:59:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:37:15 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, 
 	return (false);
 }
 
-static inline bool	mini_spec_case(char const *s, char **cases)
+bool	mini_spec_case(char const *s, char **cases)
 {
 	int	i;
 
