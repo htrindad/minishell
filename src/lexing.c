@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/23 16:43:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:56:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 		new->value = NULL;
 		new->cchar = set_case(ms->input);
 		while (mini_spec_case(ms->input + i, ms->scases) \
-				|| ms->input == ' ')
+				|| ms->input[i] == ' ')
 			i++;
 		*l = i;
 		new->next = NULL;
@@ -102,7 +102,7 @@ void	print_tokens(t_token *head)
 	{
 		i = 0;
 		printf("(");
-		while (tmp->value[i])
+		while (tmp->value && tmp->value[i])
 			printf("[%s]", tmp->value[i++]);
 		printf(") ");
 		print_type(tmp->cchar);
