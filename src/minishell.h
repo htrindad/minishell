@@ -134,7 +134,7 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(t_token *token, t_ms *ms, bool is_parent);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
-void	executor(t_ms *ms);
+void	executor(t_ms **ms);
 int		pwd(t_ms *);
 int		env(t_ms *);
 int		change_dir(t_ms *);

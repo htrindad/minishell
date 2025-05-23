@@ -16,4 +16,5 @@ void	em(char *str, t_ms *ms)
 {
 	perror(str);
 	ms->running = false;
+	exit (1);
 }

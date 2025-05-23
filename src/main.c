@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env)
 			add_history(shell->input);
 		shell->tokens = lexing(shell);
 		parse_redirections(&shell->tokens);
-		executor(shell);
+		executor(&shell);
 		free(shell->input);
 	}
 	clean_ms(shell);
