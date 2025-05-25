@@ -6,11 +6,30 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/22 17:55:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:19:12 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	fd_checker(t_token *token)
+{
+	if (token != NULL && token->fds != NULL \
+			&& token->value != NULL)
+	{
+		if (token->fds->in && token->fds->in->filename)
+		{
+			if (!ft_strncmp(token->fds->in->filename, token->value[0], ft_strlen(token->value[0])))
+				if (token->value[1])
+					return (1);
+		}
+		else if (token->fds->out && token->fds->out->filename)
+			if (!ft_strncmp(token->fds->out->filename, token->value[0], ft_strlen(token->value[0])))
+				if (token->value[1])
+					return (1);
+	}
+	return (0);
+}
 
 static int	bi_redirections(t_token **tokens, t_ms *ms)
 {
@@ -50,15 +69,17 @@ static int	bi_redirections(t_token **tokens, t_ms *ms)
 int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 {
 	size_t	i;
+	int		arg;
 
 	i = 0;
+	arg = fd_checker(token);
 	while (ms->builtin[i].name)
 	{
-		if (token->value[0] && ms->builtin[i].name
-			&& !ft_strncmp(token->value[0], ms->builtin[i].name,
+		if (token->value[arg] && ms->builtin[i].name
+			&& !ft_strncmp(token->value[arg], ms->builtin[i].name,
 				ft_strlen(ms->builtin[i].name) + 1))
 		{
-			if(is_parent && token->value && is_builtin(token->value[0]))
+			if(is_parent && token->value && is_builtin(token->value[arg]))
 				return (ms->builtin[i].f(ms), 0);
 			else if (!is_parent)
 				exit(ms->builtin[i].f(ms));
