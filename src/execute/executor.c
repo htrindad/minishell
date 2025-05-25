@@ -101,8 +101,10 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 		if (waitpid(ms->pid, &status, 0) == -1)
 			ms->last_status = 1;
 		else if (WIFEXITED(status))
-				ms->last_status = WEXITSTATUS(status);
-		else
+			ms->last_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			ms->last_status = WTERMSIG(status) + 128;
+ 		else
 			ms->last_status = 1;
 		if (*prev_fd != -1)
 			close(*prev_fd);

@@ -33,7 +33,10 @@ int	handle_redirections(t_token **tokens)
 	redir = (*tokens)->fds->in;
 	while (redir)
 	{
-		fd = open(redir->filename, O_RDONLY);
+		if (redir->type == IN)
+			fd = open(redir->filename, O_RDONLY);
+		if (redir->type == HEREDOC)
+			fd = handle_heredoc(redir->filename);
 		if (fd < 0)
 			return (perror(redir->filename), 1);
 		if (dup2(fd, STDIN_FILENO) < 0)
