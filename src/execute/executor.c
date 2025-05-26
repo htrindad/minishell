@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/25 18:58:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:50:21 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ char	**comp_env(t_env *env)
 
 static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
-	int	arg;
-
-	arg = 0;
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -78,11 +75,10 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	arg = fd_checker(token);
-	if (token->value && is_builtin(token->value[arg]))
+	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false));
-	if (!is_builtin(token->value[arg]))
-		execve(find_command(token->value[arg], env, ms), token->value, env);
+	if (!is_builtin(token->value[0]))
+		execve(find_command(token->value[0], env, ms), token->value, env);
 	exit(0);
 }
 
