@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:33:47 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/26 18:51:15 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:11:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,24 @@ static void	remove_redir(t_token *redir)
 void	cleanup_redir(t_token **tokens)
 {
 	t_token *curr;
+	t_token	*prev;
 
 	curr = *tokens;
+	prev = NULL;
 	while (curr)
 	{
 		if (is_redirection(curr->cchar))
+		{
 			remove_redir(curr);
-		curr = curr->next;
+			if (prev)
+				curr = prev;
+			else
+				curr = *tokens;
+		}
+		else
+		{
+			prev = curr;
+			curr = curr->next;
+		}
 	}
 }
