@@ -35,7 +35,7 @@ int	handle_redirections(t_token **tokens)
 	{
 		if (redir->type == IN)
 			fd = open(redir->filename, O_RDONLY);
-		if (redir->type == HEREDOC)
+		else if (redir->type == HEREDOC)
 			fd = handle_heredoc(redir->filename);
 		if (fd < 0)
 			return (perror(redir->filename), 1);

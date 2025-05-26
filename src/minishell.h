@@ -156,6 +156,7 @@ void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
+int		handle_heredoc(char *delimiter);
 
 
 void	print_tokens(t_token *head);
