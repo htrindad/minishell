@@ -45,7 +45,10 @@ int	handle_redirections(t_token **tokens)
 	redir = (*tokens)->fds->in;
 	while (redir)
 	{
-		fd = open(redir->filename, O_RDONLY);
+		if (redir->type == IN)
+			fd = open(redir->filename, O_RDONLY);
+		else if (redir->type == HEREDOC)
+			fd = handle_heredoc(redir->filename);
 		if (fd < 0)
 			return (perror(redir->filename), 1);
 		if (dup2(fd, STDIN_FILENO) < 0)
@@ -79,14 +82,21 @@ bool	is_redirection(t_case type)
 
 static int	set_redir(t_token *tok)
 {
-	if (tok->cchar == IN || tok->cchar == HEREDOC)
+	t_token	*tmp;
+
+	tmp = tok;
+	while (tmp && is_redirection(tmp->cchar))
 	{
-		if (add_redir(&tok->fds->in, tok->cchar, tok->next->value[0]))
-			return (1);
+		if (tok->cchar == IN || tok->cchar == HEREDOC)
+		{
+			if (add_redir(&tok->fds->in, tmp->cchar, tmp->next->value[0]))
+				return (1);
+		}
+		else
+			if (add_redir(&tok->fds->out, tmp->cchar, tmp->next->value[0]))
+				return (1);
+		tmp = tmp->next;
 	}
-	else
-		if (add_redir(&tok->fds->out, tok->cchar, tok->next->value[0]))
-			return (1);
 	return (0);
 }
 

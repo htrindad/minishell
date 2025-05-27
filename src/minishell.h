@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/26 18:28:33 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:57:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <fcntl.h>
-# include <termios.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -60,13 +59,13 @@ typedef	struct s_redir
 	char			*filename;
 	t_case			type;
 	struct s_redir	*next;
-}		t_redir;
+}	t_redir;
 
 typedef struct s_fds
 {
 	t_redir	*in;
 	t_redir	*out;
-}		t_fds;
+}	t_fds;
 
 typedef struct	s_builtin
 {
@@ -135,7 +134,7 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(t_token *token, t_ms *ms);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
-void	executor(t_ms *ms);
+void	executor(t_ms **ms);
 int		pwd(t_ms *);
 int		env(t_ms *);
 int		change_dir(t_ms *);
@@ -157,6 +156,7 @@ void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
+int		handle_heredoc(char *delimiter);
 void	print_tokens(t_token *head);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent);
 char	**comp_env(t_env *env);

@@ -20,6 +20,8 @@
 # include <limits.h>
 # include <stdint.h>
 
+# define BUFFER_SIZE 10
+
 int			ft_isalpha(int c);
 int			ft_isdigit(int n);
 int			ft_isalnum(int c);
@@ -55,6 +57,9 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+int			cut_remaining(char *buf);
+char		*get_next_line(int fd);
 typedef struct s_list
 {
 	void			*content;

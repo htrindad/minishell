@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		if (change_set(&shell->tokens))
 			break ;
 		parse_redirections(&shell->tokens);
-		executor(shell);
+		executor(&shell);
 		free(shell->input);
 	}
 	clean_ms(shell);

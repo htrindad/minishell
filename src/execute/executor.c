@@ -68,7 +68,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 	}
 	if (token->fds)
 		if (handle_redirections(&token))
-			em("Failed.", ms);
+			return (em("Failed.", ms));
 	if (token->cchar == PIPE && token->next)
 	{
 		close(pipe_fd[0]);
@@ -76,9 +76,11 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(pipe_fd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		exit(single_exec(token, ms, false));
-	if (!is_builtin(token->value[0]))
-		execve(find_command(token->value[0], env, ms), token->value, env);
+		exit(exec_builtin(token, ms, false));
+	if (DEBUG)
+		print_tokens(token);
+	execve(find_command(token->value[0], env, ms), token->value, env);
+	perror("execve:");
 	exit(0);
 }
 
@@ -86,9 +88,9 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 {
 	int		pipe_fd[2];
 	pid_t	pid;
+	int		status;
 
 	if (token->cchar == PIPE && token->next)
-	{
 		if (pipe(pipe_fd) < 0)
 			return (em("Error\nPipe Fail.", ms));
 	}
@@ -101,8 +103,14 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	{
 		ms->pid = pid;
 		refresh(ms->pid);
-		while (wait(NULL) > 0)
-			;
+		if (waitpid(ms->pid, &status, 0) == -1)
+			ms->last_status = 1;
+		else if (WIFEXITED(status))
+			ms->last_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			ms->last_status = WTERMSIG(status) + 128;
+ 		else
+			ms->last_status = 1;
 		if (*prev_fd != -1)
 			close(*prev_fd);
 		if (token->cchar == PIPE && token->next)
@@ -113,31 +121,30 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	}
 }
 
-void	executor(t_ms *ms) //This is the function that will execute the commands from the parsing
+void	executor(t_ms **ms) //This is the function that will execute the commands from the parsing
 {
 	char	**env;
 	t_token *token;
 	t_token	*next;
 	int		prev_fd;
 
-	token = ms->tokens;
+	token = (*ms)->tokens;
 	prev_fd = -1;
-	env = comp_env(ms->env);
+	env = comp_env((*ms)->env);
 	if (env == NULL)
 	{
-		em("Error\nMalloc Fail.\n", ms);
+		em("Error\nMalloc Fail.\n", (*ms));
 		return ;
 	}
 	while (token)
 	{
 		next = token->next;
-		if (!token->next && token->value && is_builtin(token->value[0]))
+		if (!token->next && !token->fds && token->value && is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, ms) < 0)
-				break ;
+			if (exec_builtin(token, *ms, true) < 0)
+				return ((*ms)->last_status = 0, free_args(env));
 		}
-		else
-			exec_cmd(ms, token, env, &prev_fd);
+		exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
 	free_args(env);
