@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/27 18:49:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:59:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ void	executor(t_ms **ms) //This is the function that will execute the commands f
 			if (exec_builtin(token, *ms) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
 		}
-		exec_cmd(*ms, token, env, &prev_fd);
+		else
+			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
 	free_args(env);
