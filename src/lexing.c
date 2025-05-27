@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/21 16:39:30 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:18:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,37 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
-	new->value = duplicator(value);
-	if (!new->value)
-		return (em("Error\nMalloc fail.\n", ms), true);
-	while (ms->input[i])
+	if (!(*l) && mini_spec_case(ms->input, ms->scases))
 	{
-		if (spec_case(ms->input, ms->scases, l, i++, NULL))
-		{
-			new->cchar = set_case(ms->input + *l);
-			break ;
-		}
+		new->value = NULL;
+		new->cchar = set_case(ms->input);
+		while (mini_spec_case(ms->input + i, ms->scases) \
+				|| ms->input[i] == ' ')
+			i++;
+		*l = i;
+		new->next = NULL;
+		ft_lstadd_back((t_list **)head, (t_list *)new);
 	}
-	if (new->cchar != APPEND && new->cchar != HEREDOC)
-		(*l)++;
 	else
-		(*l) += 2;
-	new->next = NULL;
-	ft_lstadd_back((t_list **)head, (t_list *)new);
+	{
+		new->value = duplicator(value);
+		if (!new->value)
+			return (em("Error\nMalloc fail.\n", ms), true);
+		while (ms->input[i])
+		{
+			if (spec_case(ms->input, ms->scases, l, i++, NULL))
+			{
+				new->cchar = set_case(ms->input + *l);
+				break ;
+			}
+		}
+		if (new->cchar != APPEND && new->cchar != HEREDOC)
+			(*l)++;
+		else
+			(*l) += 2;
+		new->next = NULL;
+		ft_lstadd_back((t_list **)head, (t_list *)new);
+	}
 	return (false);
 }
 
@@ -88,7 +102,7 @@ void	print_tokens(t_token *head)
 	{
 		i = 0;
 		printf("(");
-		while (tmp->value[i])
+		while (tmp->value && tmp->value[i])
 			printf("[%s]", tmp->value[i++]);
 		printf(") ");
 		print_type(tmp->cchar);
@@ -110,9 +124,12 @@ t_token	*lexing(t_ms *shell)
 		return (NULL);
 	i = 0;
 	l = 0;
+	if (args[0] == NULL && args[1] != NULL)
+		if (add_token(&head, args[i++], shell, &l))
+			return (free_tokens(head), NULL);
 	while (args[i])
 	{
-		if (args[i][0][0] != '\0')
+		if (args[i][0][0])
 		{
 			if (add_token(&head, args[i], shell, &l))
 				return (free_tokens(head), NULL);

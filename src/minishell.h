@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/22 17:52:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:28:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,7 @@ void	print_tokens(t_token *head);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
+bool	mini_spec_case(char const *s, char **cases);
+int		fd_checker(t_token *token);
 
 #endif
