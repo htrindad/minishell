@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/26 18:50:21 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:49:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(pipe_fd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		exit(exec_builtin(token, ms, false));
+		exit(exec_builtin(token, ms));
 	if (DEBUG)
 		print_tokens(token);
 	execve(find_command(token->value[0], env, ms), token->value, env);
@@ -93,7 +93,6 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 	if (token->cchar == PIPE && token->next)
 		if (pipe(pipe_fd) < 0)
 			return (em("Error\nPipe Fail.", ms));
-	}
 	pid = fork();
 	if (pid < 0)
 		return (em("Error\nFork Fail.", ms));
@@ -141,7 +140,7 @@ void	executor(t_ms **ms) //This is the function that will execute the commands f
 		next = token->next;
 		if (!token->next && !token->fds && token->value && is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, *ms, true) < 0)
+			if (exec_builtin(token, *ms) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
 		}
 		exec_cmd(*ms, token, env, &prev_fd);
