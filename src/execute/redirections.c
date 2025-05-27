@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 20:33:47 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/05/26 20:11:00 by htrindad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	handle_heredoc(char *delimiter)
@@ -91,7 +103,7 @@ static void	remove_redir(t_token *redir)
 void	cleanup_redir(t_token **tokens)
 {
 	t_token *curr;
-	t_token *prev;
+	t_token	*prev;
 
 	curr = *tokens;
 	prev = NULL;
@@ -112,4 +124,3 @@ void	cleanup_redir(t_token **tokens)
 		}
 	}
 }
-

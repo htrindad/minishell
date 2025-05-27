@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/16 19:12:40 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:50:21 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline size_t	envsize(t_env *env)
 	return (i);
 }
 
-static char	**comp_env(t_env *env)
+char	**comp_env(t_env *env)
 {
 	char	**ptr;
 	char	*tmp;
@@ -41,6 +41,11 @@ static char	**comp_env(t_env *env)
 		return (NULL);
 	while (env)
 	{
+		if (env->key == NULL || env->value == NULL)
+		{
+			env = env->next;
+			continue ;
+		}
 		tmp = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
 		if (tmp == NULL)
 			return (free_args(ptr), NULL);
@@ -54,7 +59,7 @@ static char	**comp_env(t_env *env)
 	return (ptr);
 }
 
-static void exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
+static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -87,10 +92,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It wi
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(pipe_fd) < 0)
-			return (em("Error\nPipe Fail.\n", ms));
+			return (em("Error\nPipe Fail.", ms));
+	}
 	pid = fork();
 	if (pid < 0)
-		return (em("Error\nFork Fail.\n", ms));
+		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 		exec_child(token, env, *prev_fd, pipe_fd, ms);
 	else
