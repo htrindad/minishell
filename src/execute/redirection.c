@@ -70,15 +70,20 @@ bool	is_redirection(t_case type)
 
 static int	set_redir(t_token *tok)
 {
-	if (tok->cchar == IN || tok->cchar == HEREDOC)
+	t_token	*tmp;
+
+	tmp = tok;
+	while (tmp && is_redirection(tmp->cchar))
 	{
-		if (add_redir(&tok->fds->in, tok->cchar, tok->next->value[0]))
-			return (1);
-	}
-	else
-	{
-		if (add_redir(&tok->fds->out, tok->cchar, tok->next->value[0]))
-			return (1);
+		if (tok->cchar == IN || tok->cchar == HEREDOC)
+		{
+			if (add_redir(&tok->fds->in, tmp->cchar, tmp->next->value[0]))
+				return (1);
+		}
+		else
+			if (add_redir(&tok->fds->out, tmp->cchar, tmp->next->value[0]))
+				return (1);
+		tmp = tmp->next;
 	}
 	return (0);
 }

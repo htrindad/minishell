@@ -78,7 +78,10 @@ static void	remove_redir(t_token *redir)
 		if (file)
 		{
 			redir->next = file->next;
-			redir->cchar = NONE;
+			if (is_redirection(file->cchar))
+				redir->cchar = file->cchar;
+			else
+				redir->cchar = NONE;
 			free_args(file->value);
 			free(file);
 		}
