@@ -37,12 +37,12 @@ int	add_redir(t_redir **redir_list, t_case type, char *filename)
 	return (0);
 }
 
-int	handle_redirections(t_token **tokens)
+int	handle_redirections(t_token *tokens)
 {
 	t_redir	*redir;
 	int		fd;
 
-	redir = (*tokens)->fds->in;
+	redir = tokens->fds->in;
 	while (redir)
 	{
 		if (redir->type == IN)
@@ -56,7 +56,7 @@ int	handle_redirections(t_token **tokens)
 		close(fd);
 		redir = redir->next;
 	}
-	redir = (*tokens)->fds->out;
+	redir = tokens->fds->out;
 	while (redir)
 	{
 		if (redir->type == OUT)
@@ -93,8 +93,10 @@ static int	set_redir(t_token *tok)
 				return (1);
 		}
 		else
+		{
 			if (add_redir(&tok->fds->out, tmp->cchar, tmp->next->value[0]))
 				return (1);
+		}
 		tmp = tmp->next;
 	}
 	return (0);
@@ -120,8 +122,12 @@ int	parse_redirections(t_token **tokens)
 			if (set_redir(curr))
 				return (1);
 		}
+		else
+			curr->fds = NULL;
 		curr = curr->next;
 	}
+	if (DEBUG)
+		print_tokens_debug(*tokens);
 	cleanup_redir(tokens);
 	return (0);
 }

@@ -67,7 +67,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(prev_fd);
 	}
 	if (token->fds)
-		if (handle_redirections(&token))
+		if (handle_redirections(token))
 			return (em("Failed.", ms));
 	if (token->cchar == PIPE && token->next)
 	{
@@ -77,8 +77,8 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 	}
 	if (token->value && is_builtin(token->value[0]))
 		exit(exec_builtin(token, ms));
-	if (DEBUG)
-		print_tokens(token);
+	//if (DEBUG)
+	//	print_tokens(token);
 	execve(find_command(token->value[0], env, ms), token->value, env);
 	perror("execve:");
 	exit(0);

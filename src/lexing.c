@@ -139,7 +139,7 @@ t_token	*lexing(t_ms *shell)
 	i = 0;
 	while (args[i])
 		free_args(args[i++]);
-	if (DEBUG)
-		print_tokens(head);
+	//if (DEBUG)
+	//	print_tokens(head);
 	return (head);
 }
