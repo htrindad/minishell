@@ -79,6 +79,7 @@ typedef struct	s_token
 	struct s_token	*next;
 	t_fds			*fds;
 	t_case			cchar;
+	bool			is_redir;
 }		t_token;
 
 typedef struct	s_env
