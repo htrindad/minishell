@@ -81,11 +81,11 @@ static void	remove_redir(t_token *redir)
 	t_token *file;
 
 	file = redir->next;
-	if (file && file->value && file->value[1])
+	if (file && file->value && file->value[0] && file->value[1])
 		shift_args_left(file->value);
 	else
 	{
-		if (DEBUG)
+		if (DEBUG && file && file->value)
 			printf("Removing %s\n", file->value[0]);
 		if (file)
 		{
@@ -97,6 +97,8 @@ static void	remove_redir(t_token *redir)
 			free_args(file->value);
 			free(file);
 		}
+		else
+			redir->cchar = NONE;
 	}
 }
 
