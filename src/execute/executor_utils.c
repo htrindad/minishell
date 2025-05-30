@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/22 18:56:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/30 20:56:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ bool	is_builtin(char *cmd)
 		|| !ft_strncmp(cmd, "exit", 4));
 }
 
-int	exec_builtin(t_token *token, t_ms *ms)
+int	exec_builtin(t_token *token, t_ms *ms, char **env)
 {
 	pid_t	pid;
+	int		pipe_fd[2];
+	int		status;
 
+	if (token->cchar == PIPE && token->next)
+		if (pipe(pipe_fd) < 0)
+			return (em("Pipe Fail.", ms), -1);
 	if (!ft_strncmp(token->value[0], "exit", 5) \
 			|| !ft_strncmp(token->value[0], "export", 6) \
 			|| !ft_strncmp(token->value[0], "unset", 5))
@@ -37,14 +42,19 @@ int	exec_builtin(t_token *token, t_ms *ms)
 		if (pid < 0)
 			return (em("Error\nFork fail.\n", ms), -1);
 		if (!pid)
-			if (redir_exec(token, ms))
-				return (-1);
+			exec_child(token, env, -1, pipe_fd, ms);
 		if (pid)
 		{
 			ms->pid = pid;
 			refresh(ms->pid);
-			while (wait(NULL) < 0)
-				;
+			if (waitpid(ms->pid, &status, 0) == -1)
+				ms->last_status = 1;
+			else if (WIFEXITED(status))
+				ms->last_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				ms->last_status = WTERMSIG(status) + 128;
+			else
+				ms->last_status = 1;
 		}
 	}
 	return (0); // not a b-in
