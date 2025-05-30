@@ -79,6 +79,7 @@ typedef struct	s_token
 	struct s_token	*next;
 	t_fds			*fds;
 	t_case			cchar;
+	bool			is_redir;
 }		t_token;
 
 typedef struct	s_env
@@ -104,6 +105,7 @@ typedef struct	s_ms
 }		t_ms;
 
 // Functions
+void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
 bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l);
 char	***ft_split_shell(t_ms *shell);
@@ -151,17 +153,20 @@ int		echo(t_ms *);
 void	c_len(size_t *len, char const *s);
 void	trimmer(char ***array, char *tmp, size_t itr);
 int		parse_redirections(t_token **tokens);
-int		handle_redirections(t_token **tokens);
+int		handle_redirections(t_token *tokens);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
 int		handle_heredoc(char *delimiter);
-void	print_tokens(t_token *head);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
+
+// debug
+void	print_tokens(t_token *head);
+void	print_tokens_debug(t_token *head);
 
 #endif

@@ -31,30 +31,29 @@ static inline bool	change_set(t_token **token)
 	t_token	*next;
 	size_t	i;
 
+	if (!token || !*token)
+		return (false);
 	curr = *token;
 	next = curr->next;
 	i = 0;
-	if (curr->value == NULL && next)
+	if (curr->value == NULL && next && next->value)
 	{
-		if (next->value)
+		curr->value = next->value;
+		next->value = NULL;
+		next->value = ft_calloc(2, sizeof(char *));
+		if (next->value == NULL)
+			return (true);
+		next->value[0] = ft_strdup(curr->value[0]);
+		if (next->value == NULL)
+			return (true);
+		next->value[1] = NULL;
+		free(curr->value[0]);
+		while (curr->value[i + 1])
 		{
-			curr->value = next->value;
-			next->value = NULL;
-			next->value = ft_calloc(1, sizeof(char *));
-			if (next->value == NULL)
-				return (true);
-			next->value[0] = ft_strdup(curr->value[0]);
-			if (next->value == NULL)
-				return (true);
-			next->value[1] = NULL;
-			free(curr->value[0]);
-			while (curr->value[i + 1])
-			{
-				curr->value[i] = curr->value[i + 1];
-				i++;
-			}
-			curr->value[i] = NULL;
+			curr->value[i] = curr->value[i + 1];
+			i++;
 		}
+		curr->value[i] = NULL;
 	}
 	return (false);
 }

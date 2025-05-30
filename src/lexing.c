@@ -42,6 +42,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This functi
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
+	new->is_redir = false;
 	if (!(*l) && mini_spec_case(ms->input, ms->scases))
 	{
 		new->value = NULL;
@@ -139,7 +140,7 @@ t_token	*lexing(t_ms *shell)
 	i = 0;
 	while (args[i])
 		free_args(args[i++]);
-	if (DEBUG)
-		print_tokens(head);
+	//if (DEBUG)
+	//	print_tokens(head);
 	return (head);
 }
