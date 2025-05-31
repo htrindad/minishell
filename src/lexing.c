@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/25 18:18:22 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:07:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,16 @@ void	print_tokens(t_token *head)
 	printf("\n");
 }
 
+static void	fa_spec(char ***args)
+{
+	size_t	i;
+
+	i = 1;
+	while (args[i])
+		free_args(args[i++]);
+	free(args);
+}
+
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
@@ -137,9 +147,15 @@ t_token	*lexing(t_ms *shell)
 		}
 		i++;
 	}
-	i = 0;
-	while (args[i])
-		free_args(args[i++]);
+	if (args[0])
+	{
+		i = 0;
+		while (args[i])
+			free_args(args[i++]);
+		free(args);
+	}
+	else
+		fa_spec(args);
 	//if (DEBUG)
 	//	print_tokens(head);
 	return (head);

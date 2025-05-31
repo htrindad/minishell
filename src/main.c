@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/27 18:14:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:25:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ static inline bool	change_set(t_token **token)
 		next->value = ft_calloc(2, sizeof(char *));
 		if (next->value == NULL)
 			return (true);
-		next->value[0] = ft_strdup(curr->value[0]);
-		if (next->value == NULL)
-			return (true);
+		next->value[0] = curr->value[0];
 		next->value[1] = NULL;
-		free(curr->value[0]);
+		curr->value[0] = NULL;
 		while (curr->value[i + 1])
 		{
 			curr->value[i] = curr->value[i + 1];
@@ -82,6 +80,7 @@ int	main(int ac, char **av, char **env)
 		parse_redirections(&shell->tokens);
 		executor(&shell);
 		free(shell->input);
+		free_tokens(shell->tokens);
 	}
 	clean_ms(shell);
 	return (0);

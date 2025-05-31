@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/27 18:48:50 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/30 21:01:38 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
-int		exec_builtin(t_token *token, t_ms *ms);
+int		exec_builtin(t_token *token, t_ms *ms, char **env);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
 void	executor(t_ms **ms);
@@ -164,6 +164,7 @@ char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
+void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms);
 
 // debug
 void	print_tokens(t_token *head);

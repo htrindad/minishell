@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/27 18:59:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/30 21:00:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**comp_env(t_env *env)
 	return (ptr);
 }
 
-static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
+void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -76,9 +76,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_
 		close(pipe_fd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		exit(exec_builtin(token, ms));
-	//if (DEBUG)
-	//	print_tokens(token);
+		exit(single_exec(token, ms, true));
 	execve(find_command(token->value[0], env, ms), token->value, env);
 	perror("execve:");
 	exit(0);
@@ -140,7 +138,7 @@ void	executor(t_ms **ms) //This is the function that will execute the commands f
 		next = token->next;
 		if (!token->next && !token->fds && token->value && is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, *ms) < 0)
+			if (exec_builtin(token, *ms, env) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
 		}
 		else
