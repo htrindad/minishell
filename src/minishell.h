@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/30 21:01:38 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:01:55 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char	*conc_char(char c);
 void	free_args(char **args);
 void	free_env(t_env *env);
 void	free_tokens(t_token *tokens);
+void	free_redirs(t_redir *redir);
 void	clean_ms(t_ms *shell);
 t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
