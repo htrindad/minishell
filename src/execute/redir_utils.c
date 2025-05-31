@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:33:47 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/26 20:11:00 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:20:10 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	shift_args_left(char **args)
 
 static void	remove_redir(t_token *redir)
 {
-	t_token *file;
+	t_token	*file;
 
 	file = redir->next;
 	if (file && file->value && file->value[0] && file->value[1])
@@ -104,7 +104,7 @@ static void	remove_redir(t_token *redir)
 
 void	cleanup_redir(t_token **tokens)
 {
-	t_token *curr;
+	t_token	*curr;
 	t_token	*prev;
 
 	curr = *tokens;

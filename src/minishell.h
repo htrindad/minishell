@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/31 20:01:55 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/05/31 22:06:50 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	c_len(size_t *len, char const *s);
 void	trimmer(char ***array, char *tmp, size_t itr);
 int		parse_redirections(t_token **tokens);
 int		handle_redirections(t_token *tokens);
+int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
