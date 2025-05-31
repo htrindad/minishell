@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 16:25:36 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:16:08 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,31 @@ static inline void	setup(t_ms *shell, char **env)
 	sigaction(SIGQUIT, &shell->sq, NULL);
 }
 
+static inline void	swap(t_token *curr, t_token *next)
+{
+	size_t	i;
+
+	i = 0;
+	next->value[0] = curr->value[0];
+	next->value[1] = NULL;
+	curr->value[0] = NULL;
+	while (curr->value[i + 1])
+	{
+		curr->value[i] = curr->value[i + 1];
+		i++;
+	}
+	curr->value[i] = NULL;
+}
+
 static inline bool	change_set(t_token **token)
 {
 	t_token	*curr;
 	t_token	*next;
-	size_t	i;
 
 	if (!token || !*token)
 		return (false);
 	curr = *token;
 	next = curr->next;
-	i = 0;
 	if (curr->value == NULL && next && next->value)
 	{
 		curr->value = next->value;
@@ -43,17 +57,17 @@ static inline bool	change_set(t_token **token)
 		next->value = ft_calloc(2, sizeof(char *));
 		if (next->value == NULL)
 			return (true);
-		next->value[0] = curr->value[0];
-		next->value[1] = NULL;
-		curr->value[0] = NULL;
-		while (curr->value[i + 1])
-		{
-			curr->value[i] = curr->value[i + 1];
-			i++;
-		}
-		curr->value[i] = NULL;
+		swap(curr, next);
 	}
 	return (false);
+}
+
+static inline void	ret(t_ms *shell)
+{
+	parse_redirections(&shell->tokens);
+	executor(&shell);
+	free(shell->input);
+	free_tokens(shell->tokens);
 }
 
 int	main(int ac, char **av, char **env)
@@ -77,10 +91,7 @@ int	main(int ac, char **av, char **env)
 		shell->tokens = lexing(shell);
 		if (change_set(&shell->tokens))
 			break ;
-		parse_redirections(&shell->tokens);
-		executor(&shell);
-		free(shell->input);
-		free_tokens(shell->tokens);
+		ret(shell);
 	}
 	clean_ms(shell);
 	return (0);

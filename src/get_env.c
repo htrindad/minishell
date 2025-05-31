@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 19:57:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:12:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	null_case(t_env **head, t_env *tmp)
 bool	rm_env(t_env **head, char *arg)
 {
 	t_env	*curr;
-	t_env	*prev;
-	t_env	*next;
 
 	if (!head || !*head || !arg)
 		return (true);
