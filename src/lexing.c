@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/25 18:18:22 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:30:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ t_token	*lexing(t_ms *shell)
 	i = 0;
 	while (args[i])
 		free_args(args[i++]);
+	free(args);
 	//if (DEBUG)
 	//	print_tokens(head);
 	return (head);
