@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 19:07:42 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:21:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,50 +31,6 @@ static t_case	set_case(char const *c)
 			return (IN);
 	}
 	return (NONE);
-}
-
-bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l) // This function needs a serious rework
-{
-	t_token	*new;
-	size_t	i;
-
-	i = *l;
-	new = ft_calloc(1, sizeof(t_token));
-	if (!new)
-		return (em("Error:\nMalloc failed\n", ms), true);
-	new->is_redir = false;
-	if (!(*l) && mini_spec_case(ms->input, ms->scases))
-	{
-		new->value = NULL;
-		new->cchar = set_case(ms->input);
-		while (mini_spec_case(ms->input + i, ms->scases) \
-				|| ms->input[i] == ' ')
-			i++;
-		*l = i;
-		new->next = NULL;
-		ft_lstadd_back((t_list **)head, (t_list *)new);
-	}
-	else
-	{
-		new->value = duplicator(value);
-		if (!new->value)
-			return (em("Error\nMalloc fail.\n", ms), true);
-		while (ms->input[i])
-		{
-			if (spec_case(ms->input, ms->scases, l, i++, NULL))
-			{
-				new->cchar = set_case(ms->input + *l);
-				break ;
-			}
-		}
-		if (new->cchar != APPEND && new->cchar != HEREDOC)
-			(*l)++;
-		else
-			(*l) += 2;
-		new->next = NULL;
-		ft_lstadd_back((t_list **)head, (t_list *)new);
-	}
-	return (false);
 }
 
 static inline void	print_type(t_case ccase)
@@ -156,7 +112,5 @@ t_token	*lexing(t_ms *shell)
 	}
 	else
 		fa_spec(args);
-	//if (DEBUG)
-	//	print_tokens(head);
 	return (head);
 }
