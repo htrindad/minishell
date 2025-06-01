@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 18:54:36 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:55:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 
 	count = 1;
 	i = 0;
-	*cas() = NULL;
 	while (!tmp && s[i])
 	{
-		tmp += spec_case(s, ms->scases, &l, i);
+		tmp += spec_case(s, ms->scases, &l, i, NULL);
 		count += !i++ && mini_spec_case(ms->input, ms->scases);
 	}
 	count += !tmp;
@@ -42,7 +41,7 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 		return (count);
 	while (s[i])
 	{
-		tmp = spec_case(s, ms->scases, &l, i);
+		tmp = spec_case(s, ms->scases, &l, i, NULL);
 		if (i < tmp)
 		{
 			count++;
@@ -69,13 +68,14 @@ static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
 {
 	char	*tmp;
 	size_t	l;
+	bool	cas;
 
 	tmp = ft_substr(s, i, 2);
-	**cas() = true;
 	l = 0;
+	cas = true;
 	if (tmp == NULL)
 		return (em("Error\nMalloc Fail.\n", ms), 0);
-	spec_case(tmp, cases, &l, 0);
+	spec_case(tmp, cases, &l, 0, &cas);
 	return (free(tmp), cas);
 }
 
