@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/30 20:35:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:14:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,19 @@ void	trimmer(char ***array, char *tmp, size_t itr)
 	free(tmp);
 }
 
-size_t	count_cases(char const *s, t_ms *ms)
+static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 {
-	size_t	i;
 	size_t	count;
-	size_t	tmp;
-	size_t	l;
+	size_t	i;
 
-	i = 0;
-	l = 0;
 	count = 1;
-	tmp = 0;
+	i = 0;
 	while (!tmp && s[i])
 	{
 		tmp += spec_case(s, ms->scases, &l, i, NULL);
-		if (!i++ && mini_spec_case(ms->input, ms->scases))
-			count++;
+		count += !i++ && mini_spec_case(ms->input, ms->scases);
 	}
-	if (!tmp)
-		count++;
+	count += !tmp;
 	if (!s[i])
 		return (count);
 	while (s[i])
@@ -56,6 +50,16 @@ size_t	count_cases(char const *s, t_ms *ms)
 		else
 			i++;
 	}
+	return (count);
+}
+
+size_t	count_cases(char const *s, t_ms *ms)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = shorter(ms, s, 0, 0);
 	return (count);
 }
 

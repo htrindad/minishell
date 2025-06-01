@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/31 20:26:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:19:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,46 @@ static inline void	first_case(size_t *l, t_token *new, t_ms *ms, size_t *i)
 	new->value = NULL;
 	new->cchar = set_case(ms->input);
 	while (mini_spec_case(ms->input + *i, ms->scases) \
-			|| ms->input[i] == ' ')
+			|| ms->input[*i] == ' ')
 		(*i)++;
 	*l = *i;
 	new->next = NULL;
-	ft_lstadd_back((t_list **)head, (t_list *)new);
 }
 
-static inline int	norm(t_ms *ms, t_token *new, size_t *l, char **value, size_t *i);
+static inline void	norm(t_ms *ms, t_token *new, size_t *l, char **value)
 {
+	size_t	i;
+
+	i = *l;
 	new->value = duplicator(value);
 	if (!new->value)
-		return (em("Error\nMalloc fail.\n", ms), true);
-	while (ms->input[*i])
-	{
-		if (spec_case(ms->input, ms->scases, l, (*i)++, NULL))
-		{
-			new->cchar = set_case(ms->input + *l);
-			break ;
-		}
-	}
-	if (new->cchar != APPEND && new->cchar != HEREDOC)
-		(*l)++;
+		em("Error\nMalloc fail.", ms);
 	else
-		(*l) += 2;
-	new->next = NULL;
-	ft_lstadd_back((t_list **)head, (t_list *)new);
+	{
+		while (ms->input[i])
+		{
+			if (spec_case(ms->input, ms->scases, l, i++, NULL))
+			{
+				new->cchar = set_case(ms->input + *l);
+				break ;
+			}
+		}
+		if (new->cchar != APPEND && new->cchar != HEREDOC)
+			(*l)++;
+		else
+			(*l) += 2;
+		new->next = NULL;
+	}
+}
+
+static inline void	fa_spec(char ***args)
+{
+	size_t	i;
+
+	i = 1;
+	while (args[i])
+		free_args(args[i++]);
+	free(args);
 }
 
 bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l)
@@ -58,7 +72,22 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l)
 	if (!(*l) && mini_spec_case(ms->input, ms->scases))
 		first_case(l, new, ms, &i);
 	else
-		norm(ms, new, l, value, &i);
+		norm(ms, new, l, value);
+	ft_lstadd_back((t_list **)head, (t_list *)new);
 	return (false);
 }
 
+void	lex_free(char ***args)
+{
+	size_t	i;
+
+	i = 0;
+	if (args[0])
+	{
+		while (args[i])
+			free_args(args[i++]);
+		free(args);
+	}
+	else
+		fa_spec(args);
+}

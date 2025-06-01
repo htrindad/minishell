@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/23 18:08:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:28:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	c_len(size_t *len, char const *s)
 	}
 }
 
-size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
+size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 {
 	int		i;
 	size_t	cases_len;
 
-	if (cas)
-		*cas = true;
+	if (cas())
+		*cas() = true;
 	if (l)
 		*l = 0;
 	while (sub[y])
@@ -53,8 +53,8 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 			{
 				if (l)
 					*l = y;
-				if (cas)
-					*cas = false;
+				if (cas())
+					*cas() = false;
 				return (y);
 			}
 		}
@@ -68,7 +68,8 @@ size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms)
 	size_t	l;
 
 	l = 0;
-	if (spec_case(s, cases, &l, i, NULL))
+	cas() = NULL;
+	if (spec_case(s, cases, &l, i))
 		;
 	else
 		while (s[i + l] && s[i + l] != ' ' && !spec_case(s, \

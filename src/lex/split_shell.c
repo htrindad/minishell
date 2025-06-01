@@ -6,13 +6,14 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/23 18:47:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:00:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static inline bool	ft_safe_allocate(char ***array, size_t count, char const *s, size_t *len)
+static inline bool	ft_safe_allocate(char ***array, size_t count, \
+		char const *s, size_t *len)
 {
 	size_t	i;
 	size_t	itr;

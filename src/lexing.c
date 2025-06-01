@@ -6,13 +6,13 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 20:21:42 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:15:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_case	set_case(char const *c)
+t_case	set_case(char const *c)
 {
 	if (c[0] == '|')
 		return (PIPE);
@@ -68,16 +68,6 @@ void	print_tokens(t_token *head)
 	printf("\n");
 }
 
-static void	fa_spec(char ***args)
-{
-	size_t	i;
-
-	i = 1;
-	while (args[i])
-		free_args(args[i++]);
-	free(args);
-}
-
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
@@ -103,14 +93,6 @@ t_token	*lexing(t_ms *shell)
 		}
 		i++;
 	}
-	if (args[0])
-	{
-		i = 0;
-		while (args[i])
-			free_args(args[i++]);
-		free(args);
-	}
-	else
-		fa_spec(args);
+	lex_free(args);
 	return (head);
 }
