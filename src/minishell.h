@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 19:55:42 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 20:58:39 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 void	rm_finisher(t_env *curr, t_env **head);
 void	lex_free(char ***args);
 t_case	set_case(char const *c);
-bool	**cas(void);
 
 // debug
 void	print_tokens(t_token *head);
