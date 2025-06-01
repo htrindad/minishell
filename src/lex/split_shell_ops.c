@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 19:55:23 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 20:58:09 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ size_t	count_cases(char const *s, t_ms *ms)
 	size_t	count;
 
 	i = 0;
-	*cas() = NULL;
 	count = shorter(ms, s, 0, 0);
 	return (count);
 }
