@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 18:14:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:54:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 
 	count = 1;
 	i = 0;
+	*cas() = NULL;
 	while (!tmp && s[i])
 	{
-		tmp += spec_case(s, ms->scases, &l, i, NULL);
+		tmp += spec_case(s, ms->scases, &l, i);
 		count += !i++ && mini_spec_case(ms->input, ms->scases);
 	}
 	count += !tmp;
@@ -41,7 +42,7 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 		return (count);
 	while (s[i])
 	{
-		tmp = spec_case(s, ms->scases, &l, i, NULL);
+		tmp = spec_case(s, ms->scases, &l, i);
 		if (i < tmp)
 		{
 			count++;
@@ -59,6 +60,7 @@ size_t	count_cases(char const *s, t_ms *ms)
 	size_t	count;
 
 	i = 0;
+	*cas() = NULL;
 	count = shorter(ms, s, 0, 0);
 	return (count);
 }
@@ -66,15 +68,14 @@ size_t	count_cases(char const *s, t_ms *ms)
 static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
 {
 	char	*tmp;
-	bool	cas;
 	size_t	l;
 
 	tmp = ft_substr(s, i, 2);
-	cas = true;
+	**cas() = true;
 	l = 0;
 	if (tmp == NULL)
 		return (em("Error\nMalloc Fail.\n", ms), 0);
-	spec_case(tmp, cases, &l, 0, &cas);
+	spec_case(tmp, cases, &l, 0);
 	return (free(tmp), cas);
 }
 

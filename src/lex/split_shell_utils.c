@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/01 18:28:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:54:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 	size_t	cases_len;
 
 	if (cas())
-		*cas() = true;
+		**cas() = true;
 	if (l)
 		*l = 0;
 	while (sub[y])
@@ -54,7 +54,7 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 				if (l)
 					*l = y;
 				if (cas())
-					*cas() = false;
+					**cas() = false;
 				return (y);
 			}
 		}
@@ -66,14 +66,16 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y)
 size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms)
 {
 	size_t	l;
+	bool	*c;
 
 	l = 0;
-	cas() = NULL;
+	c = *cas();
+	c = NULL;
 	if (spec_case(s, cases, &l, i))
 		;
 	else
 		while (s[i + l] && s[i + l] != ' ' && !spec_case(s, \
-					cases, (size_t *)0, l, NULL))
+					cases, (size_t *)0, l))
 			l += iterate_through_q(s, i + l, ms);
 	return (l);
 }

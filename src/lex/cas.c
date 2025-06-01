@@ -6,15 +6,15 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 18:25:18 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 18:31:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:44:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	*cas(void)
+bool	**cas(void)
 {
-	static bool	*cas;
+	static bool	*cas = NULL;
 
-	return (cas);
+	return (&cas);
 }
