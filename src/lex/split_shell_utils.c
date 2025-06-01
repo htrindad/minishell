@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/01 19:56:05 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:00:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	c_len(size_t *len, char const *s)
 size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 {
 	int		i;
-	size_t	cases_len;
 
 	if (cas)
 		*cas = true;
@@ -48,8 +47,8 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 		i = -1;
 		while (++i < 5)
 		{
-			cases_len = ft_strlen(cases[i]);
-			if (ft_strlen(sub + y) >= cases_len && !ft_strncmp(sub + y, cases[i], cases_len))
+			if (ft_strlen(sub + y) >= ft_strlen(cases[i]) && \
+					!ft_strncmp(sub + y, cases[i], ft_strlen(cases[i])))
 			{
 				if (l)
 					*l = y;
