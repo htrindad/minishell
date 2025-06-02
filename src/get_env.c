@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 19:45:30 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:12:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	null_case(t_env **head, t_env *tmp)
 bool	rm_env(t_env **head, char *arg)
 {
 	t_env	*curr;
-	t_env	*prev;
-	t_env	*next;
 
 	if (!head || !*head || !arg)
 		return (true);
@@ -86,17 +84,7 @@ bool	rm_env(t_env **head, char *arg)
 	{
 		if (!ft_strncmp(curr->key, arg, ft_strlen(arg)))
 		{
-			prev = curr->prev;
-			next = curr->next;
-			if (prev)
-				prev->next = next;
-			if (next)
-				next->prev = prev;
-			if (curr == *head)
-				*head = next;
-			free(curr->key);
-			free(curr->value);
-			free(curr);
+			rm_finisher(curr, head);
 			break ;
 		}
 		curr = curr->next;

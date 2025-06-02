@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/30 21:01:38 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:19:10 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_ms
 	bool			running;
 	int				pid;
 	int				last_status;
+	int				cas;
 	t_sa			si;
 	t_sa			sq;
 	t_builtin		*builtin;
@@ -112,7 +113,6 @@ char	***ft_split_shell(t_ms *shell);
 char	*handle_env_var(t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
 			t_ms *ms);
-size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms);
 bool	has_env_var(const char *s);
 char	*extract_env_var(t_ms *shell, int *i);
 char	*var_cases(t_ms *shell, int *i);
@@ -125,7 +125,7 @@ t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
 int		quit(t_ms *);
 void	em(char *str, t_ms *ms);
-size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas);
+size_t	spec_case(char const *sub, t_ms *ms, size_t *l, size_t y);
 char	**duplicator(char **arg);
 size_t	count_cases(char const *s, t_ms *ms);
 void	sig_handler(int sig, siginfo_t *s, void *content);
@@ -165,6 +165,10 @@ int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
 void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms);
+void	rm_finisher(t_env *curr, t_env **head);
+void	lex_free(char ***args);
+t_case	set_case(char const *c);
+size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 
 // debug
 void	print_tokens(t_token *head);
