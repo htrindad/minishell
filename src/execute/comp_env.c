@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   comp_env.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/02 17:59:53 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/06/02 18:24:19 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static inline size_t	envsize(t_env *env)
@@ -13,10 +25,23 @@ static inline size_t	envsize(t_env *env)
 	return (i);
 }
 
+static char	*join_env_entry(char *env_value, char *env_key)
+{
+	char	*joined;
+
+	joined = ft_calloc((ft_strlen(env_key) + ft_strlen(env_value) + 2),
+			sizeof(char));
+	if (!joined)
+		return (NULL);
+	ft_strlcpy(joined, env_key, ft_strlen(env_key) + 1);
+	ft_strlcat(joined, "=", ft_strlen(env_key) + 2);
+	ft_strlcat(joined, env_value, ft_strlen(joined) + ft_strlen(env_value) + 1);
+	return (joined);
+}
+
 char	**comp_env(t_env *env)
 {
 	char	**ptr;
-	char	*tmp;
 	size_t	i;
 
 	i = envsize(env);
@@ -28,18 +53,14 @@ char	**comp_env(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (env->key == NULL || env->value == NULL)
+		if (!env->key || !env->value)
 		{
 			env = env->next;
 			continue ;
 		}
-		tmp = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
-		if (tmp == NULL)
+		ptr[i] = join_env_entry(env->value, env->key);
+		if (!ptr[i++])
 			return (free_args(ptr), NULL);
-		ft_strlcpy(tmp, env->key, ft_strlen(env->key) + 1);
-		ft_strlcat(tmp, "=", ft_strlen(env->key) + 2);
-		ft_strlcat(tmp, env->value, ft_strlen(tmp) + ft_strlen(env->value) + 1);
-		ptr[i++] = tmp;
 		env = env->next;
 	}
 	ptr[i] = NULL;

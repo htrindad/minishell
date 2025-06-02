@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/30 21:00:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:38:59 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	exit(0);
 }
 
-static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
+void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 {
 	int	status;
 
@@ -76,7 +76,7 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 	}
 }
 
-//This is the function that will execute the commands from the parsing
+// This is the function that will execute the commands from the parsing
 void	executor(t_ms **ms)
 {
 	char	**env;
@@ -88,17 +88,16 @@ void	executor(t_ms **ms)
 	prev_fd = -1;
 	env = comp_env((*ms)->env);
 	if (env == NULL)
-	{
-		em("Error\nMalloc Fail.\n", (*ms));
-		return ;
-	}
+		return (em("Error\nMalloc Fail.\n", (*ms)));
 	while (token)
 	{
 		next = token->next;
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]))
-			if (exec_builtin(token, *ms, env) < 0)
+		{
+			if (exec_builtin(token, *ms, env, &prev_fd) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
+		}
 		else
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;

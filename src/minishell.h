@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/31 22:06:50 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:37:00 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
-int		exec_builtin(t_token *token, t_ms *ms, char **env);
+int		exec_builtin(t_token *token, t_ms *ms, char **env, int *prev_fd);
+void	handle_parent(t_ms *ms, t_token *token, int *prev_fd);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
 void	executor(t_ms **ms);
