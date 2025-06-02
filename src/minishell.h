@@ -98,6 +98,7 @@ typedef struct	s_ms
 	bool			running;
 	int				pid;
 	int				last_status;
+	int				pipefd[2];
 	t_sa			si;
 	t_sa			sq;
 	t_builtin		*builtin;
@@ -166,7 +167,7 @@ char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
-void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms);
+void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms);
 
 // debug
 void	print_tokens(t_token *head);

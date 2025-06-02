@@ -23,7 +23,7 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/execute/executor_ops.c ./src/builtins/dir.c ./src/builtins/echo.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
 	./src/execute/redir_utils.c ./src/main.c ./src/free_utils.c ./src/debug.c \
-	./src/execute/redir_utils2.c
+	./src/execute/redir_utils2.c ./src/execute/comp_env.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))

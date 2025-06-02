@@ -12,54 +12,7 @@
 
 #include "../minishell.h"
 
-static inline size_t	envsize(t_env *env)
-{
-	size_t	i;
-
-	i = 0;
-	while (env)
-	{
-		i++;
-		env = env->next;
-	}
-	return (i);
-}
-
-char	**comp_env(t_env *env)
-{
-	char	**ptr;
-	char	*tmp;
-	size_t	i;
-	size_t	j;
-
-	i = envsize(env);
-	j = 0;
-	if (!i)
-		return (NULL);
-	ptr = ft_calloc(i + 1, sizeof(char *));
-	if (!ptr)
-		return (NULL);
-	while (env)
-	{
-		if (env->key == NULL || env->value == NULL)
-		{
-			env = env->next;
-			continue ;
-		}
-		tmp = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
-		if (tmp == NULL)
-			return (free_args(ptr), NULL);
-		ft_strlcpy(tmp, env->key, ft_strlen(env->key) + 1);
-		ft_strlcat(tmp, "=", ft_strlen(env->key) + 2);
-		ft_strlcat(tmp, env->value, ft_strlen(tmp) + ft_strlen(env->value) + 1);
-		ptr[j++] = tmp;
-		env = env->next;
-	}
-	ptr[j] = NULL;
-	return (ptr);
-}
-
-void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
+void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -71,9 +24,9 @@ void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 			return (em("Failed.", ms));
 	if (token->cchar == PIPE && token->next)
 	{
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
+		close(ms->pipefd[0]);
+		dup2(ms->pipefd[1], STDOUT_FILENO);
+		close(ms->pipefd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, true));
@@ -82,46 +35,52 @@ void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms)
 	exit(0);
 }
 
-static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd) //It will run while we have commands
+static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 {
-	int		pipe_fd[2];
+	int	status;
+
+	refresh(ms->pid);
+	if (waitpid(ms->pid, &status, 0) == -1)
+		ms->last_status = 1;
+	else if (WIFEXITED(status))
+		ms->last_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ms->last_status = WTERMSIG(status) + 128;
+	else
+		ms->last_status = 1;
+	if (*prev_fd != -1)
+		close(*prev_fd);
+	if (token->cchar == PIPE && token->next)
+	{
+		close(ms->pipefd[1]);
+		*prev_fd = ms->pipefd[0];
+	}
+}
+
+static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
+{
 	pid_t	pid;
-	int		status;
 
 	if (token->cchar == PIPE && token->next)
-		if (pipe(pipe_fd) < 0)
+		if (pipe(ms->pipefd) < 0)
 			return (em("Error\nPipe Fail.", ms));
 	pid = fork();
 	if (pid < 0)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
-		exec_child(token, env, *prev_fd, pipe_fd, ms);
+		exec_child(token, env, *prev_fd, ms);
 	else
 	{
 		ms->pid = pid;
-		refresh(ms->pid);
-		if (waitpid(ms->pid, &status, 0) == -1)
-			ms->last_status = 1;
-		else if (WIFEXITED(status))
-			ms->last_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			ms->last_status = WTERMSIG(status) + 128;
- 		else
-			ms->last_status = 1;
-		if (*prev_fd != -1)
-			close(*prev_fd);
-		if (token->cchar == PIPE && token->next)
-		{
-			close(pipe_fd[1]);
-			*prev_fd = pipe_fd[0];
-		}
+		handle_parent(ms, token, prev_fd);
 	}
 }
 
-void	executor(t_ms **ms) //This is the function that will execute the commands from the parsing
+//This is the function that will execute the commands from the parsing
+void	executor(t_ms **ms)
 {
 	char	**env;
-	t_token *token;
+	t_token	*token;
 	t_token	*next;
 	int		prev_fd;
 
@@ -136,11 +95,10 @@ void	executor(t_ms **ms) //This is the function that will execute the commands f
 	while (token)
 	{
 		next = token->next;
-		if (!token->next && !token->fds && token->value && is_builtin(token->value[0]))
-		{
+		if (!token->next && !token->fds && token->value
+			&& is_builtin(token->value[0]))
 			if (exec_builtin(token, *ms, env) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
-		}
 		else
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
