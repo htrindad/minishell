@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 20:58:09 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:18:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,15 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 	size_t	count;
 	size_t	i;
 
-	count = 1;
-	i = 0;
-	while (!tmp && s[i])
-	{
-		tmp += spec_case(s, ms->scases, &l, i, NULL);
-		count += !i++ && mini_spec_case(ms->input, ms->scases);
-	}
+	i = 1;
+	ms->cas = 0;
+	count = stress(s, ms, &tmp, &l);
 	count += !tmp;
 	if (!s[i])
 		return (count);
 	while (s[i])
 	{
-		tmp = spec_case(s, ms->scases, &l, i, NULL);
+		tmp = spec_case(s, ms, &l, i);
 		if (i < tmp)
 		{
 			count++;
@@ -63,19 +59,18 @@ size_t	count_cases(char const *s, t_ms *ms)
 	return (count);
 }
 
-static inline bool	check(char const *s, char **cases, size_t i, t_ms *ms)
+static int	check(char const *s, t_ms *ms, size_t i)
 {
 	char	*tmp;
 	size_t	l;
-	bool	cas;
 
 	tmp = ft_substr(s, i, 2);
 	l = 0;
-	cas = true;
+	ms->cas = 2;
 	if (tmp == NULL)
 		return (em("Error\nMalloc Fail.\n", ms), 0);
-	spec_case(tmp, cases, &l, 0, &cas);
-	return (free(tmp), cas);
+	spec_case(tmp, ms, &l, 0);
+	return (free(tmp), ms->cas);
 }
 
 size_t	ft_count_words(char const *s, t_ms *ms)
@@ -91,13 +86,13 @@ size_t	ft_count_words(char const *s, t_ms *ms)
 			i++;
 		if (!s[i])
 			break ;
-		if (!check(s, ms->scases, i, ms))
+		if (check(s, ms, i) == 1)
 			break ;
 		count++;
 		if (s[i] == '\'' || s[i] == '\"')
 			i += iterate_through_q(s, i, ms);
 		else
-			while (s[i] && s[i] != ' ' && check(s, ms->scases, i, ms))
+			while (s[i] && s[i] != ' ' && check(s, ms, i) == 2)
 				i += iterate_through_q(s, i, ms);
 	}
 	return (count);

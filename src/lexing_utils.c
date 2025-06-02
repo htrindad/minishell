@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/01 19:53:13 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:54:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static inline void	norm(t_ms *ms, t_token *new, size_t *l, char **value)
 
 	i = *l;
 	new->value = duplicator(value);
+	ms->cas = 0;
 	if (!new->value)
 		em("Error\nMalloc fail.", ms);
 	else
 	{
 		while (ms->input[i])
 		{
-			if (spec_case(ms->input, ms->scases, l, i++, NULL))
+			if (spec_case(ms->input, ms, l, i++))
 			{
 				new->cchar = set_case(ms->input + *l);
 				break ;
