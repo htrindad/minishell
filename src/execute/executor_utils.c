@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/30 20:56:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:25:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	exec_builtin(t_token *token, t_ms *ms, char **env)
 				ms->last_status = 1;
 		}
 	}
-	return (0); // not a b-in
+	return (0);
 }
 
 char	*find_command(char *cmd_args, char **env, t_ms *ms)
