@@ -75,34 +75,19 @@ void	null_case(t_env **head, t_env *tmp)
 
 bool	rm_env(t_env **head, char *arg)
 {
-	t_env	*tmp;
+	t_env	*curr;
 
-	tmp = NULL;
-	while (*head)
+	if (!head || !*head || !arg)
+		return (true);
+	curr = *head;
+	while (curr)
 	{
-		if (!ft_strncmp((*head)->key, arg, ft_strlen(arg)))
+		if (!ft_strncmp(curr->key, arg, ft_strlen(arg)))
 		{
-			if ((*head)->prev)
-			{
-				*head = (*head)->prev;
-				tmp = (*head)->next;
-				if ((*head)->next->next != NULL)
-				{
-					(*head)->next = (*head)->next->next;
-					(*head)->next->prev = *head;
-				}
-				else
-					(*head)->next = NULL;
-				free(tmp);
-				while ((*head)->prev)
-					*head = (*head)->prev;
-				return (true);
-			}
-			else
-				null_case(head, tmp);
+			rm_finisher(curr, head);
 			break ;
 		}
-		*head = (*head)->next;
+		curr = curr->next;
 	}
 	return (false);
 }

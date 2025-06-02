@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/23 18:08:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:17:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ void	c_len(size_t *len, char const *s)
 	}
 }
 
-size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
+size_t	spec_case(char const *sub, t_ms *ms, size_t *l, size_t y)
 {
 	int		i;
-	size_t	cases_len;
 
-	if (cas)
-		*cas = true;
+	if (ms->cas)
+		ms->cas = 2;
 	if (l)
 		*l = 0;
 	while (sub[y])
@@ -48,33 +47,20 @@ size_t	spec_case(char const *sub, char **cases, size_t *l, size_t y, bool *cas)
 		i = -1;
 		while (++i < 5)
 		{
-			cases_len = ft_strlen(cases[i]);
-			if (ft_strlen(sub + y) >= cases_len && !ft_strncmp(sub + y, cases[i], cases_len))
+			if (ft_strlen(sub + y) >= ft_strlen(ms->scases[i]) && \
+					!ft_strncmp(sub + y, ms->scases[i], \
+						ft_strlen(ms->scases[i])))
 			{
 				if (l)
 					*l = y;
-				if (cas)
-					*cas = false;
+				if (ms->cas)
+					ms->cas = 1;
 				return (y);
 			}
 		}
 		y++;
 	}
 	return (0);
-}
-
-size_t	iteration_cases(const char *s, size_t i, char **cases, t_ms *ms)
-{
-	size_t	l;
-
-	l = 0;
-	if (spec_case(s, cases, &l, i, NULL))
-		;
-	else
-		while (s[i + l] && s[i + l] != ' ' && !spec_case(s, \
-					cases, (size_t *)0, l, NULL))
-			l += iterate_through_q(s, i + l, ms);
-	return (l);
 }
 
 size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
@@ -96,4 +82,19 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 	if (s[i])
 		i++;
 	return (i - start);
+}
+
+size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l)
+{
+	size_t	count;
+	size_t	i;
+
+	count = 1;
+	i = 0;
+	while (!*tmp && s[i])
+	{
+		*tmp += spec_case(s, ms, l, i);
+		count += !i++ && mini_spec_case(ms->input, ms->scases);
+	}
+	return (count);
 }

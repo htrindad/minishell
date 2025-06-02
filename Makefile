@@ -13,7 +13,7 @@
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -O3 -D DEBUG=0
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -22,8 +22,9 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/execute/executor.c ./src/execute/executor_utils.c \
 	./src/execute/executor_ops.c ./src/builtins/dir.c ./src/builtins/echo.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
-	./src/execute/redir_utils.c ./src/main.c ./src/free_utils.c ./src/debug.c \
-	./src/execute/redir_utils2.c ./src/execute/comp_env.c
+	./src/execute/redir_utils.c ./src/free_utils.c ./src/debug.c \
+	./src/execute/redir_utils2.c ./src/execute/comp_env.c ./src/lexing_utils.c \
+  ./src/get_env_utils.c ./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
