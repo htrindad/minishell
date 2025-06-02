@@ -6,30 +6,16 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:32:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 17:07:57 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 19:34:25 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_redirs(t_redir *redir)
-{
-	t_redir	*tmp;
-
-	while (redir)
-	{
-		tmp = redir->next;
-		if (redir->filename)
-			free(redir->filename);
-		free(redir);
-		redir = tmp;
-	}
-}
-
 void	free_fds(t_fds *fds)
 {
 	if (!fds)
-		return;
+		return ;
 	if (fds->in)
 		free_redirs(fds->in);
 	if (fds->out)
@@ -85,7 +71,7 @@ void	free_tokens(t_token *tokens)
 
 void	clean_ms(t_ms *shell)
 {
-	int			i;
+	int	i;
 
 	if (!shell)
 		return ;
@@ -99,66 +85,4 @@ void	clean_ms(t_ms *shell)
 	shell->env = NULL;
 	free(shell->builtin);
 	free(shell);
-}
-
-// ALL BELOW IS ONLY FOR DEBUGGING PURPOSES (LATER MUST BE DELETED)
-
-void	print_value(char **value)
-{
-	int	i = 0;
-
-	if (!value)
-	{
-		printf("Value     : (null)\n");
-		return;
-	}
-	printf("Value     : ");
-	while (value[i])
-	{
-		printf("\"%s\" ", value[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-void	print_redirs(t_redir *redir, const char *label)
-{
-	while (redir)
-	{
-		printf("  [%s] %s (type: %d)\n", label, redir->filename, redir->type);
-		redir = redir->next;
-	}
-}
-
-void	print_fds(t_fds *fds)
-{
-	if (!fds)
-	{
-		printf("  [FDS] No redirections\n");
-		return;
-	}
-	if (!fds->in && !fds->out)
-	{
-		printf("  [FDS] No input or output redirections\n");
-		return;
-	}
-	if (fds->in)
-		print_redirs(fds->in, "IN");
-	if (fds->out)
-		print_redirs(fds->out, "OUT");
-}
-
-void	print_tokens_debug(t_token *head)
-{
-	int	i = 0;
-
-	while (head)
-	{
-		printf("\n=== Token #%d ===\n", i++);
-		print_value(head->value);
-		printf("cchar     : %d\n", head->cchar);
-		print_fds(head->fds);
-		printf("==========\n");
-		head = head->next;
-	}
 }

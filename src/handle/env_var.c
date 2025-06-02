@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/08 21:07:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:06:42 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,6 @@
 // returns a positive int if the character next to the $ is a valid
 // character for an env var (alphanumeric, '_' or '?' just after the $)
 // Return 0 if it does not contain a valid env var
-bool	has_env_var(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'')
-		{
-			i++;
-			while (s[i] && s[i] != '\'')
-				i++;
-		}
-		else if (s[i] == '$')
-		{
-			i++;
-			if (s[i] == '?')
-				return (true);
-			if (ft_isalpha(s[i]) || s[i] == '_')
-				return (true);
-		}
-		i++;
-	}
-	return (false);
-}
-
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*joined;
@@ -50,54 +24,44 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (joined);
 }
 
-char	*get_env_value(t_env *env, char *env_var)
-{
-	t_env	*tmp;
-	char	*env_value;
-
-	tmp = env;
-	while (tmp)
-	{
-		if (tmp->key && !ft_strncmp(tmp->key, env_var, ft_strlen(env_var)))
-		{
-			env_value = ft_strdup(tmp->value);
-			if (!env_value)
-				return (NULL);
-			return (env_value);
-		}
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-char	*extract_env_var(t_ms *shell, int *i)
-{
-	char	*env_var;
-	char	*tmp;
-	int		j;
-
-	j = *i;
-	while (shell->input[j] && (ft_isalnum(shell->input[j])
-			|| shell->input[j] == '_'))
-		j++;
-	env_var = ft_substr(shell->input, *i, j - *i);
-	if (!env_var)
-		return (NULL);
-	tmp = get_env_value(shell->env, env_var);
-	free(env_var);
-	if (!tmp)
-		return (NULL);
-	*i = j - 1;
-	return (tmp);
-}
-
 // Extracts the env var from the string and returns it
-// Note: This function surpasses the 25 lines, it needs a serious rework
+static char	*handle_dollar_case(t_ms *shell, int *i, char *new_s)
+{
+	char	*tmp;
+
+	(*i)++;
+	tmp = var_cases(shell, i);
+	if (!tmp)
+		return (free(new_s), NULL);
+	new_s = ft_strjoin_free(new_s, tmp);
+	free(tmp);
+	return (new_s);
+}
+
+char	*conc_char(char c)
+{
+	char	str[2];
+
+	str[0] = c;
+	str[1] = '\0';
+	return (ft_strdup(str));
+}
+
+static char	*handle_regular_char(char c, char *new_s)
+{
+	char	*tmp;
+
+	tmp = conc_char(c);
+	if (!tmp)
+		return (free(new_s), NULL);
+	new_s = ft_strjoin_free(new_s, tmp);
+	free(tmp);
+	return (new_s);
+}
+
 char	*handle_env_var(t_ms *shell)
 {
 	char	*new_s;
-	char	*tmp;
-	char	str[2];
 	int		i;
 
 	i = 0;
@@ -107,20 +71,11 @@ char	*handle_env_var(t_ms *shell)
 	while (shell->input[i])
 	{
 		if (shell->input[i] == '$' && shell->input[i + 1])
-		{
-			i++;
-			tmp = var_cases(shell, &i);
-			if (!tmp)
-				return (free(new_s), NULL);
-			new_s = ft_strjoin_free(new_s, tmp);
-			free(tmp);
-		}
+			new_s = handle_dollar_case(shell, &i, new_s);
 		else
-		{
-			str[0] = shell->input[i];
-			str[1] = '\0';
-			new_s = ft_strjoin_free(new_s, str);
-		}
+			new_s = handle_regular_char(shell->input[i], new_s);
+		if (!new_s)
+			return (NULL);
 		i++;
 	}
 	return (new_s);

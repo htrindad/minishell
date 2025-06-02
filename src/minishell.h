@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/02 18:19:10 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:37:00 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_ms
 	bool			running;
 	int				pid;
 	int				last_status;
+	int				pipefd[2];
 	int				cas;
 	t_sa			si;
 	t_sa			sq;
@@ -120,6 +121,7 @@ char	*conc_char(char c);
 void	free_args(char **args);
 void	free_env(t_env *env);
 void	free_tokens(t_token *tokens);
+void	free_redirs(t_redir *redir);
 void	clean_ms(t_ms *shell);
 t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
@@ -133,7 +135,8 @@ void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
-int		exec_builtin(t_token *token, t_ms *ms, char **env);
+int		exec_builtin(t_token *token, t_ms *ms, char **env, int *prev_fd);
+void	handle_parent(t_ms *ms, t_token *token, int *prev_fd);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
 void	executor(t_ms **ms);
@@ -154,6 +157,7 @@ void	c_len(size_t *len, char const *s);
 void	trimmer(char ***array, char *tmp, size_t itr);
 int		parse_redirections(t_token **tokens);
 int		handle_redirections(t_token *tokens);
+int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
@@ -164,7 +168,7 @@ char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
-void	exec_child(t_token *token, char **env, int prev_fd, int *pipe_fd, t_ms *ms);
+void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms);
 void	rm_finisher(t_env *curr, t_env **head);
 void	lex_free(char ***args);
 t_case	set_case(char const *c);
