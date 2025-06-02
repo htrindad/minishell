@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/01 18:15:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:46:20 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,6 @@ t_case	set_case(char const *c)
 			return (IN);
 	}
 	return (NONE);
-}
-
-static inline void	print_type(t_case ccase)
-{
-	if (ccase == NONE)
-		printf("NONE ");
-	if (ccase == OUT)
-		printf("OUT ");
-	if (ccase == IN)
-		printf("IN ");
-	if (ccase == PIPE)
-		printf("PIPE ");
-	if (ccase == HEREDOC)
-		printf("HEREDOC ");
-	if (ccase == APPEND)
-		printf("APPEND");
-}
-
-void	print_tokens(t_token *head)
-{
-	t_token	*tmp;
-	size_t	i;
-
-	tmp = head;
-	while (tmp)
-	{
-		i = 0;
-		printf("(");
-		while (tmp->value && tmp->value[i])
-			printf("[%s]", tmp->value[i++]);
-		printf(") ");
-		print_type(tmp->cchar);
-		tmp = tmp->next;
-	}
-	printf("\n");
 }
 
 t_token	*lexing(t_ms *shell)
