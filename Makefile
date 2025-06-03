@@ -13,7 +13,7 @@
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -g -D DEBUG=0
+CFLAGS = -Wall -Wextra -g -D DEBUG=0
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -72,6 +72,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 # Clean up object files and executable
 clean:
+	@make clean_bonus -s -C $(LIBFT_DIR)
 	@rm -rf $(OBJ_DIR)
 	@echo "$(YELLOW)✗ Objects removed$(RESET)"
 
