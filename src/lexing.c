@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 19:46:20 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/03 19:22:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ t_token	*lexing(t_ms *shell)
 		i++;
 	}
 	null_fds(head);
+	if (DEBUG)
+		print_tokens_debug(head);
 	return (lex_free(args), head);
 }
