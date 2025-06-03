@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:42:22 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:45:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,9 @@ bool	is_builtin(char *cmd)
 		|| !ft_strncmp(cmd, "exit", 4));
 }
 
-int	exec_builtin(t_token *token, t_ms *ms, char **env, int *prev_fd)
+int	exec_builtin(t_token *token, t_ms *ms, char **env)
 {
-	pid_t	pid;
-
-	if (token->cchar == PIPE && token->next)
-		if (pipe(ms->pipefd) < 0)
-			return (em("Pipe Fail.", ms), -1);
-	if (!ft_strncmp(token->value[0], "exit", 5) \
-			|| !ft_strncmp(token->value[0], "export", 6) \
-			|| !ft_strncmp(token->value[0], "unset", 5))
-	{
-		(void)pid;
-		single_exec(token, ms, true);
-	}
-	else
-	{
-		pid = fork();
-		if (pid < 0)
-			return (em("Error\nFork fail.\n", ms), -1);
-		if (!pid)
-			exec_child(token, env, -1, ms);
-		if (pid)
-			handle_parent(ms, token, prev_fd);
-	}
-	return (0);
+	return (single_exec(token, ms, true, env));
 }
 
 char	*find_command(char *cmd_args, char **env, t_ms *ms)

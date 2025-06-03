@@ -6,48 +6,30 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/30 20:49:17 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:54:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	bi_redirections(t_token **tokens, t_ms *ms)
+static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 {
-	t_redir	*redir;
-	int		fd;
+	int	r;
 
-	redir = (*tokens)->fds->in;
-	while (redir)
+	r = ms->builtin[i].f(ms);
+	if (is_parent)
+		return (0);
+	else
 	{
-		fd = open(redir->filename, O_RDONLY);
-		if (fd < 0)
-			return (perror(redir->filename), 1);
-		if (dup2(fd, STDIN_FILENO) < 0)
-			return (perror("dup2"), close(fd), 1);
-		single_exec(*tokens, ms, false);
-		close(fd);
-		redir = redir->next;
+		ret(ms);
+		clean_ms(ms);
+		free_args(env);
+		exit(r);
 	}
-	redir = (*tokens)->fds->out;
-	while (redir)
-	{
-		if (redir->type == OUT)
-			fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd < 0)
-			return (perror(redir->filename), 1);
-		if (dup2(fd, STDOUT_FILENO) < 0)
-			return (perror("dup2"), close(fd), 1);
-		single_exec(*tokens, ms, false);
-		close(fd);
-		redir = redir->next;
-	}
-	return (0);
+	return (r);
 }
 
-int	single_exec(t_token *token, t_ms *ms, bool is_parent)
+int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 {
 	size_t	i;
 
@@ -58,30 +40,12 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 			&& !ft_strncmp(token->value[0], ms->builtin[i].name,
 				ft_strlen(ms->builtin[i].name) + 1))
 		{
-			if(is_parent && token->value && is_builtin(token->value[0]))
-				return (ms->builtin[i].f(ms), 0);
+			if (is_parent && token->value && is_builtin(token->value[0]))
+				return (rep(ms, i, is_parent, env));
 			else if (!is_parent)
-				exit(ms->builtin[i].f(ms));
+				exit(rep(ms, i, is_parent, env));
 		}
 		i++;
 	}
 	return (-1);
-}
-
-int	redir_exec(t_token *token, t_ms *ms)
-{
-	char	**env;
-
-	env = comp_env(ms->env);
-	if (env == NULL)
-		return (em("Error\nMalloc Fail.", ms), -1);
-	if (token->fds)
-	{
-		if (bi_redirections(&token, ms))
-			return (em("Failed.", ms), -1);
-	}
-	else
-		single_exec(token, ms, true);
-	exit(0);
-	return (0);
 }

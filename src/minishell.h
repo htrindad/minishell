@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/02 18:37:00 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:45:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	refresh(int);
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len);
 size_t	ft_count_words(char const *s, t_ms *ms);
 bool	is_builtin(char *cmd);
-int		exec_builtin(t_token *token, t_ms *ms, char **env, int *prev_fd);
+int		exec_builtin(t_token *token, t_ms *ms, char **env);
 void	handle_parent(t_ms *ms, t_token *token, int *prev_fd);
 char	**get_paths(char **env, t_ms *ms);
 char	*find_command(char *cmd_args, char **env, t_ms *ms);
@@ -163,7 +163,7 @@ void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
 int		handle_heredoc(char *delimiter);
-int		single_exec(t_token *token, t_ms *ms, bool is_parent);
+int		single_exec(t_token *token, t_ms *ms, bool is_parent, char **env);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
@@ -173,6 +173,7 @@ void	rm_finisher(t_env *curr, t_env **head);
 void	lex_free(char ***args);
 t_case	set_case(char const *c);
 size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
+void	ret(t_ms *);
 
 // debug
 void	print_tokens(t_token *head);

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/02 18:38:59 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:46:15 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		close(ms->pipefd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		exit(single_exec(token, ms, true));
+		exit(single_exec(token, ms, false, env));
 	execve(find_command(token->value[0], env, ms), token->value, env);
 	perror("execve:");
 	exit(0);
@@ -95,7 +95,7 @@ void	executor(t_ms **ms)
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]))
 		{
-			if (exec_builtin(token, *ms, env, &prev_fd) < 0)
+			if (exec_builtin(token, *ms, env) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
 		}
 		else

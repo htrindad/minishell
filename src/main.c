@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 20:16:08 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:16:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,6 @@ static inline bool	change_set(t_token **token)
 	return (false);
 }
 
-static inline void	ret(t_ms *shell)
-{
-	parse_redirections(&shell->tokens);
-	executor(&shell);
-	free(shell->input);
-	free_tokens(shell->tokens);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_ms	*shell;
@@ -91,6 +83,8 @@ int	main(int ac, char **av, char **env)
 		shell->tokens = lexing(shell);
 		if (change_set(&shell->tokens))
 			break ;
+		parse_redirections(&shell->tokens);
+		executor(&shell);
 		ret(shell);
 	}
 	clean_ms(shell);
