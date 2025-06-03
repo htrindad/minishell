@@ -33,6 +33,19 @@ t_case	set_case(char const *c)
 	return (NONE);
 }
 
+static void	null_fds(t_token *head)
+{
+	t_token	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->fds)
+			tmp->fds = NULL;
+		tmp = tmp->next;
+	}
+}
+
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
@@ -52,12 +65,10 @@ t_token	*lexing(t_ms *shell)
 	while (args[i])
 	{
 		if (args[i][0][0])
-		{
 			if (add_token(&head, args[i], shell, &l))
 				return (free_tokens(head), NULL);
-		}
 		i++;
 	}
-	lex_free(args);
-	return (head);
+	null_fds(head);
+	return (lex_free(args), head);
 }
