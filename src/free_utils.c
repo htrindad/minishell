@@ -6,11 +6,17 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:32:48 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 19:34:41 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:52:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+
+void	ret(t_ms *shell)
+{
+	free(shell->input);
+	free_tokens(shell->tokens);
+}
 
 void	free_redirs(t_redir *redir)
 {

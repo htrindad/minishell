@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:59:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:24:19 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:23:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static inline size_t	envsize(t_env *env)
 	i = 0;
 	while (env)
 	{
+		if (env->value == NULL)
+		{
+			env = env->next;
+			continue ;
+		}
 		i++;
 		env = env->next;
 	}
@@ -29,8 +34,7 @@ static char	*join_env_entry(char *env_value, char *env_key)
 {
 	char	*joined;
 
-	joined = ft_calloc((ft_strlen(env_key) + ft_strlen(env_value) + 2),
-			sizeof(char));
+	joined = ft_calloc((ft_strlen(env_key) + ft_strlen(env_value) + 2), 1);
 	if (!joined)
 		return (NULL);
 	ft_strlcpy(joined, env_key, ft_strlen(env_key) + 1);
