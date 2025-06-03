@@ -6,25 +6,25 @@
 #    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:14:42 by mely-pan          #+#    #+#              #
-#    Updated: 2025/05/31 22:07:38 by mely-pan         ###   ########.fr        #
+#    Updated: 2025/06/02 20:06:18 by mely-pan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -D DEBUG=0
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
 	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
-	./src/lex/split_shell_ops.c ./src/error.c ./src/sig_handler.c \
+	./src/lex/split_shell_ops.c ./src/free_utils.c ./src/sig_handler.c \
 	./src/execute/executor.c ./src/execute/executor_utils.c \
 	./src/execute/executor_ops.c ./src/builtins/dir.c ./src/builtins/echo.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
-	./src/execute/redir_utils.c ./src/free_utils.c ./src/debug.c \
+	./src/execute/redir_utils.c ./src/error.c ./src/debug.c ./src/debug2.c \
 	./src/execute/redir_utils2.c ./src/execute/comp_env.c ./src/lexing_utils.c \
-  ./src/get_env_utils.c ./src/main.c
+	./src/get_env_utils.c ./src/main.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))

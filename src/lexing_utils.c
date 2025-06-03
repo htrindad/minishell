@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/02 17:54:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:44:48 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l)
 	if (!new)
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->is_redir = false;
+	new->fds = NULL;
 	if (!(*l) && mini_spec_case(ms->input, ms->scases))
 		first_case(l, new, ms, &i);
 	else
