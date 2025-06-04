@@ -78,6 +78,7 @@ void	clean_ms(t_ms *shell)
 	i = 0;
 	while (i < 5)
 		free(shell->scases[i++]);
+	rl_clear_history();
 	free(shell->scases);
 	shell->tokens = NULL;
 	free_env(shell->env);

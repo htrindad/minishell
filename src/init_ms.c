@@ -40,6 +40,7 @@ static inline t_builtin	*init_bi(void)
 
 void	init_ms(t_ms *shell)
 {
+	shell->shell_pid = getpid();
 	shell->env = NULL;
 	shell->input = NULL;
 	shell->last_status = 0;
