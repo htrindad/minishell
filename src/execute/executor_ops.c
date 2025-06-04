@@ -49,3 +49,8 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 	}
 	return (-1);
 }
+
+int	exec_builtin(t_token *token, t_ms *ms, char **env)
+{
+	return (single_exec(token, ms, true, env));
+}

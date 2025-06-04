@@ -20,38 +20,54 @@ bool	is_builtin(char *cmd)
 		|| !ft_strncmp(cmd, "exit", 4));
 }
 
-int	exec_builtin(t_token *token, t_ms *ms, char **env)
+static int	is_path(char *cmd)
 {
-	return (single_exec(token, ms, true, env));
+	return (cmd && (cmd[0] == '/' || !ft_strncmp(cmd, "./", 2)
+			|| !ft_strncmp(cmd, "../", 3)));
 }
 
-char	*find_command(char *cmd_args, char **env, t_ms *ms)
+static char	*try_paths(char *cmd, char **paths)
 {
-	char	**paths;
-	char	*full_path;
 	int		i;
-	int		path_len;
+	char	*full_path;
+	int		len;
 
-	paths = get_paths(env, ms);
-	if (!paths)
-		return (NULL);
 	i = 0;
 	while (paths[i])
 	{
-		path_len = ft_strlen(paths[i]);
-		full_path = ft_calloc(path_len + ft_strlen(cmd_args) + 2, 1);
+		len = ft_strlen(paths[i]);
+		full_path = ft_calloc(len + ft_strlen(cmd) + 2, 1);
 		if (!full_path)
-			return (free_args(paths), NULL);
-		ft_strlcpy(full_path, paths[i], path_len + 1);
-		ft_strlcat(full_path, "/", path_len + 2);
-		ft_strlcat(full_path, cmd_args, path_len + ft_strlen(cmd_args) + 2);
+			return (NULL);
+		ft_strlcpy(full_path, paths[i], len + 1);
+		ft_strlcat(full_path, "/", len + 2);
+		ft_strlcat(full_path, cmd, len + ft_strlen(cmd) + 2);
 		if (!access(full_path, X_OK))
-			return (free_args(paths), full_path);
+			return (full_path);
 		free(full_path);
 		i++;
 	}
-	free_args(paths);
 	return (NULL);
+}
+
+char	*find_command(char *cmd, char **env, t_ms *ms)
+{
+	char	**paths;
+	char	*result;
+
+	if (is_path(cmd) && !access(cmd, X_OK))
+	{
+		result = ft_strdup(cmd);
+		if (!result)
+			return (NULL);
+		return (result);
+	}
+	paths = get_paths(env, ms);
+	if (!paths)
+		return (NULL);
+	result = try_paths(cmd, paths);
+	free_args(paths);
+	return (result);
 }
 
 char	**get_paths(char **env, t_ms *ms)
@@ -67,7 +83,7 @@ char	**get_paths(char **env, t_ms *ms)
 		{
 			path_var = env[i] + 5;
 			paths = ft_split(path_var, ':');
-			if (paths == NULL)
+			if (!paths)
 				return (em("Error\nMalloc Fail.\n", ms), NULL);
 			return (paths);
 		}
