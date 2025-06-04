@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
+static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -32,22 +32,12 @@ void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		exit(single_exec(token, ms, false, env));
 	execve(find_command(token->value[0], env, ms), token->value, env);
 	perror("execve:");
-	exit(0);
+	exit(127);
 }
 
-void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
+static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 {
-	int	status;
-
 	refresh(ms->pid);
-	if (waitpid(ms->pid, &status, 0) == -1)
-		ms->last_status = 1;
-	else if (WIFEXITED(status))
-		ms->last_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		ms->last_status = WTERMSIG(status) + 128;
-	else
-		ms->last_status = 1;
 	if (*prev_fd != -1)
 		close(*prev_fd);
 	if (token->cchar == PIPE && token->next)
@@ -76,6 +66,24 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 	}
 }
 
+static void	wait_process(t_ms *ms)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = waitpid(-1, &status, 0);
+	while (pid > 0)
+	{
+		if (WIFEXITED(status))
+			ms->last_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			ms->last_status = WTERMSIG(status) + 128;
+		else
+			ms->last_status = 1;
+		pid = waitpid(-1, &status, 0);
+	}
+}
+
 // This is the function that will execute the commands from the parsing
 void	executor(t_ms **ms)
 {
@@ -93,7 +101,7 @@ void	executor(t_ms **ms)
 	{
 		next = token->next;
 		if (!token->next && !token->fds && token->value
-			&& is_builtin(token->value[0]))
+			&& is_builtin(token->value[0]) && prev_fd == -1)
 		{
 			if (exec_builtin(token, *ms, env) < 0)
 				return ((*ms)->last_status = 0, free_args(env));
@@ -102,5 +110,6 @@ void	executor(t_ms **ms)
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
+	wait_process(*ms);
 	free_args(env);
 }
