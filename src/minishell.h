@@ -100,6 +100,7 @@ typedef struct s_ms
 	int				last_status;
 	int				pipefd[2];
 	int				cas;
+	pid_t			shell_pid;
 	t_sa			si;
 	t_sa			sq;
 	t_builtin		*builtin;

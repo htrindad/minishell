@@ -18,6 +18,8 @@ char	*var_cases(t_ms *shell, int *i)
 
 	if (shell->input[*i] == '?')
 		tmp = ft_itoa(shell->last_status);
+	else if (shell->input[*i] == '$')
+		tmp = ft_itoa(shell->shell_pid);
 	else if (ft_isalpha(shell->input[*i]) || shell->input[*i] == '_')
 		tmp = extract_env_var(shell, i);
 	else
@@ -41,7 +43,7 @@ bool	has_env_var(const char *s)
 		else if (s[i] == '$')
 		{
 			i++;
-			if (s[i] == '?')
+			if (s[i] == '?' || s[i] == '$')
 				return (true);
 			if (ft_isalpha(s[i]) || s[i] == '_')
 				return (true);
