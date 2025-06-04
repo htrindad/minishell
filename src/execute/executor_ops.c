@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/03 17:54:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:22:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,16 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 int	exec_builtin(t_token *token, t_ms *ms, char **env)
 {
 	return (single_exec(token, ms, true, env));
+}
+
+bool	swap_strs(char **s1, char *s2)
+{
+	char	*tmp;
+
+	tmp = *s1;
+	*s1 = ft_strdup(s2);
+	if (s1 == NULL)
+		return (true);
+	free(tmp);
+	return (false);
 }
