@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/02 19:44:48 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:13:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static inline void	first_case(size_t *l, t_token *new, t_ms *ms, size_t *i)
 {
 	new->value = NULL;
-	new->cchar = set_case(ms->input);
+	while (ms->input[*i] == ' ')
+		(*i)++;
+	new->cchar = set_case(ms->input + *i);
 	while (mini_spec_case(ms->input + *i, ms->scases) \
 			|| ms->input[*i] == ' ')
 		(*i)++;
@@ -71,7 +73,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l)
 		return (em("Error:\nMalloc failed\n", ms), true);
 	new->is_redir = false;
 	new->fds = NULL;
-	if (!(*l) && mini_spec_case(ms->input, ms->scases))
+	if (f_spec_case(ms->input, l, ms->scases))
 		first_case(l, new, ms, &i);
 	else
 		norm(ms, new, l, value);
