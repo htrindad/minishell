@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 20:06:42 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:08:53 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*conc_char(char c)
 	char	str[2];
 
 	str[0] = c;
-	str[1] = '\0';
+	str[1] = 0;
 	return (ft_strdup(str));
 }
 
