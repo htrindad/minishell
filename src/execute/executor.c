@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 19:54:33 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/04 20:02:07 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,13 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 	if (pid < 0)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
+	{
 		exec_child(token, env, *prev_fd, ms);
+		ret(ms);
+		clean_ms(ms);
+		free_args(env);
+		exit(127);
+	}
 	else
 	{
 		ms->pid = pid;
