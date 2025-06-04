@@ -6,14 +6,14 @@
 #    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:14:42 by mely-pan          #+#    #+#              #
-#    Updated: 2025/06/03 19:21:12 by htrindad         ###   ########.fr        #
+#    Updated: 2025/06/04 18:41:30 by htrindad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -D DEBUG=0
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \

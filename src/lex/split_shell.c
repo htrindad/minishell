@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 17:43:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:29:10 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	{
 		if (!i)
 		{
-			while (s[i] == ' ' || mini_spec_case(s + i, ms->scases))
-				i++;
-			*array = NULL;
-			*len = i;
-			return (false);
+			if (f_spec_case(s, &i, ms->scases))
+			{
+				*array = NULL;
+				*len = i;
+				return (false);
+			}
 		}
 		i++;
 	}

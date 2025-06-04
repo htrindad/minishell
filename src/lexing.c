@@ -6,11 +6,25 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/03 19:22:29 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:39:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	f_spec_case(char const *s, size_t *i, char **cases)
+{
+	bool	sc;
+
+	sc = false;
+	while (s[*i] == ' ' || mini_spec_case(s + *i, cases))
+	{
+		if (mini_spec_case(s + *i, cases))
+			sc = true;
+		(*i)++;
+	}
+	return (sc);
+}
 
 t_case	set_case(char const *c)
 {
