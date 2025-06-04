@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:17:22 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/03 19:20:14 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static size_t	gnq(size_t *len, char const *s)
 	return (++(*len));
 }
 
-void	c_len(size_t *len, char const *s)
+void	c_len(size_t *len, char const *s, char **cases)
 {
-	while (s[*len] && s[*len] != ' ')
+	while (s[*len] && s[*len] != ' ' && !mini_spec_case(s + *len, cases))
 	{
 		if (s[*len] == '\'' || s[*len] == '\"')
 			*len = gnq(len, s);
