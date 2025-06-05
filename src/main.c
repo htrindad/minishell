@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 20:16:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:00:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **env)
 	while (shell->running)
 	{
 		shell->pid = 0;
-		refresh(shell->pid);
+		refresh(shell);
 		shell->input = readline("minishell> ");
 		if (shell->input == NULL)
 			break ;

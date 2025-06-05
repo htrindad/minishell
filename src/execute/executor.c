@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/05 17:14:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:59:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 {
-	refresh(ms->pid);
+	refresh(ms);
 	if (*prev_fd != -1)
 		close(*prev_fd);
 	if (token->cchar == PIPE && token->next)
