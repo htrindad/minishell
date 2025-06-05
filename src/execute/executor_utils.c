@@ -58,7 +58,7 @@ char	*find_command(char *cmd, char **env, t_ms *ms)
 	char	**paths;
 	char	*result;
 
-	if (is_path(cmd) && !access(cmd, X_OK))
+	if (is_path(cmd))
 	{
 		result = ft_strdup(cmd);
 		if (!result)

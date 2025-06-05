@@ -12,10 +12,11 @@
 
 #include "../minishell.h"
 
-static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
+static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
-	char const	*command = find_command(token->value[0], env, ms);
+	char	*command;
 
+	command = find_command(token->value[0], env, ms);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -23,7 +24,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->fds)
 		if (handle_redirections(token))
-			return (em("Failed.", ms));
+			return (em("Failed.", ms), 1);
 	if (token->cchar == PIPE && token->next)
 	{
 		close(ms->pipefd[0]);
@@ -32,9 +33,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
-	if (command)
-		execve(find_command(token->value[0], env, ms), token->value, env);
-	perror("execve:");
+	return (run_execve(command, token->value, env));
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
@@ -52,6 +51,7 @@ static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 {
 	pid_t	pid;
+	int		exit_status;
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(ms->pipefd) < 0)
@@ -61,11 +61,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 	{
-		exec_child(token, env, *prev_fd, ms);
+		exit_status = exec_child(token, env, *prev_fd, ms);
 		ret(ms);
 		clean_ms(ms);
 		free_args(env);
-		exit(127);
+		exit(exit_status);
 	}
 	else
 	{

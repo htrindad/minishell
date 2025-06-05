@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <limits.h>
 # include <fcntl.h>
 
@@ -175,6 +176,7 @@ size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);
 bool	f_spec_case(char const *s, size_t *i, char **cases);
 bool	swap_strs(char **s1, char *s2);
+int		run_execve(char *cmd, char **full_cmd, char **env);
 
 // debug
 void	print_tokens(t_token *head);
