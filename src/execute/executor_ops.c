@@ -75,8 +75,7 @@ int	run_execve(char *cmd, char **full_cmd, char **env)
 		perror("execve");
 		if (errno == EACCES)
 			return (126);
-		else
-			return (1);
+		return (1);
 	}
 	perror("Command not found");
 	return (127);
