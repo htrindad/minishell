@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 20:45:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:14:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 bool	is_builtin(char *cmd)
 {
-	return (!ft_strncmp(cmd, "echo", 4) || !ft_strncmp(cmd, "cd", 2)
-		|| !ft_strncmp(cmd, "pwd", 3) || !ft_strncmp(cmd, "export", 6) \
-		|| !ft_strncmp(cmd, "unset", 5) || !ft_strncmp(cmd, "env", 3) \
-		|| !ft_strncmp(cmd, "exit", 4));
+	const size_t	sl = ft_strlen(cmd);
+
+	return (!ft_strncmp(cmd, "echo", sl) || !ft_strncmp(cmd, "cd", sl)
+		|| !ft_strncmp(cmd, "pwd", sl) || !ft_strncmp(cmd, "export", sl) \
+		|| !ft_strncmp(cmd, "unset", sl) || !ft_strncmp(cmd, "env", sl) \
+		|| !ft_strncmp(cmd, "exit", sl));
 }
 
 static int	is_path(char *cmd)
