@@ -6,11 +6,18 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/05 18:14:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:40:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	*es(void)
+{
+	static int	status = 0;
+
+	return (&status);
+}
 
 static int	rep(t_ms *ms, size_t i, bool is_parent)
 {

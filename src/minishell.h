@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/04 20:50:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:42:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);
 bool	f_spec_case(char const *s, size_t *i, char **cases);
 bool	swap_strs(char **s1, char *s2);
+int	*es(void);
 
 // debug
 void	print_tokens(t_token *head);

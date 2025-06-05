@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 20:23:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:49:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, \
 		trimmer(array, tmp, itr);
 		if ((*array)[itr++] == NULL)
 			return (free_args(*array), true);
-		if (ms->input[*len])
+		while (ms->input[*len] && ms->input[*len] == ' ')
 			(*len)++;
 		i = *len;
 	}
