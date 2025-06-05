@@ -6,17 +6,14 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 20:54:37 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:14:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
+static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
-	char	*command;
-	
-	command = find_command(token->value[0], env, ms);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -33,9 +30,8 @@ static char	*exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->value && is_builtin(token->value[0]))
 		single_exec(token, ms, false);
-	execve(command, token->value, env);
+	execve(find_command(token->value[0], env, ms), token->value, env);
 	perror("execve:");
-	return (command);
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
@@ -53,7 +49,6 @@ static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 {
 	pid_t	pid;
-	char	*command;
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(ms->pipefd) < 0)
@@ -63,12 +58,10 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 	{
-		command = exec_child(token, env, *prev_fd, ms);
+		exec_child(token, env, *prev_fd, ms);
 		ret(ms);
 		clean_ms(ms);
 		free_args(env);
-		if (command)
-			free(command);
 		exit(127);
 	}
 	else
