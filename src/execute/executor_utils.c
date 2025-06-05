@@ -14,10 +14,13 @@
 
 bool	is_builtin(char *cmd)
 {
-	return (!ft_strncmp(cmd, "echo", 4) || !ft_strncmp(cmd, "cd", 2)
-		|| !ft_strncmp(cmd, "pwd", 3) || !ft_strncmp(cmd, "export", 6) \
-		|| !ft_strncmp(cmd, "unset", 5) || !ft_strncmp(cmd, "env", 3) \
-		|| !ft_strncmp(cmd, "exit", 4));
+	size_t	len;
+
+	len = ft_strlen(cmd);
+	return (!ft_strncmp(cmd, "echo", len) || !ft_strncmp(cmd, "cd", len)
+		|| !ft_strncmp(cmd, "pwd", len) || !ft_strncmp(cmd, "export", len) \
+		|| !ft_strncmp(cmd, "unset", len) || !ft_strncmp(cmd, "env", len) \
+		|| !ft_strncmp(cmd, "exit", len));
 }
 
 static int	is_path(char *cmd)

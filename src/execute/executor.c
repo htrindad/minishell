@@ -111,8 +111,8 @@ void	executor(t_ms **ms)
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]) && prev_fd == -1)
 		{
-			if (exec_builtin(token, *ms, env) < 0)
-				return ((*ms)->last_status = 0, free_args(env));
+			(*ms)->last_status = exec_builtin(token, *ms, env);
+			return (free_args(env));
 		}
 		else
 			exec_cmd(*ms, token, env, &prev_fd);

@@ -41,7 +41,10 @@ int	echo(t_ms *ms)
 	i = -1;
 	nl = true;
 	if (arg[0] == NULL)
-		return (-1);
+	{
+		printf("\n");
+		return(0);
+	}
 	while (!h_nl(arg[++i]))
 		nl = false;
 	while (arg[i + 1])

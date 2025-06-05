@@ -18,7 +18,7 @@ static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 
 	r = ms->builtin[i].f(ms);
 	if (is_parent)
-		return (0);
+		return (r);
 	else
 	{
 		ret(ms);
@@ -47,7 +47,7 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 		}
 		i++;
 	}
-	return (-1);
+	return (1);
 }
 
 int	exec_builtin(t_token *token, t_ms *ms, char **env)

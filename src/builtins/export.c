@@ -55,7 +55,7 @@ int	bi_export(t_ms *ms)
 	bool	ret;
 	char	**arg;
 
-	ret = 1;
+	ret = 0;
 	i = 0;
 	arg = ms->tokens->value + 1;
 	while (arg[i])
@@ -63,13 +63,13 @@ int	bi_export(t_ms *ms)
 		if (check_exp_arg(arg[i]))
 		{
 			i++;
-			ret = 0;
+			ret = 1;
 			continue ;
 		}
 		add_env(&ms->env, arg[i]);
 		i++;
 	}
 	if (!ms->tokens->value[1])
-		no_args(ms->env);
+		return (no_args(ms->env), 0);
 	return (ret);
 }
