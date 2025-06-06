@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 18:22:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:50:06 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	has_env_var(const char *s)
 			i++;
 			while (s[i] && s[i] != '\'')
 				i++;
-			continue;
+			continue ;
 		}
 		else if (s[i] == '$')
 		{
@@ -81,8 +81,7 @@ char	*extract_env_var(t_ms *shell, char *input, int *i)
 	int		j;
 
 	j = *i;
-	while (input[j] && (ft_isalnum(input[j])
-			|| input[j] == '_'))
+	while (input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
 		j++;
 	env_var = ft_substr(input, *i, j - *i);
 	if (!env_var)

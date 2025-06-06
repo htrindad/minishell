@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_ops.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 18:17:28 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:50:47 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 	{
 		ms->last_status = *es();
 		return (*es());
-  	}
+	}
 	else
 	{
 		ret(ms);
@@ -56,11 +56,6 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 		i++;
 	}
 	return (1);
-}
-
-int	exec_builtin(t_token *token, t_ms *ms)
-{
-	return (single_exec(token, ms, true, NULL));
 }
 
 bool	swap_strs(char **s1, char *s2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 18:27:50 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/04 15:07:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:48:39 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	echo(t_ms *ms)
 	if (arg[0] == NULL)
 	{
 		printf("\n");
-		return(0);
+		return (0);
 	}
 	while (!h_nl(arg[++i]))
 		nl = false;

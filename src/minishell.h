@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 18:16:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:48:27 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	ret(t_ms *ms);
 bool	f_spec_case(char const *s, size_t *i, char **cases);
 bool	swap_strs(char **s1, char *s2);
 int		run_execve(char *cmd, char **full_cmd, char **env);
-int	  *es(void);
+int		*es(void);
 
 // debug
 void	print_tokens(t_token *head);
