@@ -12,16 +12,16 @@
 
 #include "../minishell.h"
 
-char	*var_cases(t_ms *shell, int *i)
+char	*var_cases(t_ms *shell, char *input, int *i)
 {
 	char	*tmp;
 
-	if (shell->input[*i] == '?')
+	if (input[*i] == '?')
 		tmp = ft_itoa(shell->last_status);
-	else if (shell->input[*i] == '$')
+	else if (input[*i] == '$')
 		tmp = ft_itoa(shell->shell_pid);
-	else if (ft_isalpha(shell->input[*i]) || shell->input[*i] == '_')
-		tmp = extract_env_var(shell, i);
+	else if (ft_isalpha(input[*i]) || input[*i] == '_')
+		tmp = extract_env_var(shell, input, i);
 	else
 		tmp = ft_strdup("$");
 	return (tmp);
@@ -39,7 +39,7 @@ bool	has_env_var(const char *s)
 			i++;
 			while (s[i] && s[i] != '\'')
 				i++;
-			continue ;
+			continue;
 		}
 		else if (s[i] == '$')
 		{
@@ -74,17 +74,17 @@ char	*get_env_value(t_env *env, char *env_var)
 	return (NULL);
 }
 
-char	*extract_env_var(t_ms *shell, int *i)
+char	*extract_env_var(t_ms *shell, char *input, int *i)
 {
 	char	*env_var;
 	char	*tmp;
 	int		j;
 
 	j = *i;
-	while (shell->input[j] && (ft_isalnum(shell->input[j])
-			|| shell->input[j] == '_'))
+	while (input[j] && (ft_isalnum(input[j])
+			|| input[j] == '_'))
 		j++;
-	env_var = ft_substr(shell->input, *i, j - *i);
+	env_var = ft_substr(input, *i, j - *i);
 	if (!env_var)
 		return (NULL);
 	tmp = get_env_value(shell->env, env_var);

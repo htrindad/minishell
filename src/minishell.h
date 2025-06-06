@@ -113,12 +113,12 @@ void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
 bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l);
 char	***ft_split_shell(t_ms *shell);
-char	*handle_env_var(t_ms *shell);
+char	*handle_env_var(char *input, t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
 			t_ms *ms);
 bool	has_env_var(const char *s);
-char	*extract_env_var(t_ms *shell, int *i);
-char	*var_cases(t_ms *shell, int *i);
+char	*extract_env_var(t_ms *shell, char *input, int *i);
+char	*var_cases(t_ms *shell, char *input, int *i);
 char	*conc_char(char c);
 void	free_args(char **args);
 void	free_env(t_env *env);
