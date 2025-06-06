@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 20:02:07 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:59:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
-	char	*command;
-
-	command = find_command(token->value[0], env, ms);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -33,12 +30,12 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
-	return (run_execve(command, token->value, env));
+	return (run_execve(find_command(token->value[0], env, ms), token->value, env));
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 {
-	refresh(ms->pid);
+	refresh(ms);
 	if (*prev_fd != -1)
 		close(*prev_fd);
 	if (token->cchar == PIPE && token->next)
@@ -111,7 +108,7 @@ void	executor(t_ms **ms)
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]) && prev_fd == -1)
 		{
-			(*ms)->last_status = exec_builtin(token, *ms, env);
+			*es() = exec_builtin(token, *ms, env);
 			return (free_args(env));
 		}
 		else

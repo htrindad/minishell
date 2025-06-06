@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/05/10 18:54:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:55:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,11 @@ int	env(t_ms *ms)
 
 int	pwd(t_ms *ms)
 {
-	t_env	*env;
+	char	c[PATH_MAX];
 
-	env = ms->env;
-	while (1)
-	{
-		if (!env || !ft_strncmp(env->key, "PWD", 3))
-			break ;
-		env = env->next;
-	}
-	if (env == NULL)
-		return (1);
-	printf("%s\n", env->value);
+	(void)ms;
+	getcwd(c, sizeof(c));
+	printf("%s\n", c);
 	return (0);
 }
 

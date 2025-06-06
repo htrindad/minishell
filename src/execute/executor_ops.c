@@ -6,30 +6,38 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/04 20:22:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:40:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
+int	*es(void)
 {
-	int	r;
+	static int	status = 0;
 
-	r = ms->builtin[i].f(ms);
+	return (&status);
+}
+
+static int	rep(t_ms *ms, size_t i, bool is_parent)
+{
+	*es() = ms->builtin[i].f(ms);
 	if (is_parent)
-		return (r);
+  {
+    ms->last_satus = *es();
+		return (*es());
+  }
 	else
 	{
 		ret(ms);
 		clean_ms(ms);
 		free_args(env);
-		exit(r);
+		exit(*es());
 	}
-	return (r);
+	return (*es());
 }
 
-int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
+int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 {
 	size_t	i;
 
@@ -41,18 +49,18 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 				ft_strlen(ms->builtin[i].name) + 1))
 		{
 			if (is_parent && token->value && is_builtin(token->value[0]))
-				return (rep(ms, i, is_parent, env));
+				return (rep(ms, i, is_parent));
 			else if (!is_parent)
-				exit(rep(ms, i, is_parent, env));
+				return (rep(ms, i, is_parent));
 		}
 		i++;
 	}
 	return (1);
 }
 
-int	exec_builtin(t_token *token, t_ms *ms, char **env)
+int	exec_builtin(t_token *token, t_ms *ms)
 {
-	return (single_exec(token, ms, true, env));
+	return (single_exec(token, ms, true));
 }
 
 bool	swap_strs(char **s1, char *s2)
