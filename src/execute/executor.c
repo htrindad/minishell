@@ -20,7 +20,7 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		close(prev_fd);
 	}
 	if (token->fds)
-		if (handle_redirections(token))
+		if (handle_redirections(token, ms))
 			return (em("Failed.", ms), 1);
 	if (token->cchar == PIPE && token->next)
 	{

@@ -59,7 +59,7 @@ static char	*handle_regular_char(char c, char *new_s)
 	return (new_s);
 }
 
-char	*handle_env_var(t_ms *shell)
+char	*handle_env_var(char *input, t_ms *shell)
 {
 	char	*new_s;
 	int		i;
