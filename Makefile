@@ -6,7 +6,7 @@
 #    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:14:42 by mely-pan          #+#    #+#              #
-#    Updated: 2025/06/05 18:46:25 by htrindad         ###   ########.fr        #
+#    Updated: 2025/06/06 20:15:08 by htrindad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ CFLAGS = -Wall -Werror -Wextra -g
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
 	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
-	./src/lex/split_shell_ops.c ./src/free_utils.c ./src/sig_handler.c \
-	./src/execute/executor.c ./src/execute/executor_utils.c \
+	./src/lex/split_shell_ops.c ./src/lex/quoter.c ./src/free_utils.c \
+	./src/sig_handler.c ./src/execute/executor.c ./src/execute/executor_utils.c \
 	./src/execute/executor_ops.c ./src/builtins/dir.c ./src/builtins/echo.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
 	./src/execute/redir_utils.c ./src/error.c ./src/debug.c ./src/debug2.c \
