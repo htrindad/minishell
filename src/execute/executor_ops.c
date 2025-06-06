@@ -21,10 +21,20 @@ int	*es(void)
 
 static int	rep(t_ms *ms, size_t i, bool is_parent)
 {
-	ms->last_status = ms->builtin[i].f(ms);
+	*es() = ms->builtin[i].f(ms);
 	if (is_parent)
-		return (0);
-	return (ms->last_status);
+  {
+    ms->last_satus = *es();
+		return (*es());
+  }
+	else
+	{
+		ret(ms);
+		clean_ms(ms);
+		free_args(env);
+		exit(*es());
+	}
+	return (*es());
 }
 
 int	single_exec(t_token *token, t_ms *ms, bool is_parent)
@@ -45,7 +55,7 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 		}
 		i++;
 	}
-	return (-1);
+	return (1);
 }
 
 int	exec_builtin(t_token *token, t_ms *ms)
@@ -63,4 +73,18 @@ bool	swap_strs(char **s1, char *s2)
 		return (true);
 	free(tmp);
 	return (false);
+}
+
+int	run_execve(char *cmd, char **full_cmd, char **env)
+{
+	if (cmd)
+	{
+		execve(cmd, full_cmd, env);
+		perror("execve");
+		if (errno == EACCES)
+			return (126);
+		return (1);
+	}
+	perror("Command not found");
+	return (127);
 }

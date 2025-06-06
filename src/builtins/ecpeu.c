@@ -58,11 +58,9 @@ int	change_dir(t_ms *ms)
 	if (chdir(tok->value[1]) < 0)
 	{
 		if (!tok->value[1][0])
-			return (-1);
-		perror("cd: ");
+			return (1);
 		perror(tok->value[1]);
-		perror(": No such file or directory\n");
-		return (-1);
+		return (1);
 	}
 	set_pwd(c, sizeof(c), ms->env, ms);
 	return (0);
@@ -74,7 +72,7 @@ int	unset(t_ms *ms)
 	char	**arg;
 	bool	ret;
 
-	ret = 1;
+	ret = 0;
 	i = 0;
 	arg = ms->tokens->value + 1;
 	while (arg[i])
@@ -82,7 +80,7 @@ int	unset(t_ms *ms)
 		if (check_unst(arg[i]))
 		{
 			i++;
-			ret = 0;
+			ret = 1;
 			continue ;
 		}
 		rm_env(&ms->env, arg[0]);

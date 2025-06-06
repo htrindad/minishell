@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
+static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
 	if (prev_fd != -1)
 	{
@@ -21,7 +21,7 @@ static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->fds)
 		if (handle_redirections(token))
-			em("Failed.", ms);
+			return (em("Failed.", ms), 1);
 	if (token->cchar == PIPE && token->next)
 	{
 		close(ms->pipefd[0]);
@@ -29,9 +29,8 @@ static void	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		close(ms->pipefd[1]);
 	}
 	if (token->value && is_builtin(token->value[0]))
-		single_exec(token, ms, false);
-	execve(find_command(token->value[0], env, ms), token->value, env);
-	perror("execve:");
+		exit(single_exec(token, ms, false, env));
+	return (run_execve(find_command(token->value[0], env, ms), token->value, env));
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
@@ -49,6 +48,7 @@ static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 {
 	pid_t	pid;
+	int		exit_status;
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(ms->pipefd) < 0)
@@ -58,11 +58,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 	{
-		exec_child(token, env, *prev_fd, ms);
+		exit_status = exec_child(token, env, *prev_fd, ms);
 		ret(ms);
 		clean_ms(ms);
 		free_args(env);
-		exit(127);
+		exit(exit_status);
 	}
 	else
 	{
@@ -108,8 +108,8 @@ void	executor(t_ms **ms)
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]) && prev_fd == -1)
 		{
-			if (exec_builtin(token, *ms) < 0)
-				return ((*ms)->last_status = 0, free_args(env));
+			*es() = exec_builtin(token, *ms, env);
+			return (free_args(env));
 		}
 		else
 			exec_cmd(*ms, token, env, &prev_fd);
