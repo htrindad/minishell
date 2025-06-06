@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 20:03:13 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:22:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ bool	has_env_var(const char *s)
 			i++;
 			while (s[i] && s[i] != '\'')
 				i++;
+			continue ;
 		}
 		else if (s[i] == '$')
 		{

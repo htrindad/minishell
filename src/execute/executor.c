@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/05 18:59:11 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:16:15 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	executor(t_ms **ms)
 		if (!token->next && !token->fds && token->value
 			&& is_builtin(token->value[0]) && prev_fd == -1)
 		{
-			*es() = exec_builtin(token, *ms, env);
+			*es() = exec_builtin(token, *ms);
 			return (free_args(env));
 		}
 		else

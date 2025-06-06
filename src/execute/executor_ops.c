@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/05 18:40:29 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:17:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	*es(void)
 	return (&status);
 }
 
-static int	rep(t_ms *ms, size_t i, bool is_parent)
+static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 {
 	*es() = ms->builtin[i].f(ms);
 	if (is_parent)
-  {
-    ms->last_satus = *es();
+	{
+		ms->last_status = *es();
 		return (*es());
-  }
+  	}
 	else
 	{
 		ret(ms);
@@ -37,7 +37,7 @@ static int	rep(t_ms *ms, size_t i, bool is_parent)
 	return (*es());
 }
 
-int	single_exec(t_token *token, t_ms *ms, bool is_parent)
+int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 {
 	size_t	i;
 
@@ -49,9 +49,9 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 				ft_strlen(ms->builtin[i].name) + 1))
 		{
 			if (is_parent && token->value && is_builtin(token->value[0]))
-				return (rep(ms, i, is_parent));
+				return (rep(ms, i, is_parent, env));
 			else if (!is_parent)
-				return (rep(ms, i, is_parent));
+				return (rep(ms, i, is_parent, env));
 		}
 		i++;
 	}
@@ -60,7 +60,7 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent)
 
 int	exec_builtin(t_token *token, t_ms *ms)
 {
-	return (single_exec(token, ms, true));
+	return (single_exec(token, ms, true, NULL));
 }
 
 bool	swap_strs(char **s1, char *s2)

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/05 18:55:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 17:47:06 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	env(t_ms *ms)
 	env = ms->env;
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		if (env->key && env->value)
+			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 	return (0);
