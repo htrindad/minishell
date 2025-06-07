@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 19:31:08 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 13:55:37 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ bool	rm_env(t_env **head, char *arg);
 int		unset(t_ms *ms);
 int		echo(t_ms *ms);
 void	c_len(size_t *len, char const *s, char **cases);
-void	trimmer(char ***array, char *tmp, size_t itr);
+char	*trimmer(char *tmp);
 int		parse_redirections(t_token **tokens);
 int		handle_redirections(t_token *tokens);
 int		alloc_fds_if_needed(t_token *curr);

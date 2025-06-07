@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 20:50:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 13:49:53 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ static size_t	true_size(char const *s, size_t i, size_t len)
 		else if (qo == s[i])
 		{
 			i++;
+			qo = 0;
 			continue ;
 		}
 		j++;
 		i++;
 	}
-	return (j);
+	return (++j);
 }
 
 static inline size_t	q_case(char const *s, char *tmp, size_t i, \
@@ -92,7 +93,7 @@ char	*temper(char const *s, size_t i, size_t len)
 		return (NULL);
 	tmp[r_size] = 0;
 	j = 0;
-	while (j < r_size)
+	while (j < r_size - 1)
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 			j += q_case(s, tmp + j, i, r_size - j);
