@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/07 13:49:53 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:01:39 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,20 @@ static size_t	true_size(char const *s, size_t i, size_t len)
 	return (++j);
 }
 
-static inline size_t	q_case(char const *s, char *tmp, size_t i, \
+static inline size_t	q_case(char const *s, char *tmp, size_t *i, \
 		size_t r_size)
 {
 	size_t	j;
 	char	q;
 
 	j = 0;
-	q = s[i];
-	if (!quoter(s + i++))
+	q = s[*i];
+	if (!quoter(s + (*i)++))
 		tmp[j++] = q;
 	else
-		while (s[i] && s[i] != q && j < r_size - 1)
-			tmp[j++] = s[i++];
+		while (s[*i] && s[*i] != q && j < r_size - 1)
+			tmp[j++] = s[(*i)++];
+	(*i)++;
 	return (j);
 }
 
@@ -96,7 +97,7 @@ char	*temper(char const *s, size_t i, size_t len)
 	while (j < r_size - 1)
 	{
 		if (s[i] == '\'' || s[i] == '\"')
-			j += q_case(s, tmp + j, i, r_size - j);
+			j += q_case(s, tmp + j, &i, r_size - j);
 		else
 			tmp[j++] = s[i++];
 	}
