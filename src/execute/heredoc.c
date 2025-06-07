@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 20:48:05 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:28:19 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,11 @@ int	handle_heredoc(char *delimiter, t_ms *ms)
 		return (perror("heredoc"), -1);
 	pid = fork();
 	if (!pid)
-	{
-		do_heredoc(delimiter, pipefd[1], ms);
-		exit(0);
-	}
+		return (do_heredoc(delimiter, pipefd[1], ms), exit(0), 0);
 	else
 	{
+		ms->pid = pid;
+		refresh(ms);
 		close(pipefd[1]);
 		waitpid(pid, &status, 0);
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
