@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:16 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/04 20:08:53 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 14:33:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ static char	*handle_dollar_case(t_ms *shell, int *i, char *new_s)
 	(*i)++;
 	tmp = var_cases(shell, i);
 	if (!tmp)
-		return (free(new_s), NULL);
-	new_s = ft_strjoin_free(new_s, tmp);
-	free(tmp);
+		new_s = ft_strjoin_free(new_s, "");
+	else
+	{
+		new_s = ft_strjoin_free(new_s, tmp);
+		free(tmp);
+	}
 	return (new_s);
 }
 

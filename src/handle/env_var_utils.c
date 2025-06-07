@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 18:22:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 14:43:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ char	*extract_env_var(t_ms *shell, int *i)
 		return (NULL);
 	tmp = get_env_value(shell->env, env_var);
 	free(env_var);
+	*i = j - 1;
 	if (!tmp)
 		return (NULL);
-	*i = j - 1;
 	return (tmp);
 }

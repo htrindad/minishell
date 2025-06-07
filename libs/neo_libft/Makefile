@@ -6,7 +6,7 @@
 #    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 17:08:01 by htrindad          #+#    #+#              #
-#    Updated: 2025/05/31 20:07:41 by mely-pan         ###   ########.fr        #
+#    Updated: 2025/06/07 14:40:28 by htrindad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS = $(SRC:.c=.o)
 
 BONUS_OBJ = $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra  -O3
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
