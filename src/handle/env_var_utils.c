@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 18:22:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:42:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ bool	has_env_var(const char *s)
 			if (ft_isalpha(s[i]) || s[i] == '_')
 				return (true);
 		}
-		i++;
+		if (s[i])
+			i++;
 	}
 	return (false);
 }
@@ -64,6 +65,8 @@ char	*get_env_value(t_env *env, char *env_var)
 	{
 		if (tmp->key && !ft_strncmp(tmp->key, env_var, ft_strlen(env_var)))
 		{
+			if (tmp->value == NULL)
+				return (NULL);
 			env_value = ft_strdup(tmp->value);
 			if (!env_value)
 				return (NULL);
@@ -89,8 +92,8 @@ char	*extract_env_var(t_ms *shell, int *i)
 		return (NULL);
 	tmp = get_env_value(shell->env, env_var);
 	free(env_var);
+	*i = j - 1;
 	if (!tmp)
 		return (NULL);
-	*i = j - 1;
 	return (tmp);
 }
