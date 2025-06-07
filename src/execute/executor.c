@@ -14,6 +14,8 @@
 
 static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
+	int	ec;
+
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);

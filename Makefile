@@ -18,8 +18,8 @@ CFLAGS = -Wall -Werror -Wextra -D DEBUG=0
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
 	./src/handle/env_var_utils.c ./src/builtins/ecpeu.c ./src/duplicator.c \
-	./src/lex/split_shell_ops.c ./src/free_utils.c ./src/sig_handler.c \
-	./src/execute/executor.c ./src/execute/executor_utils.c \
+	./src/lex/split_shell_ops.c ./src/lex/quoter.c ./src/free_utils.c \
+	./src/sig_handler.c ./src/execute/executor.c ./src/execute/executor_utils.c \
 	./src/execute/executor_ops.c ./src/builtins/dir.c ./src/builtins/echo.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
 	./src/execute/redir_utils.c ./src/error.c ./src/debug.c ./src/debug2.c \

@@ -6,22 +6,19 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/04 18:49:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:11:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	trimmer(char ***array, char *tmp, size_t itr)
+char	*trimmer(char *tmp)
 {
-	char	c;
+	char	*str;
 
-	c = *tmp;
-	if (c == '\'' || c == '\"')
-		(*array)[itr] = ft_strtrim(tmp, &c);
-	else
-		(*array)[itr] = ft_strdup(tmp);
+	str = ft_strdup(tmp);
 	free(tmp);
+	return (str);
 }
 
 static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
