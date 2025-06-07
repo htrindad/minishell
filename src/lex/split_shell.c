@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/07 13:56:39 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:36:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	*len = i;
 	if (!s[i])
 		return (false);
-	count = ft_count_words(s + i, ms);
+	if (stopper(&count, ms, s, i))
+		return (true);
 	if (ft_safe_allocate(array, count, ms, len))
 		return (em("Error\nMalloc Fail.", ms), true);
 	return (false);
@@ -103,6 +104,8 @@ char	***ft_split_shell(t_ms *shell)
 	if (!shell->input || !ft_strncmp(shell->input, "", 1))
 		return (NULL);
 	count = count_cases(shell->input, shell);
+	if (!shell->running)
+		return (NULL);
 	array = ft_calloc(count + 1, sizeof(char **));
 	if (!array)
 		return (NULL);
@@ -117,6 +120,6 @@ char	***ft_split_shell(t_ms *shell)
 		free(new_s);
 	}
 	else if (ft_filling_arr(array, shell->input, shell, count))
-		return (NULL);
+		return (nuller(array));
 	return (array);
 }

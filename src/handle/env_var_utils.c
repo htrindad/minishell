@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/07 15:53:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:42:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ bool	has_env_var(const char *s)
 			if (ft_isalpha(s[i]) || s[i] == '_')
 				return (true);
 		}
-		i++;
+		if (s[i])
+			i++;
 	}
 	return (false);
 }

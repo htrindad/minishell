@@ -6,11 +6,19 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/07 15:01:39 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:32:35 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i)
+{
+	*counter = ft_count_words(s + i, ms);
+	if (!ms->running)
+		return (true);
+	return (false);
+}
 
 static bool	quoter(char const *s)
 {

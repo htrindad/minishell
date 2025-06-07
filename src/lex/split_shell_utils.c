@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/03 19:20:14 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 17:25:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	gnq(size_t *len, char const *s)
 	while (s[*len] != qt)
 		(*len)++;
 	if (!s[*len])
-		perror("Unclosed quotes.\n");
+		perror("Unclosed quotes.");
 	return (++(*len));
 }
 
@@ -76,7 +76,7 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 		while (s[i] && s[i] != quote_type)
 			i++;
 		if (!s[i])
-			return (em("Error\nUnclosed quotes\n", ms), ft_strlen(s + start));
+			return (em("Error\nUnclosed quotes", ms), ft_strlen(s + start));
 		quote_type = 0;
 	}
 	if (s[i])
