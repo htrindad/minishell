@@ -25,12 +25,12 @@ char	*ft_strjoin_free(char *s1, char *s2)
 }
 
 // Extracts the env var from the string and returns it
-static char	*handle_dollar_case(t_ms *shell, int *i, char *new_s)
+static char	*handle_dollar_case(t_ms *shell, char *input, int *i, char *new_s)
 {
 	char	*tmp;
 
 	(*i)++;
-	tmp = var_cases(shell, i);
+	tmp = var_cases(shell, input, i);
 	if (!tmp)
 		new_s = ft_strjoin_free(new_s, "");
 	else
@@ -62,7 +62,7 @@ static char	*handle_regular_char(char c, char *new_s)
 	return (new_s);
 }
 
-char	*handle_env_var(t_ms *shell)
+char	*handle_env_var(char *input, t_ms *shell)
 {
 	char	*new_s;
 	int		i;
@@ -71,12 +71,12 @@ char	*handle_env_var(t_ms *shell)
 	new_s = ft_strdup("");
 	if (!new_s)
 		return (NULL);
-	while (shell->input[i])
+	while (input[i])
 	{
-		if (shell->input[i] == '$' && shell->input[i + 1])
-			new_s = handle_dollar_case(shell, &i, new_s);
+		if (input[i] == '$' && input[i + 1])
+			new_s = handle_dollar_case(shell, input, &i, new_s);
 		else
-			new_s = handle_regular_char(shell->input[i], new_s);
+			new_s = handle_regular_char(input[i], new_s);
 		if (!new_s)
 			return (NULL);
 		i++;

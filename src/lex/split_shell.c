@@ -112,7 +112,7 @@ char	***ft_split_shell(t_ms *shell)
 	array[count] = NULL;
 	if (has_env_var(shell->input))
 	{
-		new_s = handle_env_var(shell);
+		new_s = handle_env_var(shell->input, shell);
 		if (!new_s || swap_strs(&shell->input, new_s))
 			return (NULL);
 		if (ft_filling_arr(array, new_s, shell, count))

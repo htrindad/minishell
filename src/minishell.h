@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/07 17:35:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:48:27 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,12 @@ void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
 bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l);
 char	***ft_split_shell(t_ms *shell);
-char	*handle_env_var(t_ms *shell);
+char	*handle_env_var(char *input, t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
 			t_ms *ms);
 bool	has_env_var(const char *s);
-char	*extract_env_var(t_ms *shell, int *i);
-char	*var_cases(t_ms *shell, int *i);
+char	*extract_env_var(t_ms *shell, char *input, int *i);
+char	*var_cases(t_ms *shell, char *input, int *i);
 char	*conc_char(char c);
 void	free_args(char **args);
 void	free_env(t_env *env);
@@ -157,13 +157,13 @@ int		echo(t_ms *ms);
 void	c_len(size_t *len, char const *s, char **cases);
 char	*trimmer(char *tmp);
 int		parse_redirections(t_token **tokens);
-int		handle_redirections(t_token *tokens);
+int		handle_redirections(t_token *tokens, t_ms *ms);
 int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
-int		handle_heredoc(char *delimiter);
+int		handle_heredoc(char *delimiter, t_ms *ms);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent, char **env);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);

@@ -6,14 +6,14 @@
 #    By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:14:42 by mely-pan          #+#    #+#              #
-#    Updated: 2025/06/06 20:15:08 by htrindad         ###   ########.fr        #
+#    Updated: 2025/06/06 20:55:24 by mely-pan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -D DEBUG=0
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -24,7 +24,7 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/builtins/export.c ./src/builtins/unset.c ./src/execute/redir.c \
 	./src/execute/redir_utils.c ./src/error.c ./src/debug.c ./src/debug2.c \
 	./src/execute/redir_utils2.c ./src/execute/comp_env.c ./src/lexing_utils.c \
-	./src/get_env_utils.c ./src/main.c
+	./src/get_env_utils.c ./src/main.c ./src/execute/heredoc.c ./src/execute/b_in.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))
