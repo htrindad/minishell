@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/07 14:43:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:53:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*get_env_value(t_env *env, char *env_var)
 	{
 		if (tmp->key && !ft_strncmp(tmp->key, env_var, ft_strlen(env_var)))
 		{
+			if (tmp->value == NULL)
+				return (NULL);
 			env_value = ft_strdup(tmp->value);
 			if (!env_value)
 				return (NULL);
