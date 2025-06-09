@@ -45,3 +45,18 @@ void	*nuller(char ***args)
 		free(args);
 	return (NULL);
 }
+
+void	lex_free(char ***args)
+{
+	size_t	i;
+
+	i = 0;
+	if (args[0])
+	{
+		while (args[i])
+			free_args(args[i++]);
+		free(args);
+	}
+	else
+		fa_spec(args);
+}

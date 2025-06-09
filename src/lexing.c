@@ -60,6 +60,35 @@ static void	null_fds(t_token *head)
 	}
 }
 
+static int	check_errors(t_token *head, t_ms *ms)
+{
+	t_token	*curr;
+	int		i;
+
+	i = 0;
+	curr = head;
+	while (curr)
+	{
+		if (curr->cchar != 0 && !curr->next)
+		{
+			ms->last_status = 2;
+			perror("Parse error");
+			return (1);
+		}
+		curr = curr->next;
+	}
+	while (ms->input[i] == 32 || (ms->input[i] > 8 && ms->input[i] < 14)
+		|| ft_is_special_char(ms->input[i]))
+		i++;
+	if (!ms->input[i])
+	{
+		ms->last_status = 2;
+		perror("Parse error");
+		return (1);
+	}
+	return (0);
+}
+
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
@@ -84,6 +113,8 @@ t_token	*lexing(t_ms *shell)
 		i++;
 	}
 	null_fds(head);
+	if (check_errors(head, shell))
+		return (lex_free(args), free_tokens(head), NULL);
 	if (DEBUG)
 		print_tokens(head);
 	return (lex_free(args), head);

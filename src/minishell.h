@@ -159,6 +159,8 @@ void	c_len(size_t *len, char const *s, char **cases);
 char	*trimmer(char *tmp);
 int		parse_redirections(t_token **tokens);
 int		handle_redirections(t_token *tokens);
+bool	ft_is_special_char(int c);
+void	fa_spec(char ***args);
 int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
