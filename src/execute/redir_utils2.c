@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-static int	open_inf(t_redir *redir, t_ms *ms)
+static int	open_inf(t_redir *redir)
 {
 	if (redir->type == IN)
 		return (open(redir->filename, O_RDONLY));
 	else if (redir->type == HEREDOC)
-		return (handle_heredoc(redir->filename, ms));
+		return (redir->heredoc_fd);
 	return (-1);
 }
 
@@ -39,7 +39,7 @@ static int	apply_redir(int fd, int std_fd)
 	return (0);
 }
 
-int	handle_redirections(t_token *tokens, t_ms *ms)
+int		handle_redirections(t_token *tokens)
 {
 	t_redir	*redir;
 	int		fd;
@@ -47,7 +47,7 @@ int	handle_redirections(t_token *tokens, t_ms *ms)
 	redir = tokens->fds->in;
 	while (redir)
 	{
-		fd = open_inf(redir, ms);
+		fd = open_inf(redir);
 		if (fd < 0 || apply_redir(fd, STDIN_FILENO))
 			return (1);
 		redir = redir->next;

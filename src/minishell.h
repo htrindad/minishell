@@ -59,6 +59,7 @@ typedef struct s_redir
 {
 	char			*filename;
 	t_case			type;
+	int				heredoc_fd;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -157,13 +158,15 @@ int		echo(t_ms *ms);
 void	c_len(size_t *len, char const *s, char **cases);
 char	*trimmer(char *tmp);
 int		parse_redirections(t_token **tokens);
-int		handle_redirections(t_token *tokens, t_ms *ms);
+int		handle_redirections(t_token *tokens);
 int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
-int		handle_heredoc(char *delimiter, t_ms *ms);
+int		handle_heredoc(t_redir *redir, t_ms *ms);
+int		treat_heredocs(t_token *token, t_ms *ms);
+bool	is_single_token_and_builtin(t_token *token, int prev_fd);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent, char **env);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);

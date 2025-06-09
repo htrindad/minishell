@@ -16,3 +16,11 @@ int	exec_builtin(t_token *token, t_ms *ms)
 {
 	return (single_exec(token, ms, true, NULL));
 }
+
+bool	is_single_token_and_builtin(t_token *token, int prev_fd)
+{
+	if (!token->next && !token->fds && token->value
+			&& is_builtin(token->value[0]) && prev_fd == -1)
+		return (true);
+	return (false);
+}

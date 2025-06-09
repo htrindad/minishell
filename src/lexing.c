@@ -85,6 +85,6 @@ t_token	*lexing(t_ms *shell)
 	}
 	null_fds(head);
 	if (DEBUG)
-		print_tokens_debug(head);
+		print_tokens(head);
 	return (lex_free(args), head);
 }

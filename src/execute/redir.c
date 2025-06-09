@@ -24,6 +24,7 @@ int	add_redir(t_redir **redir_list, t_case type, char *filename)
 	if (!new->filename)
 		return (free(new), 1);
 	new->type = type;
+	new->heredoc_fd = -1;
 	new->next = NULL;
 	if (!*redir_list)
 		*redir_list = new;
