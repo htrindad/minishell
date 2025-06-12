@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/12 09:55:09 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/12 09:59:14 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static inline bool	change_set(t_token **token)
 	if (!token || !*token)
 		return (false);
 	last = last_token(*token);
-	if ((*token)->value == NULL && last && last->value)
+	if ((*token)->value == NULL && last && last->value \
+			&& ((*token)->cchar == OUT || (*token)->cchar == APPEND))
 	{
 		cc = (*token)->cchar;
 		next = (*token)->next;
