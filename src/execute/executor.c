@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 20:48:49 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/12 08:48:45 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 {
-	int	ec;
-
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);

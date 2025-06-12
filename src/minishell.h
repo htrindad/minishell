@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 20:48:27 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/12 08:51:34 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int	 	*es(void);
 char	*temper(char const *s, size_t i, size_t len);
 bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i);
 void	*nuller(char ***args);
+bool	all_spaces(char const *s);
 
 // debug
 void	print_tokens(t_token *head);
