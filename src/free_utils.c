@@ -60,3 +60,9 @@ void	lex_free(char ***args)
 	else
 		fa_spec(args);
 }
+
+void	free_two_str(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+}

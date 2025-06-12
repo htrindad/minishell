@@ -14,9 +14,11 @@
 
 static inline bool	is_delimiter(char *line, char *delimiter)
 {
+	if (!line)
+		return (false);
 	if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0
 		&& line[ft_strlen(delimiter)] == '\n')
-		return (true);
+		return (free(line), true);
 	return (false);
 }
 
@@ -24,29 +26,29 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms)
 {
 	char	*line;
 	char	*expanded;
+	char	*tmp;
 
 	while (1)
 	{
-		write(1, "heredoc> ", 9);
-		line = get_next_line(STDIN_FILENO);
+		line = readline("heredoc> ");
 		if (!line)
 		{
 			ft_putchar_fd('\n', 1);
 			break ;
 		}
+		tmp = line;
+		line = ft_strjoin(tmp, "\n");
+		free(tmp);
+		if (!line)
+			return (em("Malloc Failed", ms));
 		if (is_delimiter(line, delimiter))
-		{
-			free(line);
 			break ;
-		}
 		expanded = handle_env_var(line, ms);
 		if (!expanded)
 			return (free(line), em("heredoc", ms));
 		write(write_fd, expanded, ft_strlen(expanded));
-		free(expanded);
-		free(line);
+		free_two_str(line, expanded);
 	}
-	close(write_fd);
 }
 
 static int	handle_heredoc_parent(int *pipefd, t_ms *ms, int status, struct sigaction *old_act)
@@ -87,6 +89,7 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 		signal(SIGINT, SIG_DFL);
 		close(pipefd[0]);
 		do_heredoc(redir->filename, pipefd[1], ms);
+		close(pipefd[1]);
 		exit(0);
 	}
 	return (handle_heredoc_parent(pipefd, ms, status, &old_act));

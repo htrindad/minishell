@@ -123,6 +123,7 @@ char	*var_cases(t_ms *shell, char *input, int *i);
 char	*conc_char(char c);
 void	free_args(char **args);
 void	free_env(t_env *env);
+void	free_two_str(char *s1, char *s2);
 void	free_tokens(t_token *tokens);
 void	free_redirs(t_redir *redir);
 void	clean_ms(t_ms *shell);
