@@ -182,7 +182,7 @@ size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);
 bool	f_spec_case(char const *s, size_t *i, char **cases);
 bool	swap_strs(char **s1, char *s2);
-int		run_execve(char *cmd, char **full_cmd, char **env);
+int		run_execve(char *cmd, char **full_cmd, char **env, char *value);
 int	 	*es(void);
 char	*temper(char const *s, size_t i, size_t len);
 bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i);

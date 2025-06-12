@@ -60,7 +60,7 @@ static void	null_fds(t_token *head)
 	}
 }
 
-static int	check_parse_error(t_token *head, t_ms *ms)
+static int	check_parse_error(t_ms *ms)
 {
 	int		i;
 
@@ -103,7 +103,7 @@ t_token	*lexing(t_ms *shell)
 		i++;
 	}
 	null_fds(head);
-	if (check_errors(head, shell))
+	if (check_parse_error(shell))
 		return (lex_free(args), free_tokens(head), NULL);
 	return (lex_free(args), head);
 }

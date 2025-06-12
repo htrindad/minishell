@@ -33,7 +33,7 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
 	return (run_execve(find_command(token->value[0], env, ms), token->value,
-			env));
+			env, token->value[0]));
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)

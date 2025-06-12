@@ -70,7 +70,7 @@ bool	swap_strs(char **s1, char *s2)
 	return (false);
 }
 
-int	run_execve(char *cmd, char **full_cmd, char **env)
+int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 {
 	if (cmd)
 	{
@@ -80,6 +80,7 @@ int	run_execve(char *cmd, char **full_cmd, char **env)
 			return (126);
 		return (1);
 	}
-	perror("Command not found");
+	ft_putstr_fd(value, 2);
+	perror(" Command not found");
 	return (127);
 }
