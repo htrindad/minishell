@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/05 19:00:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/12 09:59:14 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,61 @@ static inline void	setup(t_ms *shell, char **env)
 	sigaction(SIGQUIT, &shell->sq, NULL);
 }
 
-static inline void	swap(t_token *curr, t_token *next)
+static inline t_token	*last_token(t_token *tok)
+{
+	t_token	*last;
+
+	last = tok;
+	while (last->next)
+		last = last->next;
+	return (last);
+}
+
+static inline bool	swap(t_token *token, t_token *last)
 {
 	size_t	i;
 
 	i = 0;
-	next->value[0] = curr->value[0];
-	next->value[1] = NULL;
-	curr->value[0] = NULL;
-	while (curr->value[i + 1])
+	last->cchar = NONE;
+	last->next = NULL;
+	last->value = ft_calloc(2, sizeof(char *));
+	if (last->value == NULL)
+		return (true);
+	last->value[0] = token->value[0];
+	while (token->value[i + 1])
 	{
-		curr->value[i] = curr->value[i + 1];
+		token->value[i] = token->value[i + 1];
 		i++;
 	}
-	curr->value[i] = NULL;
+	token->value[i] = NULL;
+	return (false);
 }
 
 static inline bool	change_set(t_token **token)
 {
-	t_token	*curr;
+	t_token	*last;
+	t_case	cc;
 	t_token	*next;
 
 	if (!token || !*token)
 		return (false);
-	curr = *token;
-	next = curr->next;
-	if (curr->value == NULL && next && next->value)
+	last = last_token(*token);
+	if ((*token)->value == NULL && last && last->value \
+			&& ((*token)->cchar == OUT || (*token)->cchar == APPEND))
 	{
-		curr->value = next->value;
-		next->value = NULL;
-		next->value = ft_calloc(2, sizeof(char *));
-		if (next->value == NULL)
+		cc = (*token)->cchar;
+		next = (*token)->next;
+		free(*token);
+		*token = next;
+		last->next = ft_calloc(1, sizeof(t_token));
+		last->cchar = cc;
+		if (last->next == NULL)
 			return (true);
-		swap(curr, next);
+		if (swap(*token, last->next))
+			return (true);
 	}
+	if (DEBUG)
+		print_tokens_debug(*token);
 	return (false);
 }
 
