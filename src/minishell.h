@@ -190,6 +190,7 @@ int		*es(void);
 char	*temper(char const *s, size_t i, size_t len);
 bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i);
 void	*nuller(char ***args);
+bool	all_spaces(char const *s);
 
 // debug
 void	print_tokens(t_token *head);
