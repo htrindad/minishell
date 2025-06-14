@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:34:14 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:21:36 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:01:20 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ bool	is_redirection(t_case type)
 	return (false);
 }
 
-static int	set_redir(t_token *tok, char *u_input)
+static int	set_redir(t_token *tok, char *u_input, int *heredoc_i)
 {
 	t_token		*tmp;
-	static int	heredoc_i = 0;
 
 	tmp = tok;
 	while (tmp && is_redirection(tmp->cchar))
@@ -67,7 +66,7 @@ static int	set_redir(t_token *tok, char *u_input)
 				return (1);
 		}
 		if (tmp->cchar == HEREDOC)
-			heredoc_i = get_heredoc_quotes(u_input + heredoc_i, &tok->fds->in);
+			*heredoc_i = get_heredoc_quotes(u_input + *heredoc_i, &tok->fds->in);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -86,6 +85,7 @@ static void	mark_chained_redirs(t_token **curr)
 int	parse_redirections(t_token **tokens, char *user_input)
 {
 	t_token	*curr;
+	static int	heredoc_i = 0;
 
 	curr = *tokens;
 	while (curr)
@@ -96,7 +96,7 @@ int	parse_redirections(t_token **tokens, char *user_input)
 				return (1);
 			if (alloc_fds_if_needed(curr))
 				return (1);
-			if (set_redir(curr, user_input))
+			if (set_redir(curr, user_input, &heredoc_i))
 				return (1);
 			mark_chained_redirs(&curr);
 		}
@@ -104,6 +104,7 @@ int	parse_redirections(t_token **tokens, char *user_input)
 			curr->fds = NULL;
 		curr = curr->next;
 	}
+	heredoc_i = 0;
 	cleanup_redir(tokens);
 	return (0);
 }

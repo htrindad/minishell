@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:21:20 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 17:16:14 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	treat_heredocs(t_token *token, t_ms *ms)
 
 	while (token)
 	{
-		if (token->fds && token->fds->in && token->fds->in->type == HEREDOC)
+		if (token->fds && token->fds->in)
 		{
 			tmp = token->fds->in;
 			while (tmp)
