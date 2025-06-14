@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:42:23 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 19:45:01 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 	}
 }
 
-static void	wait_process(t_ms *ms)
+static void	wait_process(void)
 {
 	pid_t	pid;
 	int		status;
@@ -81,11 +81,11 @@ static void	wait_process(t_ms *ms)
 	while (pid > 0)
 	{
 		if (WIFEXITED(status))
-			ms->last_status = WEXITSTATUS(status);
+			*es() = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			ms->last_status = WTERMSIG(status) + 128;
+			*es() = WTERMSIG(status) + 128;
 		else
-			ms->last_status = 1;
+			*es() = 1;
 		pid = waitpid(-1, &status, 0);
 	}
 }
@@ -117,5 +117,5 @@ void	executor(t_ms **ms)
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
-	return (wait_process(*ms), free_args(env));
+	return (wait_process(), free_args(env));
 }

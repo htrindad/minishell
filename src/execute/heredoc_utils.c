@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:19:55 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 17:24:31 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 20:01:31 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static void	skip_quote_delim(const char *s, int *i)
 
 static void	skip_unquoted_delim(const char *s, int *i)
 {
-	while (s[*i] && s[*i] != ' ' && s[*i] != '\t'
-		&& ft_is_special_char(s[*i]))
+	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && ft_is_special_char(s[*i]))
 		(*i)++;
 }
 
@@ -38,7 +37,7 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 
 	i = 0;
 	tmp = *redir;
-	while (input[i] && tmp)
+	while (input[i])
 	{
 		if (input[i] == '<' && input[i + 1] == '<')
 		{
@@ -52,10 +51,9 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 			}
 			else
 				skip_unquoted_delim(input, &i);
-			tmp = tmp->next;
+			break ;
 		}
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }
