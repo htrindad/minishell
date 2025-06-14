@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/14 16:19:13 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 19:53:05 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_ms
 	t_env			*env;
 	char			*input;
 	char			**scases;
+	char			*c_pwd;
 	bool			running;
 	int				pid;
 	int				last_status;

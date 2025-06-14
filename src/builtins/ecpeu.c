@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 17:47:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 19:57:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ int	pwd(t_ms *ms)
 {
 	char	c[PATH_MAX];
 
-	(void)ms;
-	getcwd(c, sizeof(c));
-	printf("%s\n", c);
+	if (getcwd(c, sizeof(c)))
+	{
+		free(ms->c_pwd);
+		ms->c_pwd = ft_strdup(c);
+	}
+	printf("%s\n", ms->c_pwd);
 	return (0);
 }
 
