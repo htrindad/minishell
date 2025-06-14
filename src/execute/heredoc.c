@@ -22,10 +22,9 @@ static inline bool	is_delimiter(char *line, char *delimiter)
 	return (false);
 }
 
-static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms)
+static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms, bool quoted)
 {
 	char	*line;
-	char	*expanded;
 	char	*tmp;
 
 	while (1)
@@ -43,16 +42,15 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms)
 			return (em("Malloc Failed", ms));
 		if (is_delimiter(line, delimiter))
 			break ;
-		expanded = handle_env_var(line, ms);
-		if (!expanded)
-			return (free(line), em("heredoc", ms));
-		write(write_fd, expanded, ft_strlen(expanded));
-		free_two_str(line, expanded);
+		write_line_heredoc(line, write_fd, ms, quoted);
+		free(line);
 	}
 }
 
-static int	handle_heredoc_parent(int *pipefd, t_ms *ms, int status, struct sigaction *old_act)
+static int	handle_heredoc_parent(int *pipefd, t_ms *ms, struct sigaction *old_act)
 {
+	int	status;
+
 	status = 0;
 	close(pipefd[1]);
 	waitpid(-1, &status, 0);
@@ -70,17 +68,11 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 {
 	int					pipefd[2];
 	pid_t				pid;
-	int					status;
 	struct sigaction	old_act;
-	struct sigaction	new_act;
 
 	if (pipe(pipefd) < 0)
 		return (perror("heredoc"), -1);
-	sigaction(SIGINT, NULL, &old_act);
-	new_act.sa_handler = SIG_IGN;
-	sigemptyset(&new_act.sa_mask);
-	new_act.sa_flags = 0;
-	sigaction(SIGINT, &new_act, NULL);
+	set_sig(&old_act);
 	pid = fork();
 	if (pid < 0)
 		return (perror("heredoc fork"), -1);
@@ -88,11 +80,11 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 	{
 		signal(SIGINT, SIG_DFL);
 		close(pipefd[0]);
-		do_heredoc(redir->filename, pipefd[1], ms);
+		do_heredoc(redir->filename, pipefd[1], ms, redir->heredoc_q);
 		close(pipefd[1]);
 		exit(0);
 	}
-	return (handle_heredoc_parent(pipefd, ms, status, &old_act));
+	return (handle_heredoc_parent(pipefd, ms, &old_act));
 }
 
 int	treat_heredocs(t_token *token, t_ms *ms)

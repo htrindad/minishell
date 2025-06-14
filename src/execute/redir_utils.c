@@ -100,3 +100,13 @@ void	cleanup_redir(t_token **tokens)
 		}
 	}
 }
+void	set_sig(struct sigaction *old_act)
+{
+	struct sigaction	new_act;
+
+	sigaction(SIGINT, NULL, &old_act);
+	new_act.sa_handler = SIG_IGN;
+	sigemptyset(&new_act.sa_mask);
+	new_act.sa_flags = 0;
+	sigaction(SIGINT, &new_act, NULL);
+}

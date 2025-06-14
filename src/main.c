@@ -83,7 +83,7 @@ int	main(int ac, char **av, char **env)
 		shell->tokens = lexing(shell);
 		if (change_set(&shell->tokens))
 			break ;
-		parse_redirections(&shell->tokens);
+		parse_redirections(&shell->tokens, shell->input);
 		executor(&shell);
 		ret(shell);
 	}

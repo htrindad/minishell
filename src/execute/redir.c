@@ -25,6 +25,7 @@ int	add_redir(t_redir **redir_list, t_case type, char *filename)
 		return (free(new), 1);
 	new->type = type;
 	new->heredoc_fd = -1;
+	new->heredoc_q = false;
 	new->next = NULL;
 	if (!*redir_list)
 		*redir_list = new;
@@ -45,14 +46,15 @@ bool	is_redirection(t_case type)
 	return (false);
 }
 
-static int	set_redir(t_token *tok)
+static int	set_redir(t_token *tok, char *u_input)
 {
-	t_token	*tmp;
+	t_token		*tmp;
+	static int 	heredoc_i = 0;
 
 	tmp = tok;
 	while (tmp && is_redirection(tmp->cchar))
 	{
-		if (tok->cchar == IN || tok->cchar == HEREDOC)
+		if (tmp->cchar == IN || tmp->cchar == HEREDOC)
 		{
 			if (tmp->next && tmp->next->value && add_redir(&tok->fds->in,
 					tmp->cchar, tmp->next->value[0]))
@@ -64,6 +66,8 @@ static int	set_redir(t_token *tok)
 					tmp->cchar, tmp->next->value[0]))
 				return (1);
 		}
+		if (tmp->cchar == HEREDOC)
+			heredoc_i = get_heredoc_quotes(u_input + heredoc_i, &tok->fds->in);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -79,7 +83,7 @@ static void	mark_chained_redirs(t_token **curr)
 	}
 }
 
-int	parse_redirections(t_token **tokens)
+int	parse_redirections(t_token **tokens, char *user_input)
 {
 	t_token	*curr;
 
@@ -92,7 +96,7 @@ int	parse_redirections(t_token **tokens)
 				return (1);
 			if (alloc_fds_if_needed(curr))
 				return (1);
-			if (set_redir(curr))
+			if (set_redir(curr, user_input))
 				return (1);
 			mark_chained_redirs(&curr);
 		}
