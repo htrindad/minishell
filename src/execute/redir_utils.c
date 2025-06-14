@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:33:47 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/31 20:20:10 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:32:23 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,15 @@ void	cleanup_redir(t_token **tokens)
 			curr = curr->next;
 		}
 	}
+}
+
+void	set_sig(struct sigaction *old_act)
+{
+	struct sigaction	new_act;
+
+	sigaction(SIGINT, NULL, old_act);
+	new_act.sa_handler = SIG_IGN;
+	sigemptyset(&new_act.sa_mask);
+	new_act.sa_flags = 0;
+	sigaction(SIGINT, &new_act, NULL);
 }

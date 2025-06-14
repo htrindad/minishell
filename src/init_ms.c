@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/14 18:40:59 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:18:15 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ static inline t_builtin	*init_bi(void)
 	return (builtin);
 }
 
+static void	display_banner(void)
+{
+	printf("\033[1;35m");
+	printf("  __  __ _       _     _          _ _ \n");
+	printf(" |  \\/  (_)_ __ (_)___| |__   ___| | |\n");
+	printf(" | |\\/| | | '_ \\| / __| '_ \\ / _ \\ | |\n");
+	printf(" | |  | | | | | | \\__ \\ | | |  __/ | |\n");
+	printf(" |_|  |_|_|_| |_|_|___/_| |_|\\___|_|_|\n");
+	printf("\n");
+	printf("     Created by htrindad & mely-pan\n");
+	printf("\033[0m");
+}
+
 void	init_ms(t_ms *shell)
 {
 	shell->shell_pid = getpid();
@@ -50,4 +63,5 @@ void	init_ms(t_ms *shell)
 	shell->builtin = init_bi();
 	if (!shell->scases || !shell->builtin)
 		em("Malloc\nFail.\n", shell);
+	display_banner();
 }

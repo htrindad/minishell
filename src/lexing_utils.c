@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/04 19:13:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:18:42 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static inline void	norm(t_ms *ms, t_token *new, size_t *l, char **value)
 	}
 }
 
-static inline void	fa_spec(char ***args)
+void	fa_spec(char ***args)
 {
 	size_t	i;
 
@@ -81,17 +81,9 @@ bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l)
 	return (false);
 }
 
-void	lex_free(char ***args)
+bool	ft_is_special_char(int c)
 {
-	size_t	i;
-
-	i = 0;
-	if (args[0])
-	{
-		while (args[i])
-			free_args(args[i++]);
-		free(args);
-	}
-	else
-		fa_spec(args);
+	if (c == '<' || c == '>' || c == '|')
+		return (true);
+	return (false);
 }

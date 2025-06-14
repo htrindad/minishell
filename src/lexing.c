@@ -71,6 +71,25 @@ static void	null_fds(t_token *head)
 	}
 }
 
+static int	check_parse_error(t_ms *ms)
+{
+	int		i;
+
+	i = 0;
+	while (ms->input[i])
+		i++;
+	i--;
+	while (ms->input[i] == 32 || (ms->input[i] > 8 && ms->input[i] < 14))
+		i--;
+	if (ft_is_special_char(ms->input[i]))
+	{
+		ms->last_status = 2;
+		perror("Parse error");
+		return (1);
+	}
+	return (0);
+}
+
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
@@ -94,8 +113,7 @@ t_token	*lexing(t_ms *shell)
 				return (free_tokens(head), NULL);
 		i++;
 	}
-	null_fds(head);
-	if (DEBUG)
-		print_tokens_debug(head);
-	return (lex_free(args), head);
+	if (check_parse_error(shell))
+		return (lex_free(args), free_tokens(head), NULL);
+	return (null_fds(head), lex_free(args), head);
 }

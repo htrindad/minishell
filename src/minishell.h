@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/12 08:51:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:19:13 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_redir
 {
 	char			*filename;
 	t_case			type;
+	int				heredoc_fd;
+	bool			heredoc_q;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -121,6 +123,7 @@ char	*extract_env_var(t_ms *shell, char *input, int *i);
 char	*var_cases(t_ms *shell, char *input, int *i);
 char	*conc_char(char c);
 void	free_args(char **args);
+void	set_sig(struct sigaction *old_act);
 void	free_env(t_env *env);
 void	free_tokens(t_token *tokens);
 void	free_redirs(t_redir *redir);
@@ -156,14 +159,20 @@ int		unset(t_ms *ms);
 int		echo(t_ms *ms);
 void	c_len(size_t *len, char const *s, char **cases);
 char	*trimmer(char *tmp);
-int		parse_redirections(t_token **tokens);
-int		handle_redirections(t_token *tokens, t_ms *ms);
+int		parse_redirections(t_token **tokens, char *user_input);
+int		handle_redirections(t_token *tokens);
+bool	ft_is_special_char(int c);
+void	fa_spec(char ***args);
 int		alloc_fds_if_needed(t_token *curr);
 void	cleanup_redir(t_token **tokens);
 void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
-int		handle_heredoc(char *delimiter, t_ms *ms);
+int		handle_heredoc(t_redir *redir, t_ms *ms);
+void	write_line_heredoc(char *line, int fd, t_ms *ms, bool quoted);
+int		treat_heredocs(t_token *token, t_ms *ms);
+int		get_heredoc_quotes(char *input, t_redir **redir_list);
+bool	is_single_token_and_builtin(t_token *token, int prev_fd);
 int		single_exec(t_token *token, t_ms *ms, bool is_parent, char **env);
 char	**comp_env(t_env *env);
 int		redir_exec(t_token *token, t_ms *ms);
@@ -176,8 +185,8 @@ size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);
 bool	f_spec_case(char const *s, size_t *i, char **cases);
 bool	swap_strs(char **s1, char *s2);
-int		run_execve(char *cmd, char **full_cmd, char **env);
-int	 	*es(void);
+int		run_execve(char *cmd, char **full_cmd, char **env, char *value);
+int		*es(void);
 char	*temper(char const *s, size_t i, size_t len);
 bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i);
 void	*nuller(char ***args);

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/12 08:48:45 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:42:23 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		close(prev_fd);
 	}
 	if (token->fds)
-		if (handle_redirections(token, ms))
+		if (handle_redirections(token))
 			return (em("Failed.", ms), 1);
 	if (token->cchar == PIPE && token->next)
 	{
@@ -31,7 +31,7 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
 	return (run_execve(find_command(token->value[0], env, ms), token->value,
-			env));
+			env, token->value[0]));
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
@@ -100,14 +100,15 @@ void	executor(t_ms **ms)
 
 	token = (*ms)->tokens;
 	prev_fd = -1;
+	if (treat_heredocs(token, *ms))
+		return ;
 	env = comp_env((*ms)->env);
 	if (env == NULL)
 		return (em("Error\nMalloc Fail.\n", (*ms)));
 	while (token)
 	{
 		next = token->next;
-		if (!token->next && !token->fds && token->value
-			&& is_builtin(token->value[0]) && prev_fd == -1)
+		if (is_single_token_and_builtin(token, prev_fd))
 		{
 			*es() = exec_builtin(token, *ms);
 			return (free_args(env));
@@ -116,6 +117,5 @@ void	executor(t_ms **ms)
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
-	wait_process(*ms);
-	free_args(env);
+	return (wait_process(*ms), free_args(env));
 }
