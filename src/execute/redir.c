@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:34:14 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 20:04:37 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:21:36 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	is_redirection(t_case type)
 static int	set_redir(t_token *tok, char *u_input)
 {
 	t_token		*tmp;
-	static int 	heredoc_i = 0;
+	static int	heredoc_i = 0;
 
 	tmp = tok;
 	while (tmp && is_redirection(tmp->cchar))

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:01:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/02 19:04:57 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:22:14 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	apply_redir(int fd, int std_fd)
 	return (0);
 }
 
-int		handle_redirections(t_token *tokens)
+int	handle_redirections(t_token *tokens)
 {
 	t_redir	*redir;
 	int		fd;

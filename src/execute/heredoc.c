@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/07 16:28:19 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:21:20 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms, bool quoted)
 	}
 }
 
-static int	handle_heredoc_parent(int *pipefd, t_ms *ms, struct sigaction *old_act)
+static int	heredoc_parent(int *pipefd, t_ms *ms, struct sigaction *old_act)
 {
 	int	status;
 
@@ -84,7 +84,7 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 		close(pipefd[1]);
 		exit(0);
 	}
-	return (handle_heredoc_parent(pipefd, ms, &old_act));
+	return (heredoc_parent(pipefd, ms, &old_act));
 }
 
 int	treat_heredocs(t_token *token, t_ms *ms)

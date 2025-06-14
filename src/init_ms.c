@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/05/14 18:40:59 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:18:15 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static inline t_builtin	*init_bi(void)
 	builtin[7].f = NULL;
 	return (builtin);
 }
-
 
 static void	display_banner(void)
 {
