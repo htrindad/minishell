@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/16 20:07:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:12:18 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static inline void	setup(t_ms *shell, char **env)
 	init_ms(shell);
 	shell->env = get_env(env);
 	shell->home = ft_strdup(get_home(shell->env));
+	if (shell->home == NULL)
+	{
+		shell->running = false;
+		return ;
+	}
 	shell->si.sa_flags = SA_SIGINFO;
 	sigemptyset(&shell->si.sa_mask);
 	sigemptyset(&shell->sq.sa_mask);
