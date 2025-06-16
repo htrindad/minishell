@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:18:15 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:05:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static void	display_banner(void)
 	printf("\033[0m");
 }
 
+static inline char	*current_pwd(void)
+{
+	char	c[PATH_MAX];
+
+	if (getcwd(c, sizeof(c)))
+		return (ft_strdup(c));
+	return (NULL);
+}
+
 void	init_ms(t_ms *shell)
 {
 	shell->shell_pid = getpid();
@@ -60,6 +69,7 @@ void	init_ms(t_ms *shell)
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
 	shell->running = true;
+	shell->c_pwd = current_pwd();
 	shell->builtin = init_bi();
 	if (!shell->scases || !shell->builtin)
 		em("Malloc\nFail.\n", shell);
