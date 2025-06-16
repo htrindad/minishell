@@ -12,6 +12,21 @@
 
 #include "../minishell.h"
 
+void	have_heredocs(char *u_input, t_token *head)
+{
+	t_token	*curr;
+	int		hd_indx;
+
+	curr = head;
+	hd_indx = 0;
+	while (curr)
+	{
+		if (curr->fds && curr->fds->in && curr->fds->in->type == HEREDOC)
+			hd_indx += get_heredoc_quotes(u_input + hd_indx, &curr->fds->in);
+		curr = curr->next;
+	}
+}
+
 static void	skip_quote_delim(const char *s, int *i)
 {
 	char	q;
@@ -26,7 +41,7 @@ static void	skip_quote_delim(const char *s, int *i)
 
 static void	skip_unquoted_delim(const char *s, int *i)
 {
-	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && ft_is_special_char(s[*i]))
+	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && !ft_is_special_char(s[*i]))
 		(*i)++;
 }
 
@@ -37,7 +52,7 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 
 	i = 0;
 	tmp = *redir;
-	while (input[i])
+	while (input[i] && tmp)
 	{
 		if (input[i] == '<' && input[i + 1] == '<')
 		{
@@ -51,9 +66,10 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 			}
 			else
 				skip_unquoted_delim(input, &i);
-			break ;
+			tmp = tmp->next;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }

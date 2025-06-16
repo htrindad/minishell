@@ -169,6 +169,7 @@ void	remove_token(t_token **head, t_token *to_remove);
 void	cleanup_redir(t_token **tokens);
 bool	is_redirection(t_case type);
 int		handle_heredoc(t_redir *redir, t_ms *ms);
+void	have_heredocs(char *u_input, t_token *head);
 void	write_line_heredoc(char *line, int fd, t_ms *ms, bool quoted);
 int		treat_heredocs(t_token *token, t_ms *ms);
 int		get_heredoc_quotes(char *input, t_redir **redir_list);
