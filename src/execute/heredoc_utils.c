@@ -6,13 +6,28 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:19:55 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 17:24:31 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/14 20:01:31 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	skip_quote_delim(const char *s, int *i)
+void	have_heredocs(char *u_input, t_token *head)
+{
+	t_token	*curr;
+	int		hd_indx;
+
+	curr = head;
+	hd_indx = 0;
+	while (curr)
+	{
+		if (curr->fds && curr->fds->in && curr->fds->in->type == HEREDOC)
+			hd_indx += get_heredoc_quotes(u_input + hd_indx, &curr->fds->in);
+		curr = curr->next;
+	}
+}
+
+static char	skip_quote_delim(const char *s, int *i)
 {
 	char	q;
 
@@ -22,12 +37,12 @@ static void	skip_quote_delim(const char *s, int *i)
 		(*i)++;
 	if (s[*i])
 		(*i)++;
+	return (q);
 }
 
 static void	skip_unquoted_delim(const char *s, int *i)
 {
-	while (s[*i] && s[*i] != ' ' && s[*i] != '\t'
-		&& ft_is_special_char(s[*i]))
+	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && !ft_is_special_char(s[*i]))
 		(*i)++;
 }
 
@@ -47,7 +62,7 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 				i++;
 			if (input[i] == '\'' || input[i] == '\"')
 			{
-				skip_quote_delim(input, &i);
+				tmp->heredoc_q_type = skip_quote_delim(input, &i);
 				tmp->heredoc_q = true;
 			}
 			else
