@@ -61,6 +61,7 @@ typedef struct s_redir
 	t_case			type;
 	int				heredoc_fd;
 	bool			heredoc_q;
+	char			heredoc_q_type;
 	struct s_redir	*next;
 }	t_redir;
 

@@ -27,7 +27,7 @@ void	have_heredocs(char *u_input, t_token *head)
 	}
 }
 
-static void	skip_quote_delim(const char *s, int *i)
+static char	skip_quote_delim(const char *s, int *i)
 {
 	char	q;
 
@@ -37,6 +37,7 @@ static void	skip_quote_delim(const char *s, int *i)
 		(*i)++;
 	if (s[*i])
 		(*i)++;
+	return (q);
 }
 
 static void	skip_unquoted_delim(const char *s, int *i)
@@ -61,7 +62,7 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 				i++;
 			if (input[i] == '\'' || input[i] == '\"')
 			{
-				skip_quote_delim(input, &i);
+				tmp->heredoc_q_type = skip_quote_delim(input, &i);
 				tmp->heredoc_q = true;
 			}
 			else
