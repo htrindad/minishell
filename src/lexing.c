@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 19:46:45 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:51:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,6 @@ static void	null_fds(t_token *head)
 			tmp->fds = NULL;
 		tmp = tmp->next;
 	}
-}
-
-static int	check_parse_error(t_ms *ms)
-{
-	int	i;
-
-	i = 0;
-	while (ms->input[i])
-		i++;
-	i--;
-	while (i > 0 && (ms->input[i] == 32 || (ms->input[i] > 8
-			&& ms->input[i] < 14)))
-		i--;
-	if (ft_is_special_char(ms->input[i]))
-	{
-		*es() = 2;
-		perror("Parse error");
-		return (1);
-	}
-	return (0);
 }
 
 t_token	*lexing(t_ms *shell)

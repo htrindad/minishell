@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/16 20:08:40 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:50:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void	*nuller(char ***args);
 bool	all_spaces(char const *s);
 bool	rearchitect(char ***matrix, t_ms *ms);
 char	*tilt(char *old, char *home);
+int		check_parse_error(t_ms *ms);
 
 // debug
 void	print_tokens(t_token *head);
