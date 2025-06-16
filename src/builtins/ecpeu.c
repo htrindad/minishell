@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 17:47:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:08:54 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ int	pwd(t_ms *ms)
 {
 	char	c[PATH_MAX];
 
-	(void)ms;
-	getcwd(c, sizeof(c));
-	printf("%s\n", c);
+	if (getcwd(c, sizeof(c)))
+	{
+		free(ms->c_pwd);
+		ms->c_pwd = ft_strdup(c);
+	}
+	printf("%s\n", ms->c_pwd);
 	return (0);
 }
 
@@ -50,13 +53,11 @@ int	change_dir(t_ms *ms)
 
 	tok = ms->tokens;
 	if (tok->value[1] == NULL)
-	{
-		tok->value[1] = get_home(ms->env);
-		if (tok->value == NULL)
-			return (printf("cd: HOME not set\n"));
-	}
-	getcwd(c, sizeof(c));
-	if (chdir(tok->value[1]) < 0)
+		if (rearchitect(&tok->value, ms))
+			return (printf("cd: HOME not set, or alloc failure\n"));
+	if (tok->value[1][0] == '~' && tok->value[1][1] == '/')
+		tok->value[1] = tilt(tok->value[1], ms->home);
+	if (getcwd(c, sizeof(c)) == NULL || chdir(tok->value[1]) < 0)
 	{
 		if (!tok->value[1][0])
 			return (1);

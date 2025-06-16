@@ -34,6 +34,8 @@ bool	f_spec_case(char const *s, size_t *i, char **cases)
 			sc = true;
 		(*i)++;
 	}
+	if (!sc)
+		*i = 0;
 	return (sc);
 }
 

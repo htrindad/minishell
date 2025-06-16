@@ -104,7 +104,7 @@ char	***ft_split_shell(t_ms *shell)
 	if (!shell->input || !ft_strncmp(shell->input, "", 1))
 		return (NULL);
 	count = count_cases(shell->input, shell);
-	if (!shell->running)
+	if (!count)
 		return (NULL);
 	array = ft_calloc(count + 1, sizeof(char **));
 	if (!array)

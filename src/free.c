@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:32:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 17:01:51 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:06:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ void	clean_ms(t_ms *shell)
 		free(shell->scases[i++]);
 	rl_clear_history();
 	free(shell->scases);
+	free(shell->c_pwd);
 	shell->tokens = NULL;
 	free_env(shell->env);
 	free_tokens(shell->tokens);
 	shell->env = NULL;
 	free(shell->builtin);
+	free(shell->home);
 	free(shell);
 }
