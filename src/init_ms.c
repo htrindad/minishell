@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/16 20:05:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:18:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	init_ms(t_ms *shell)
 	shell->c_pwd = current_pwd();
 	shell->builtin = init_bi();
 	if (!shell->scases || !shell->builtin)
-		em("Malloc\nFail.\n", shell);
+		em("Malloc\nFail.", shell);
 	display_banner();
 }
