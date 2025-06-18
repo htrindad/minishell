@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 14:46:00 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:26:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	***ft_split_shell(t_ms *shell)
 
 	if (!shell->input || !ft_strncmp(shell->input, "", 1))
 		return (NULL);
-	count = count_cases(shell->input, shell); // change this function for god sake
+	count = count_cases(shell->input, shell);
 	if (!count)
 		return (NULL);
 	array = ft_calloc(count + 1, sizeof(char **));
