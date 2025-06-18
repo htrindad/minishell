@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 14:04:13 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:35:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,5 @@ int	main(int ac, char **av, char **env)
 		ret(shell);
 	}
 	clean_ms(shell);
-	return (0);
+	return (*es());
 }

@@ -1,0 +1,10 @@
+a
+libs
+LICENSE
+Makefile
+minishell
+minishell_tester
+obj
+read.supp
+run.sh
+src

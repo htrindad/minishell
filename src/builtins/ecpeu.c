@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/16 20:08:54 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:05:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,22 @@
 
 int	quit(t_ms *ms)
 {
+	int		num;
+	char	**args;
+
+	num = 0;
+	args = ms->tokens->value;
 	ms->running = false;
 	printf("exit\n");
-	return (0);
+	if (args[1])
+	{
+		if (args[2])
+			return (perror("Too many arguments"), 1);
+		num = ft_atoi(args[1]);
+		if (!num && !ft_isdigit(args[1][0]))
+			return (perror("Non string as argument"), 2);
+	}
+	return (num);
 }
 
 int	env(t_ms *ms)
@@ -55,6 +68,8 @@ int	change_dir(t_ms *ms)
 	if (tok->value[1] == NULL)
 		if (rearchitect(&tok->value, ms))
 			return (printf("cd: HOME not set, or alloc failure\n"));
+	if (tok->value[2])
+		return (perror("Too many arguments."), 1);
 	if (tok->value[1][0] == '~' && tok->value[1][1] == '/')
 		tok->value[1] = tilt(tok->value[1], ms->home);
 	if (getcwd(c, sizeof(c)) == NULL || chdir(tok->value[1]) < 0)
