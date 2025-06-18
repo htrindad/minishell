@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/14 19:12:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:09:39 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ size_t	count_cases(char const *s, t_ms *ms)
 	if (all_spaces(s))
 		return (0);
 	i = 0;
-	count = shorter(ms, s, 0, 0);
+	if (quoter(s))
+		count = ft_count_words(s, ms);
+	else
+		count = shorter(ms, s, 0, 0);
 	return (count);
 }
 
@@ -85,7 +88,7 @@ size_t	ft_count_words(char const *s, t_ms *ms)
 			i++;
 		if (!s[i])
 			break ;
-		if (check(s, ms, i) == 1)
+		if (s[i] != '\'' && s[i] != '\"' && check(s, ms, i) == 1)
 			break ;
 		count++;
 		if (s[i] == '\'' || s[i] == '\"')
