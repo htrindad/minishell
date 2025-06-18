@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/16 20:51:00 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:27:07 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ bool	all_spaces(char const *s)
 bool	f_spec_case(char const *s, size_t *i, char **cases)
 {
 	bool	sc;
+	bool	os;
 
 	sc = false;
+	os = true;
 	while (s[*i] == ' ' || mini_spec_case(s + *i, cases))
 	{
+		if (s[*i] != ' ')
+			os = false;
 		if (mini_spec_case(s + *i, cases))
 			sc = true;
 		(*i)++;
 	}
-	if (!sc)
-		*i = 0;
+	if (os && *i)
+		(*i)--;
 	return (sc);
 }
 
