@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:12:35 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/18 17:09:44 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:15:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static inline bool	replace(char *arg, t_env *env)
 	if (!arg[i])
 		return (false);
 	tmp = ft_substr(arg, 0, i);
-	if (tmp == NULL || *tmp == '=')
+	if (tmp == NULL || !ft_strlen(tmp))
 		return (true);
 	rm_env(&env, tmp);
 	free(tmp);
