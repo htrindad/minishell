@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 20:50:47 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:10:45 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 {
 	*es() = ms->builtin[i].f(ms);
 	if (is_parent)
-	{
-		ms->last_status = *es();
 		return (*es());
-	}
 	else
 	{
 		ret(ms);

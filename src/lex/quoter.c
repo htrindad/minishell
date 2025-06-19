@@ -6,15 +6,19 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/18 14:51:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:23:35 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i)
+bool	stopper(t_ms *ms, char const *s, size_t i)
 {
-	*counter = ft_count_words(s + i, ms);
+	size_t	res;
+
+	res = ft_count_words(s + i, ms);
+	if (res)
+		*counter() = res;
 	if (!ms->running)
 		return (true);
 	return (false);
