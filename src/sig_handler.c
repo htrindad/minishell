@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/05 19:00:09 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:12:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 void	refresh(t_ms *ms)
 {
 	g_pid = ms->pid;
-	ms->last_status = *es();
 }
 
 void	set_sig(struct sigaction *old_act)

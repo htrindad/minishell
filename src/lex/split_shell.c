@@ -6,13 +6,13 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 17:26:29 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:17:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static inline bool	ft_safe_allocate(char ***array, size_t count, \
+static inline bool	ft_safe_allocate(char ***array, \
 		t_ms *ms, size_t *len)
 {
 	size_t	i;
@@ -21,11 +21,11 @@ static inline bool	ft_safe_allocate(char ***array, size_t count, \
 
 	i = *len;
 	itr = 0;
-	*array = ft_calloc(count + 1, sizeof(char *));
+	*array = ft_calloc(*counter() + 1, sizeof(char *));
 	if (*array == NULL)
 		return (true);
-	(*array)[count] = NULL;
-	while (itr < count)
+	(*array)[*counter()] = NULL;
+	while (itr < *counter())
 	{
 		c_len(len, ms->input, ms->scases);
 		tmp = temper(ms->input, i, *len);
@@ -55,7 +55,6 @@ bool	mini_spec_case(char const *s, char **cases)
 bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 {
 	size_t	i;
-	size_t	count;
 
 	i = *len;
 	while (s[i] && (s[i] == ' ' || mini_spec_case(s + i, ms->scases)))
@@ -74,9 +73,9 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	*len = i;
 	if (!s[i])
 		return (false);
-	if (stopper(&count, ms, s, i))
+	if (stopper(ms, s, i))
 		return (true);
-	if (ft_safe_allocate(array, count, ms, len))
+	if (ft_safe_allocate(array, ms, len))
 		return (em("Error\nMalloc Fail.", ms), true);
 	return (false);
 }
