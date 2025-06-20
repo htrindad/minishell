@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/06 20:50:06 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:11:35 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*var_cases(t_ms *shell, char *input, int *i)
 	char	*tmp;
 
 	if (input[*i] == '?')
-		tmp = ft_itoa(shell->last_status);
+		tmp = ft_itoa(*es());
 	else if (input[*i] == '$')
 		tmp = ft_itoa(shell->shell_pid);
 	else if (ft_isalpha(input[*i]) || input[*i] == '_')

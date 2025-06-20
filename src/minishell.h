@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/18 14:51:19 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:53:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef struct s_ms
 	char			*home;
 	bool			running;
 	int				pid;
-	int				last_status;
 	int				pipefd[2];
 	int				cas;
 	pid_t			shell_pid;
@@ -116,7 +115,7 @@ typedef struct s_ms
 // Functions
 void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
-bool	add_token(t_token **head, char **value, t_ms *ms, size_t *l);
+bool	add_token(t_token **head, char **value, t_ms *ms);
 char	***ft_split_shell(t_ms *shell);
 char	*handle_env_var(char *input, t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
@@ -192,13 +191,14 @@ bool	swap_strs(char **s1, char *s2);
 int		run_execve(char *cmd, char **full_cmd, char **env, char *value);
 int		*es(void);
 char	*temper(char const *s, size_t i, size_t len);
-bool	stopper(size_t *counter, t_ms *ms, char const *s, size_t i);
+bool	stopper(t_ms *ms, char const *s, size_t i);
 void	*nuller(char ***args);
 bool	all_spaces(char const *s);
 bool	rearchitect(char ***matrix, t_ms *ms);
 char	*tilt(char *old, char *home);
 int		check_parse_error(t_ms *ms);
 bool	quoter(char const *s);
+size_t	*counter(void);
 
 // debug
 void	print_tokens(t_token *head);

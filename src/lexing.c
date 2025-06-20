@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 14:27:07 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:04:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ bool	f_spec_case(char const *s, size_t *i, char **cases)
 
 	sc = false;
 	os = true;
+	if (s[*i] != ' ')
+		os = false;
 	while (s[*i] == ' ' || mini_spec_case(s + *i, cases))
 	{
 		if (s[*i] != ' ')
@@ -81,7 +83,6 @@ t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
 	char	***args;
-	size_t	l;
 	int		i;
 
 	head = NULL;
@@ -89,17 +90,18 @@ t_token	*lexing(t_ms *shell)
 	if (!args)
 		return (NULL);
 	i = 0;
-	l = 0;
+	*counter() = 0;
 	if (args[0] == NULL && args[1] != NULL)
-		if (add_token(&head, args[i++], shell, &l))
+		if (add_token(&head, args[i++], shell))
 			return (free_tokens(head), NULL);
 	while (args[i])
 	{
 		if (args[i][0][0])
-			if (add_token(&head, args[i], shell, &l))
+			if (add_token(&head, args[i], shell))
 				return (free_tokens(head), NULL);
 		i++;
 	}
+	*counter() = 0;
 	if (check_parse_error(shell))
 		return (lex_free(args), free_tokens(head), NULL);
 	return (null_fds(head), lex_free(args), head);

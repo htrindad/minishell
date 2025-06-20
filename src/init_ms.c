@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 17:26:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:21:23 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	init_ms(t_ms *shell)
 	shell->shell_pid = getpid();
 	shell->env = NULL;
 	shell->input = NULL;
-	shell->last_status = 0;
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
 	shell->running = true;

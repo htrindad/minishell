@@ -6,11 +6,18 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:08:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/04/14 18:13:52 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:15:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+size_t	*counter(void)
+{
+	static size_t	counter = 0;
+
+	return (&counter);
+}
 
 char	**duplicator(char **arg)
 {
