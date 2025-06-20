@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 19:45:01 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:30:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
 static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 {
 	pid_t	pid;
-	int		exit_status;
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(ms->pipefd) < 0)
@@ -59,11 +58,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 		return (em("Error\nFork Fail.", ms));
 	if (!pid)
 	{
-		exit_status = exec_child(token, env, *prev_fd, ms);
+		*es() = exec_child(token, env, *prev_fd, ms);
 		ret(ms);
 		clean_ms(ms);
 		free_args(env);
-		exit(exit_status);
+		exit(*es());
 	}
 	else
 	{

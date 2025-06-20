@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 15:07:17 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:22:33 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	c_len(size_t *len, char const *s, char **cases)
 	while (s[*len] && s[*len] != ' ' && !mini_spec_case(s + *len, cases))
 	{
 		if (s[*len] == '\'' || s[*len] == '\"')
+		{
 			*len = gnq(len, s);
+			break ;
+		}
 		else
 			(*len)++;
 	}
