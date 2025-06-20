@@ -103,6 +103,7 @@ int	parse_redirections(t_token **tokens, char *user_input)
 		curr = curr->next;
 	}
 	have_heredocs(user_input, *tokens);
-	cleanup_redir(tokens);
+	if (cleanup_redir(tokens))
+		return (1);
 	return (0);
 }

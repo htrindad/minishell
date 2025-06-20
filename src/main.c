@@ -84,8 +84,6 @@ static inline bool	change_set(t_token **token)
 		if (swap(*token, last->next))
 			return (true);
 	}
-	if (DEBUG)
-		print_tokens_debug(*token);
 	return (false);
 }
 
@@ -110,7 +108,8 @@ int	main(int ac, char **av, char **env)
 		shell->tokens = lexing(shell);
 		if (shell->tokens && change_set(&shell->tokens))
 			break ;
-		parse_redirections(&shell->tokens, shell->input);
+		if (parse_redirections(&shell->tokens, shell->input))
+			break ;
 		executor(&shell);
 		ret(shell);
 	}
