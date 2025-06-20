@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:08:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/19 17:15:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:22:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,40 @@ size_t	*counter(void)
 	static size_t	counter = 0;
 
 	return (&counter);
+}
+
+size_t	breaker(char const *s, size_t i, char **cases, char *c)
+{
+	bool	breaker;
+	char	q;
+
+	breaker = false;
+	q = 0;
+	while (s[i] && !breaker)
+	{
+		if (s[i] == q)
+			q = 0;
+		if (q && mini_spec_case(s + i, cases))
+		{
+			breaker = true;
+			*counter() = i;
+			*c = q;
+			break ;
+		}
+		if ((s[i] == '\'' || s[i] == '\"') && !q)
+			q = s[i++];
+		i++;
+	}
+	return (breaker);
+}
+
+size_t	change_sit(char const *s, char *q)
+{
+	while (s[*counter()] && s[*counter()] != *q)
+		(*counter())++;
+	(*counter())++;
+	*q = 0;
+	return (*counter());
 }
 
 char	**duplicator(char **arg)

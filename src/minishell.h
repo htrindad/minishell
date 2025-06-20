@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/19 17:53:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:21:44 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ char	*tilt(char *old, char *home);
 int		check_parse_error(t_ms *ms);
 bool	quoter(char const *s);
 size_t	*counter(void);
+size_t	breaker(char const *s, size_t i, char **cases, char *c);
+size_t	change_sit(char const *s, char *q);
 
 // debug
 void	print_tokens(t_token *head);

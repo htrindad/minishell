@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/19 18:02:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:23:10 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,28 @@ static inline void	first_case(size_t *l, t_token *new, t_ms *ms, size_t *i)
 static inline void	norm(t_ms *ms, t_token *new, char **value)
 {
 	size_t	i;
+	char	c;
 
 	i = *counter();
 	new->value = duplicator(value);
 	ms->cas = 0;
 	if (!new->value)
-		em("Error\nMalloc fail.", ms);
-	else
+		return (em("Error\nMalloc fail.", ms));
+	while (ms->input[i])
 	{
-		while (ms->input[i])
+		if (breaker(ms->input, i, ms->scases, &c))
+			i = change_sit(ms->input + i, &c);
+		else if (spec_case(ms->input, ms, counter(), i++))
 		{
-			if (spec_case(ms->input, ms, counter(), i++))
-			{
-				new->cchar = set_case(ms->input + *counter());
-				break ;
-			}
+			new->cchar = set_case(ms->input + *counter());
+			break ;
 		}
-		if (new->cchar != APPEND && new->cchar != HEREDOC)
-			(*counter())++;
-		else
-			*counter() += 2;
-		new->next = NULL;
 	}
+	if (new->cchar != APPEND && new->cchar != HEREDOC)
+		(*counter())++;
+	else
+		*counter() += 2;
+	new->next = NULL;
 }
 
 void	fa_spec(char ***args)

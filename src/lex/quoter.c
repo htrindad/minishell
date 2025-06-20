@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/19 17:23:35 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:01:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	quoter(char const *s)
 
 	q = 0;
 	i = 0;
-	while (s[i])
+	while (s[i] && s[i] != ' ')
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 		{
