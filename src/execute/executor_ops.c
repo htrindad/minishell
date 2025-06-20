@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 19:41:07 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:38:06 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,7 @@ int	*es(void)
 static int	rep(t_ms *ms, size_t i, bool is_parent, char **env)
 {
 	*es() = ms->builtin[i].f(ms);
-	if (is_parent)
-		return (*es());
-	else
-	{
-		ret(ms);
-		clean_ms(ms);
-		free_args(env);
-		exit(*es());
-	}
-	return (*es());
+	return (case_free(is_parent, env, ms));
 }
 
 int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
@@ -39,7 +30,7 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 	size_t	i;
 
 	i = 0;
-	while (ms->builtin[i].name)
+	while (i < 8)
 	{
 		if (token->value[0] && ms->builtin[i].name
 			&& !ft_strncmp(token->value[0], ms->builtin[i].name,
@@ -49,6 +40,13 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 				return (rep(ms, i, is_parent, env));
 			else if (!is_parent)
 				return (rep(ms, i, is_parent, env));
+		}
+		if (i == 2 && token->value[0] && \
+				!ft_strncmp("echo", token->value[0], \
+					ft_strlen(token->value[0])))
+		{
+			*es() = echo(token->value + 1);
+			return (case_free(is_parent, env, ms));
 		}
 		i++;
 	}

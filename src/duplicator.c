@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:08:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 19:22:27 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:29:09 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ size_t	*counter(void)
 	static size_t	counter = 0;
 
 	return (&counter);
+}
+
+int	case_free(bool is_parent, char **env, t_ms *ms)
+{
+	if (is_parent)
+		return (*es());
+	ret(ms);
+	clean_ms(ms);
+	free_args(env);
+	exit(*es());
+	return (*es());
 }
 
 size_t	breaker(char const *s, size_t i, char **cases, char *c)

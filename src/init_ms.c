@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/20 18:07:54 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:31:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline t_builtin	*init_bi(void)
 		return (NULL);
 	builtin[0].name = "exit";
 	builtin[1].name = "cd";
-	builtin[2].name = "echo";
+	builtin[2].name = NULL;
 	builtin[3].name = "pwd";
 	builtin[4].name = "export";
 	builtin[5].name = "env";
@@ -29,7 +29,7 @@ static inline t_builtin	*init_bi(void)
 	builtin[7].name = NULL;
 	builtin[0].f = quit;
 	builtin[1].f = change_dir;
-	builtin[2].f = echo;
+	builtin[2].f = NULL;
 	builtin[3].f = pwd;
 	builtin[4].f = bi_export;
 	builtin[5].f = env;

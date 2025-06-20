@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 18:27:50 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/06 20:48:39 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:24:54 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ static bool	h_nl(char *arg)
 	return (true);
 }
 
-int	echo(t_ms *ms)
+int	echo(char **arg)
 {
-	char	**arg;
 	int		i;
 	bool	nl;
 
-	arg = ms->tokens->value + 1;
 	i = -1;
 	nl = true;
 	if (arg[0] == NULL)
