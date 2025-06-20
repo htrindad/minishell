@@ -41,3 +41,14 @@ void	refresh(t_ms *ms)
 	g_pid = ms->pid;
 	ms->last_status = *es();
 }
+
+void	set_sig(struct sigaction *old_act)
+{
+	struct sigaction	new_act;
+
+	sigaction(SIGINT, NULL, old_act);
+	new_act.sa_handler = SIG_IGN;
+	sigemptyset(&new_act.sa_mask);
+	new_act.sa_flags = 0;
+	sigaction(SIGINT, &new_act, NULL);
+}

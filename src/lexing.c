@@ -29,7 +29,8 @@ bool	f_spec_case(char const *s, size_t *i, char **cases)
 	bool	os;
 
 	sc = false;
-	os = true;
+	if (*i == 0)
+		os = true;
 	while (s[*i] == ' ' || mini_spec_case(s + *i, cases))
 	{
 		if (s[*i] != ' ')
