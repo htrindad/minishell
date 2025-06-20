@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 19:28:19 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:39:21 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 	{
 		execve(cmd, full_cmd, env);
 		perror("execve");
-		if (errno == EACCES)
+		if (!access(cmd, F_OK))
 			return (126);
-		return (1);
+		return (127);
 	}
 	ft_putstr_fd(value, 2);
 	perror(" Command not found");
