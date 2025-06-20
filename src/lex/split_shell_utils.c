@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/20 15:51:17 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:18:27 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 		while (s[i] && s[i] != ' ')
 			i++;
 	}
-	if (s[i])
+	if (s[i] && s[i] != ' ')
 		i++;
 	return (i - start);
 }
