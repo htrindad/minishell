@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:34:14 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/14 18:01:20 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:01:55 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	mark_chained_redirs(t_token **curr)
 	}
 }
 
-int	parse_redirections(t_token **tokens, char *user_input)
+void	parse_redirections(t_token **tokens, char *user_input)
 {
 	t_token	*curr;
 
@@ -91,11 +91,11 @@ int	parse_redirections(t_token **tokens, char *user_input)
 		if (is_redirection(curr->cchar) && !curr->is_redir)
 		{
 			if (!curr->next || !curr->next->value || !curr->next->value[0])
-				return (1);
+				return ;
 			if (alloc_fds_if_needed(curr))
-				return (1);
+				return ;
 			if (set_redir(curr))
-				return (1);
+				return ;
 			mark_chained_redirs(&curr);
 		}
 		else
@@ -103,7 +103,5 @@ int	parse_redirections(t_token **tokens, char *user_input)
 		curr = curr->next;
 	}
 	have_heredocs(user_input, *tokens);
-	if (cleanup_redir(tokens))
-		return (1);
-	return (0);
+	cleanup_redir(tokens);
 }

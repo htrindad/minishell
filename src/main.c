@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/18 16:35:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/20 20:02:11 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	main(int ac, char **av, char **env)
 		shell->tokens = lexing(shell);
 		if (shell->tokens && change_set(&shell->tokens))
 			break ;
-		if (parse_redirections(&shell->tokens, shell->input))
-			break ;
+		parse_redirections(&shell->tokens, shell->input);
 		executor(&shell);
 		ret(shell);
 	}
