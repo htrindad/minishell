@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/22 17:05:49 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:46:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <errno.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <termios.h>
 
 // Debug mode
 # ifndef DEBUG
@@ -53,6 +54,7 @@ typedef enum e_chcas
 typedef struct s_ms			t_ms;
 typedef struct s_token		t_token;
 typedef struct sigaction	t_sa;
+typedef struct termios		t_term;
 
 // Structs
 typedef struct s_redir
@@ -110,6 +112,7 @@ typedef struct s_ms
 	t_sa			sq;
 	t_builtin		*builtin;
 	t_token			*tokens;
+	t_term			term;
 }		t_ms;
 
 // Functions
