@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/19 17:12:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:55:32 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 {
 	(void)content;
 	(void)s;
+	if (*in_heredoc())
+		return ;
 	if (sig == SIGINT)
 		si();
 	ft_putchar_fd('\n', 1);
@@ -36,18 +38,29 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 	}
 }
 
+static void	h_setter(int sig, siginfo_t *s, void *content)
+{
+	(void)sig;
+	(void)s;
+	(void)content;
+	*es() = 130;
+	ret(*b_ms());
+	clean_ms(*b_ms());
+	exit(130);
+}
+
+void	hsh(t_ms *ms)
+{
+	t_sa	sa;
+
+	signal(SIGQUIT, SIG_IGN);
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = h_setter;
+	sigaction(SIGINT, &sa, NULL);
+	*b_ms() = ms;
+}
 void	refresh(t_ms *ms)
 {
 	g_pid = ms->pid;
-}
-
-void	set_sig(struct sigaction *old_act)
-{
-	struct sigaction	new_act;
-
-	sigaction(SIGINT, NULL, old_act);
-	new_act.sa_handler = SIG_IGN;
-	sigemptyset(&new_act.sa_mask);
-	new_act.sa_flags = 0;
-	sigaction(SIGINT, &new_act, NULL);
 }

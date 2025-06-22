@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/19 17:12:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:05:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms, t_redir *r)
 		if (!line)
 		{
 			ft_putchar_fd('\n', 1);
-			break ;
+			return (em("Readline Failed", ms));
 		}
 		tmp = line;
 		line = ft_strjoin(tmp, "\n");
@@ -59,44 +59,44 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms, t_redir *r)
 	}
 }
 
-static int	heredoc_parent(int *pipefd, t_sa *old_act)
+static int	heredoc_parent(int *pipefd, int pid)
 {
 	int	status;
 
 	status = 0;
 	close(pipefd[1]);
-	waitpid(-1, &status, 0);
-	sigaction(SIGINT, old_act, NULL);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-	{
-		*es() = 130;
-		close(pipefd[0]);
-		return (-1);
-	}
-	return (pipefd[0]);
+	waitpid(pid, &status, 0);
+	*in_heredoc() = false;
+	if (WEXITSTATUS(status) > 0)
+		return (pipefd[0]);
+	*es() = 130;
+	close(pipefd[0]);
+	return (-1);
 }
 
 int	handle_heredoc(t_redir *redir, t_ms *ms)
 {
-	int					pipefd[2];
-	pid_t				pid;
-	struct sigaction	old_act;
+	int		pipefd[2];
+	pid_t	pid;
 
 	if (pipe(pipefd) < 0)
 		return (perror("heredoc"), -1);
-	set_sig(&old_act);
+	*in_heredoc() = true;
 	pid = fork();
 	if (pid < 0)
 		return (perror("heredoc fork"), -1);
 	if (!pid)
 	{
-		signal(SIGINT, SIG_DFL);
+		hsh(ms);
 		close(pipefd[0]);
 		do_heredoc(redir->filename, pipefd[1], ms, redir);
 		close(pipefd[1]);
-		exit(0);
+		(ret(ms), clean_ms(ms));
+		exit(1);
 	}
-	return (heredoc_parent(pipefd, &old_act));
+	ms->pid = pid;
+	refresh(ms);
+	return (heredoc_parent(pipefd, pid));
 }
 
 int	treat_heredocs(t_token *token, t_ms *ms)
@@ -115,7 +115,7 @@ int	treat_heredocs(t_token *token, t_ms *ms)
 				{
 					fd = handle_heredoc(tmp, ms);
 					if (fd == -1)
-						return (ft_putchar_fd('\n', 1), 1);
+						return (write(1, "\n", 1));
 					tmp->heredoc_fd = fd;
 				}
 				tmp = tmp->next;
