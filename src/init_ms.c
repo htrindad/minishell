@@ -60,9 +60,37 @@ static inline char	*current_pwd(void)
 	return (NULL);
 }
 
+static char	*ft_getpid(void)
+{
+	char	*pid;
+	int		fd;
+	char	**stat;
+
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	pid = get_next_line(fd);
+	close(fd);
+	if (!pid)
+		return (NULL);
+	stat = ft_split(pid, ' ');
+	free(pid);
+	if (!stat)
+		return (NULL);
+	pid = ft_strdup(stat[0]);
+	free_args(stat);
+	if (!pid)
+		return (NULL);
+	return (pid);
+}
+
 void	init_ms(t_ms *shell)
 {
-	shell->shell_pid = getpid();
+	char	*pid;
+
+	pid = ft_getpid();
+	shell->shell_pid = ft_atoi(pid);
+	free(pid);
 	shell->env = NULL;
 	shell->input = NULL;
 	shell->tokens = NULL;
@@ -70,8 +98,7 @@ void	init_ms(t_ms *shell)
 	shell->running = true;
 	shell->c_pwd = current_pwd();
 	shell->builtin = init_bi();
-	tcgetattr(STDIN_FILENO, &shell->term);
-	if (!shell->scases || !shell->builtin)
-		em("Malloc\nFail.", shell);
+	if (!shell->scases || !shell->builtin || !pid)
+		em("Malloc Fail.", shell);
 	//display_banner();
 }

@@ -19,15 +19,15 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-	if (token->fds)
-		if (handle_redirections(token))
-			return (em("Failed.", ms), 1);
 	if (token->cchar == PIPE && token->next)
 	{
 		close(ms->pipefd[0]);
 		dup2(ms->pipefd[1], STDOUT_FILENO);
 		close(ms->pipefd[1]);
 	}
+	if (token->fds)
+		if (handle_redirections(token))
+			return (em("Failed.", ms), 1);
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
 	return (run_execve(find_command(token->value[0], env, ms), token->value,
