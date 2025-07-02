@@ -98,6 +98,7 @@ void	init_ms(t_ms *shell)
 	shell->running = true;
 	shell->c_pwd = current_pwd();
 	shell->builtin = init_bi();
+	tcgetattr(STDIN_FILENO, &shell->term);
 	if (!shell->scases || !shell->builtin || !pid)
 		em("Malloc Fail.", shell);
 	//display_banner();
