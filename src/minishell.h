@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/22 18:46:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/07/12 18:05:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ char	*tilt(char *old, char *home);
 int		check_parse_error(t_ms *ms);
 bool	quoter(char const *s);
 size_t	*counter(void);
-size_t	breaker(char const *s, size_t i, char **cases, char *c);
+bool	breaker(char const *s, size_t i, char **cases, char *c);
 size_t	change_sit(char const *s, char *q);
 int		case_free(bool is_parent, char **env, t_ms *ms);
 void	hsh(t_ms *ms);
