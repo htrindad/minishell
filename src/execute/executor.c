@@ -73,7 +73,7 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 	}
 }
 
-static void	wait_process(void)
+static void	wait_process(t_ms *ms)
 {
 	pid_t	pid;
 	int		status;
@@ -81,13 +81,17 @@ static void	wait_process(void)
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
 	{
-		if (WIFEXITED(status))
-			*es() = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			*es() = WTERMSIG(status) + 128;
-		else
-			*es() = 1;
-		pid = waitpid(-1, &status, 0);
+		if (ms->pid == pid)
+		{
+
+			if (WIFEXITED(status))
+				*es() = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				*es() = WTERMSIG(status) + 128;
+			else
+				*es() = 1;
+		}
+			pid = waitpid(-1, &status, 0);
 	}
 }
 
@@ -118,5 +122,5 @@ void	executor(t_ms **ms)
 			exec_cmd(*ms, token, env, &prev_fd);
 		token = next;
 	}
-	return (wait_process(), free_args(env));
+	return (wait_process(*ms), free_args(env));
 }
