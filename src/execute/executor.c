@@ -91,7 +91,7 @@ static void	wait_process(t_ms *ms)
 			else
 				*es() = 1;
 		}
-			pid = waitpid(-1, &status, 0);
+		pid = waitpid(-1, &status, 0);
 	}
 }
 
