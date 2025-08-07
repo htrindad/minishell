@@ -12,10 +12,13 @@
 
 #include "minishell.h"
 
-void	em(char *str, t_ms *ms)
+void	em(char *str, t_ms *ms, int flag)
 {
 	perror(str);
-	ms->running = false;
+	if (flag)
+		ms->skip = true;
+	else
+		ms->running = false;
 }
 
 t_ms	**b_ms(void)

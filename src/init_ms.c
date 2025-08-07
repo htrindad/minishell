@@ -96,10 +96,11 @@ void	init_ms(t_ms *shell)
 	shell->tokens = NULL;
 	shell->scases = ft_split("< > | << >>", ' ');
 	shell->running = true;
+	shell->skip = false;
 	shell->c_pwd = current_pwd();
 	shell->builtin = init_bi();
 	tcgetattr(STDIN_FILENO, &shell->term);
 	if (!shell->scases || !shell->builtin || !pid)
-		em("Malloc Fail.", shell);
+		em("Malloc Fail.", shell, 0);
 	//display_banner();
 }

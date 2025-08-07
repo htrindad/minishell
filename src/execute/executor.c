@@ -27,7 +27,7 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 	}
 	if (token->fds)
 		if (handle_redirections(token))
-			return (em("Failed.", ms), 1);
+			return (em("Failed.", ms, 0), 1);
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
 	return (run_execve(find_command(token->value[0], env, ms), token->value,
@@ -52,11 +52,11 @@ static void	exec_cmd(t_ms *ms, t_token *token, char **env, int *prev_fd)
 
 	if (token->cchar == PIPE && token->next)
 		if (pipe(ms->pipefd) < 0)
-			return (em("Error\nPipe Fail.", ms));
+			return (em("Error\nPipe Fail.", ms, 0));
 	tcgetattr(STDIN_FILENO, &ms->term);
 	pid = fork();
 	if (pid < 0)
-		return (em("Error\nFork Fail.", ms));
+		return (em("Error\nFork Fail.", ms, 0));
 	if (!pid)
 	{
 		*es() = exec_child(token, env, *prev_fd, ms);
@@ -109,7 +109,7 @@ void	executor(t_ms **ms)
 		return ;
 	env = comp_env((*ms)->env);
 	if (env == NULL)
-		return (em("Error\nMalloc Fail.\n", (*ms)));
+		return (em("Error\nMalloc Fail.\n", (*ms), 0));
 	while (token)
 	{
 		next = token->next;

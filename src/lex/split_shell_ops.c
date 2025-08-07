@@ -65,7 +65,7 @@ static int	check(char const *s, t_ms *ms, size_t i)
 	l = 0;
 	ms->cas = 2;
 	if (tmp == NULL)
-		return (em("Error\nMalloc Fail.\n", ms), 0);
+		return (em("Error\nMalloc Fail.\n", ms, 0), 0);
 	spec_case(tmp, ms, &l, 0);
 	return (free(tmp), ms->cas);
 }

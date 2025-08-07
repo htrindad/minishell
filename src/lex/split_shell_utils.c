@@ -79,7 +79,7 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 		while (s[i] && s[i] != quote_type)
 			i++;
 		if (!s[i])
-			return (em("Error\nUnclosed quotes", ms), ft_strlen(s + start));
+			return (em("Error\nUnclosed quotes", ms, 1), ft_strlen(s + start));
 		quote_type = 0;
 		while (s[i] && s[i] != ' ')
 			i++;

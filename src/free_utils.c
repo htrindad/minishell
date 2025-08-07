@@ -14,6 +14,7 @@
 
 void	ret(t_ms *shell)
 {
+	shell->skip = false;
 	free(shell->input);
 	free_tokens(shell->tokens);
 }

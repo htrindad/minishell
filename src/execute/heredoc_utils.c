@@ -87,7 +87,7 @@ void	write_line_heredoc(char *line, int fd, t_ms *ms, bool quoted)
 		if (!expanded)
 		{
 			free(line);
-			em("heredoc", ms);
+			em("heredoc", ms, 0);
 			return ;
 		}
 		write(fd, expanded, ft_strlen(expanded));
