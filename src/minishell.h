@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/07/12 18:05:42 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:57:34 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ int		case_free(bool is_parent, char **env, t_ms *ms);
 void	hsh(t_ms *ms);
 t_ms	**b_ms(void);
 bool	*in_heredoc(void);
+t_env	*empty_env(void);
 
 // debug
 void	print_tokens(t_token *head);

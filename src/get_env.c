@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/07 16:13:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/07 21:00:12 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ t_env	*get_env(char **env)
 
 	i = 0;
 	new = NULL;
+	if (env == NULL || *env == NULL)
+	{
+		new = empty_env();
+		if (new == NULL)
+			(perror("Error:\nMalloc failed\n"), exit(1));
+		return (new);
+	}
 	while (env[i])
 	{
 		if (add_env(&new, env[i]))

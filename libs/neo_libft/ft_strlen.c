@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:14:00 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 19:32:42 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/07 21:06:54 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
-		i++;
+	if (str)
+		while (str[i])
+			i++;
 	return (i);
 }
