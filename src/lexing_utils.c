@@ -34,7 +34,7 @@ static inline void	norm(t_ms *ms, t_token *new, char **value)
 	new->value = duplicator(value);
 	ms->cas = 0;
 	if (!new->value)
-		return (em("Error\nMalloc fail.", ms));
+		return (em("Error\nMalloc fail.", ms, 0));
 	while (ms->input[i])
 	{
 		if (breaker(ms->input, i, ms->scases, &c))
@@ -70,7 +70,7 @@ bool	add_token(t_token **head, char **value, t_ms *ms)
 	i = *counter();
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
-		return (em("Error:\nMalloc failed\n", ms), true);
+		return (em("Error:\nMalloc failed\n", ms, 0), true);
 	new->is_redir = false;
 	new->fds = NULL;
 	if (f_spec_case(ms->input, counter(), ms->scases))

@@ -43,7 +43,7 @@ static inline void	ch_oldpwd(char *c, t_env *env, t_ms *ms)
 			free(env->value);
 			env->value = ft_strdup(c);
 			if (env->value == NULL)
-				em("Error\nMalloc Fail.\n", ms);
+				em("Error\nMalloc Fail.\n", ms, 0);
 			break ;
 		}
 		env = env->next;
@@ -60,5 +60,5 @@ void	set_pwd(char *c, size_t size, t_env *env, t_ms *ms)
 	free(pwd->value);
 	pwd->value = ft_strdup(c);
 	if (pwd->value == NULL)
-		em("Error\nMalloc Fail.\n", ms);
+		em("Error\nMalloc Fail.\n", ms, 0);
 }

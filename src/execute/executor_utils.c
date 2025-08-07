@@ -86,7 +86,7 @@ char	**get_paths(char **env, t_ms *ms)
 			path_var = env[i] + 5;
 			paths = ft_split(path_var, ':');
 			if (!paths)
-				return (em("Error\nMalloc Fail.\n", ms), NULL);
+				return (em("Error\nMalloc Fail.\n", ms, 0), NULL);
 			return (paths);
 		}
 		i++;

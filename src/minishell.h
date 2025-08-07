@@ -104,6 +104,7 @@ typedef struct s_ms
 	char			*c_pwd;
 	char			*home;
 	bool			running;
+	bool			skip;
 	int				pid;
 	int				pipefd[2];
 	int				cas;
@@ -136,7 +137,7 @@ void	clean_ms(t_ms *shell);
 t_env	*get_env(char **env);
 void	init_ms(t_ms *shell);
 int		quit(t_ms *ms);
-void	em(char *str, t_ms *ms);
+void	em(char *str, t_ms *ms, int flag);
 size_t	spec_case(char const *sub, t_ms *ms, size_t *l, size_t y);
 char	**duplicator(char **arg);
 size_t	count_cases(char const *s, t_ms *ms);

@@ -76,7 +76,7 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	if (stopper(ms, s, i))
 		return (true);
 	if (ft_safe_allocate(array, ms, len))
-		return (em("Error\nMalloc Fail.", ms), true);
+		return (em("Error\nMalloc Fail.", ms, 0), true);
 	return (false);
 }
 

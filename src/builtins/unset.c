@@ -41,7 +41,7 @@ char	*tilt(char *old, char *home)
 static inline bool	clean(char **new, t_ms *ms)
 {
 	free_args(new);
-	return (em("Malloc fail.", ms), true);
+	return (em("Malloc fail.", ms, 0), true);
 }
 
 bool	rearchitect(char ***matrix, t_ms *ms)
@@ -55,7 +55,7 @@ bool	rearchitect(char ***matrix, t_ms *ms)
 		counter++;
 	new = ft_calloc(++counter + 1, sizeof(char *));
 	if (new == NULL)
-		return (em("Malloc fail.", ms), true);
+		return (em("Malloc fail.", ms, 0), true);
 	i = 0;
 	new[counter--] = NULL;
 	while (i <= counter)

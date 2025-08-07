@@ -22,7 +22,7 @@ static bool	is_delimiter(char *line, char *delimiter, t_redir *r, t_ms *ms)
 	{
 		expanded = handle_env_var(line, ms);
 		if (!expanded)
-			return (free(line), em("Malloc Failed.", ms), false);
+			return (free(line), em("Malloc Failed.", ms, 0), false);
 		if (ft_strncmp(expanded, delimiter, ft_strlen(delimiter)) == 0
 			&& expanded[ft_strlen(delimiter)] == '\n')
 			return (free(line), free(expanded), true);
@@ -45,13 +45,13 @@ static void	do_heredoc(char *delimiter, int write_fd, t_ms *ms, t_redir *r)
 		if (!line)
 		{
 			ft_putchar_fd('\n', 1);
-			return (em("Readline Failed", ms));
+			return (em("Readline Failed", ms, 0));
 		}
 		tmp = line;
 		line = ft_strjoin(tmp, "\n");
 		free(tmp);
 		if (!line)
-			return (em("Malloc Failed", ms));
+			return (em("Malloc Failed", ms, 0));
 		if (is_delimiter(line, delimiter, r, ms))
 			break ;
 		write_line_heredoc(line, write_fd, ms, r->heredoc_q);

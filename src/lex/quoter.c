@@ -19,7 +19,7 @@ bool	stopper(t_ms *ms, char const *s, size_t i)
 	res = ft_count_words(s + i, ms);
 	if (res)
 		*counter() = res;
-	if (!ms->running)
+	if (!ms->running || ms->skip)
 		return (true);
 	return (false);
 }
