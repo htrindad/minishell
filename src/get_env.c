@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:04 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/07 21:00:12 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:12:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	add_env(t_env **head, char *env)
 	if (equal_sign == NULL)
 		new->value = NULL;
 	else
-		new->value = ft_strdup(equal_sign + 1);
+		shlvl_checker(equal_sign, new);
 	add_back(head, new);
 	while ((*head)->prev)
 		*head = (*head)->prev;

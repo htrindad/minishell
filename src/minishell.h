@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/09 15:42:38 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:16:19 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ void	hsh(t_ms *ms);
 t_ms	**b_ms(void);
 bool	*in_heredoc(void);
 t_env	*empty_env(void);
+void	shlvl_checker(char *es, t_env *env);
 
 // debug
 void	print_tokens(t_token *head);
