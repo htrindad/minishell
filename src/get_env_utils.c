@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:55:58 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/09 15:15:49 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/09 15:50:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ t_env	*empty_env(void)
 	ptr[0] = ft_calloc(ft_strlen(c) + 6, 1);
 	if (ptr[0] == NULL)
 		return (free(ptr), NULL);
-	(ft_strlcpy(ptr[0], "PATH", 5), ft_strlcat(ptr[0], "=", 7));
-	ft_strlcat(ptr[0], c, ft_strlen(c) + 7);
+	(ft_strlcpy(ptr[0], "PWD", 4), ft_strlcat(ptr[0], "=", 6));
+	ft_strlcat(ptr[0], c, ft_strlen(c) + 6);
 	ptr[1] = ft_strdup("SHLVL=1");
 	if (ptr[1] == NULL)
 		return (free(ptr[0]), free(ptr), NULL);
