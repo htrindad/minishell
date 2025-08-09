@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/09 17:29:03 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:58:09 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ t_ms	**b_ms(void);
 bool	*in_heredoc(void);
 t_env	*empty_env(void);
 void	shlvl_checker(char *es, t_env *env);
-bool	custom_f_spec_case(char const *s, size_t i, char **cases);
 
 // debug
 void	print_tokens(t_token *head);
