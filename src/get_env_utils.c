@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:55:58 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/09 15:50:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:03:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_env	*empty_env(void)
 		return (free(ptr), NULL);
 	(ft_strlcpy(ptr[0], "PWD", 4), ft_strlcat(ptr[0], "=", 6));
 	ft_strlcat(ptr[0], c, ft_strlen(c) + 6);
-	ptr[1] = ft_strdup("SHLVL=1");
+	ptr[1] = ft_strdup("SHLVL=0");
 	if (ptr[1] == NULL)
 		return (free(ptr[0]), free(ptr), NULL);
 	ptr[2] = ft_strdup("_=/usr/bin/env");
