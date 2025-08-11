@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 18:47:44 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:03:41 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_hds(t_token *token)
 
 	while (token)
 	{
-		tmp = token->fds->in;	
+		tmp = token->fds->in;
 		while (tmp)
 		{
 			if (tmp->heredoc_fd > 2)
