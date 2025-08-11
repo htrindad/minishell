@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/22 18:05:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:58:59 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	treat_heredocs(t_token *token, t_ms *ms)
 				{
 					fd = handle_heredoc(tmp, ms);
 					if (fd == -1)
-						return (write(1, "\n", 1));
+						return (close_hds(token), write(1, "\n", 1));
 					tmp->heredoc_fd = fd;
 				}
 				tmp = tmp->next;
