@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 17:54:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:33:13 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,4 @@ void	shlvl_checker(char *es, t_env *new)
 	}
 	else
 		new->value = ft_strdup(es + 1);
-}
-
-bool	change_the_score(t_env *env, t_token *tok)
-{
-	size_t	i;
-
-	i = 0;
-	if (tok->value == NULL)
-		return (true);
-	while (tok->value[i + 1])
-		i++;
-	if (change_ms(env, "_", tok->value[i]))
-		return (false);
-	return (true);
 }
