@@ -102,7 +102,7 @@ t_token	*lexing(t_ms *shell)
 		i++;
 	}
 	if (check_parse_error(shell))
-		return (lex_free(args), free_tokens(head), NULL);
+		return (null_fds(head), lex_free(args), free_tokens(head), NULL);
 	if (DEBUG)
 		print_tokens(head);
 	return (null_fds(head), lex_free(args), head);
