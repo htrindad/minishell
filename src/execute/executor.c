@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 17:56:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:04:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ static int	exec_child(t_token *token, char **env, int prev_fd, t_ms *ms)
 			return (em("Failed.", ms, 0), 1);
 	if (token->value && is_builtin(token->value[0]))
 		exit(single_exec(token, ms, false, env));
-	return (run_execve(find_command(token->value[0], env, ms), token->value,
-			env, token->value[0]));
+	if (token->value)
+		return (run_execve(find_command(token->value[0], env, ms), token->value,
+				env, token->value[0]));
+	return (0);
 }
 
 static void	handle_parent(t_ms *ms, t_token *token, int *prev_fd)
