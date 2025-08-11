@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:29:56 by htrindad          #+#    #+#             */
-/*   Updated: 2024/05/02 14:00:50 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:13:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 # include <limits.h>
 # include <stdint.h>
 
+# define BUFFER_SIZE 10
+
 int			ft_isalpha(int c);
 int			ft_isdigit(int n);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
+int			is_special_char(int c);
 size_t		ft_strlen(const char *str);
 void		*ft_memset(void *str, int c, size_t t);
 void		ft_bzero(void *s, size_t n);
@@ -54,10 +57,14 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+int			cut_remaining(char *buf);
+char		*get_next_line(int fd);
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **list, t_list *new);
