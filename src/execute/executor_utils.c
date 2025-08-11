@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 17:37:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:13:15 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	is_builtin(char *cmd)
 static int	is_path(char *cmd)
 {
 	return (cmd && (cmd[0] == '/' || !ft_strncmp(cmd, "./", 2)
-			|| !ft_strncmp(cmd, "../", 3)));
+			|| !ft_strncmp(cmd, "../", 3) || *cmd == '.'));
 }
 
 static char	*try_paths(char *cmd, char **paths)

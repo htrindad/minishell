@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 17:36:36 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:19:05 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 {
 	if (cmd)
 	{
+		if (!ft_strncmp(full_cmd[0], ".", ft_strlen(full_cmd[0]))
+				&& !full_cmd[1])
+			return (2);
 		execve(cmd, full_cmd, env);
 		perror("execve");
 		if (!access(cmd, F_OK))
