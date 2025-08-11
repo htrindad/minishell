@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:26:00 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/05 18:14:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:37:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ bool	is_builtin(char *cmd)
 	const size_t	sl = ft_strlen(cmd);
 
 	return (!ft_strncmp(cmd, "echo", sl) || !ft_strncmp(cmd, "cd", sl)
-		|| !ft_strncmp(cmd, "pwd", sl) || !ft_strncmp(cmd, "export", sl) \
-		|| !ft_strncmp(cmd, "unset", sl) || !ft_strncmp(cmd, "env", sl) \
+		|| !ft_strncmp(cmd, "pwd", sl) || !ft_strncmp(cmd, "export", sl)
+		|| !ft_strncmp(cmd, "unset", sl) || !ft_strncmp(cmd, "env", sl)
 		|| !ft_strncmp(cmd, "exit", sl));
 }
 

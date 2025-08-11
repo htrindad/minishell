@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/22 17:55:32 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:31:05 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	hsh(t_ms *ms)
 	sigaction(SIGINT, &sa, NULL);
 	*b_ms() = ms;
 }
+
 void	refresh(t_ms *ms)
 {
 	g_pid = ms->pid;

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 20:38:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:36:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 			else if (!is_parent)
 				return (rep(ms, i, is_parent, env));
 		}
-		if (i == 2 && token->value[0] && \
-				!ft_strncmp("echo", token->value[0], \
-					ft_strlen(token->value[0])))
+		if (i == 2 && token->value[0]
+			&& !ft_strncmp("echo", token->value[0],
+				ft_strlen(token->value[0])))
 		{
 			*es() = echo(token->value + 1);
 			return (case_free(is_parent, env, ms));

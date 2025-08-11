@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:10:45 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/10 17:08:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:34:01 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	check_parse_error(t_ms *ms)
 	while (ms->input[i])
 		i++;
 	i--;
-	while (i > 0 && (ms->input[i] == 32 || (ms->input[i] > 8 \
-			&& ms->input[i] < 14)))
+	while (i > 0 && (ms->input[i] == 32 || (ms->input[i] > 8
+				&& ms->input[i] < 14)))
 		i--;
 	if (ft_is_special_char(ms->input[i]))
 	{

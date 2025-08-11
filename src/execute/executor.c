@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/10 17:13:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:37:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static void	wait_process(t_ms *ms)
 	{
 		if (ms->pid == pid)
 		{
-
 			if (WIFEXITED(status))
 				*es() = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
