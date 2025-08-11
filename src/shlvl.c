@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 18:33:13 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:41:28 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,17 @@ void	shlvl_checker(char *es, t_env *new)
 	}
 	else
 		new->value = ft_strdup(es + 1);
+}
+
+void	close_hds(t_token *token)
+{
+	t_redir	*tmp;
+
+	tmp = token->fds->in;
+	while (tmp)
+	{
+		if (tmp->heredoc_fd > 2)
+			close(tmp->heredoc_fd);
+		tmp = tmp->next;
+	}
 }

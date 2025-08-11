@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/10 17:12:17 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 18:41:53 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void	remove_token(t_token **head, t_token *to_remove);
 bool	is_redirection(t_case type);
 int		handle_heredoc(t_redir *redir, t_ms *ms);
 void	have_heredocs(char *u_input, t_token *head);
+void	close_hds(t_token *token);
 void	write_line_heredoc(char *line, int fd, t_ms *ms, bool quoted);
 int		treat_heredocs(t_token *token, t_ms *ms);
 int		get_heredoc_quotes(char *input, t_redir **redir_list);
