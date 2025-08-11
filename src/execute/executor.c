@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 17:37:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:56:41 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	executor(t_ms **ms)
 	env = comp_env((*ms)->env);
 	if (env == NULL)
 		return (em("Error\nMalloc Fail.\n", (*ms), 0));
-	while (token && change_the_score((*ms)->env, token))
+	while (token && change_the_score((*ms)->env, (*ms)->tokens))
 	{
 		next = token->next;
 		if (is_single_token_and_builtin(token, prev_fd))
