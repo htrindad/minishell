@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/18 17:05:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:44:37 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	quit(t_ms *ms)
 {
-	int		num;
+	long long	num;
 	char	**args;
 
 	num = 0;
@@ -25,11 +25,13 @@ int	quit(t_ms *ms)
 	{
 		if (args[2])
 			return (perror("Too many arguments"), 1);
-		num = ft_atoi(args[1]);
+		num = ft_atoll(args[1]);
 		if (!num && !ft_isdigit(args[1][0]))
 			return (perror("Non string as argument"), 2);
+		if (num < INT_MIN || num > INT_MAX)
+			return (perror("number goes out of bounds"), 2);
 	}
-	return (num);
+	return ((int)num);
 }
 
 int	env(t_ms *ms)
