@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/12 13:43:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:32:08 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ void		shlvl_checker(char *es, t_env *env);
 bool		change_ms(t_env *env, char *key, char *value);
 bool		change_the_score(t_env *env, t_token *tok);
 long long	ft_atoll(char *nptr);
+void		pump_n_dump(size_t *i, int *q);
 
 // debug
 void		print_tokens(t_token *head);

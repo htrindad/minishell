@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/12 13:44:37 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:29:56 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	quit(t_ms *ms)
 {
 	long long	num;
-	char	**args;
+	char		**args;
 
 	num = 0;
 	args = ms->tokens->value;
