@@ -29,19 +29,16 @@ void	close_hds(t_token *token)
 {
 	t_redir	*tmp;
 
-	if (token && token->fds && token->fds->in)
+	while (token)
 	{
-		while (token)
+		tmp = token->fds->in;
+		while (tmp)
 		{
-			tmp = token->fds->in;
-			while (tmp)
-			{
-				if (tmp->heredoc_fd > 2)
-					close(tmp->heredoc_fd);
-				tmp = tmp->next;
-			}
-			token = token->next;
+			if (tmp->heredoc_fd > 2)
+				close(tmp->heredoc_fd);
+			tmp = tmp->next;
 		}
+		token = token->next;
 	}
 }
 
