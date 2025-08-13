@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 18:58:59 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:03:48 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,17 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 	if (pipe(pipefd) < 0)
 		return (perror("heredoc"), -1);
 	*in_heredoc() = true;
+	ms->pipefd[0] = pipefd[0];
+	ms->pipefd[1] = pipefd[1];
 	pid = fork();
 	if (pid < 0)
 		return (perror("heredoc fork"), -1);
 	if (!pid)
 	{
 		hsh(ms);
-		close(pipefd[0]);
+		close(ms->pipefd[0]);
 		do_heredoc(redir->filename, pipefd[1], ms, redir);
-		close(pipefd[1]);
+		close(ms->pipefd[1]);
 		(ret(ms), clean_ms(ms));
 		exit(1);
 	}

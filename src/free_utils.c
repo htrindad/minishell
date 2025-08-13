@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:32:48 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/16 18:17:44 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:01:54 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ret(t_ms *shell)
 {
 	shell->skip = false;
 	free(shell->input);
+	close_hds(shell->tokens);
 	free_tokens(shell->tokens);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:44:05 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/19 17:11:35 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:33:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,25 @@ char	*var_cases(t_ms *shell, char *input, int *i)
 	return (tmp);
 }
 
+static inline void	change_q(const char *s, int *q, size_t i)
+{
+	if (s[i] == '\"' && !*q)
+		*q = 2;
+}
+
 bool	has_env_var(const char *s)
 {
-	int	i;
+	size_t	i;
+	int		q;
 
 	i = 0;
+	q = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'')
+		change_q(s, &q, i);
+		if (s[i] == '\'' && !q)
 		{
-			i++;
+			pump_n_dump(&i, &q);
 			while (s[i] && s[i] != '\'')
 				i++;
 			continue ;
@@ -44,13 +53,11 @@ bool	has_env_var(const char *s)
 		else if (s[i] == '$')
 		{
 			i++;
-			if (s[i] == '?' || s[i] == '$')
-				return (true);
-			if (ft_isalpha(s[i]) || s[i] == '_')
+			if (s[i] == '?' || s[i] == '$'
+				|| ft_isalpha(s[i]) || s[i] == '_')
 				return (true);
 		}
-		if (s[i])
-			i++;
+		i += s[i] != 0;
 	}
 	return (false);
 }

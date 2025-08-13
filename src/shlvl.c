@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 19:03:41 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:41:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	close_hds(t_token *token)
 {
 	t_redir	*tmp;
 
-	while (token)
+	while (token && token->fds && token->fds->in)
 	{
 		tmp = token->fds->in;
 		while (tmp)
@@ -40,4 +40,32 @@ void	close_hds(t_token *token)
 		}
 		token = token->next;
 	}
+}
+
+long long	ft_atoll(char *nptr)
+{
+	long long	num;
+	long long	neg;
+	size_t		i;
+
+	num = 0;
+	neg = 1;
+	i = 0;
+	while (nptr[i] == 32 || (nptr[i] > 8 && nptr[i] < 14))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+		if (nptr[i++] == '-')
+			neg = -1;
+	while (ft_isdigit((int)nptr[i]))
+	{
+		num = num * 10 + (nptr[i] - 48);
+		i++;
+	}
+	return (num * neg);
+}
+
+void	pump_n_dump(size_t *i, int *q)
+{
+	(*i)++;
+	*q = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:38:04 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 17:38:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:00:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static size_t	true_size(char const *s, size_t i, size_t len)
 	qo = 0;
 	while (i < len && s[i])
 	{
-		if ((s[i] == '\'' || s[i] == '\"') && quoter(s + i))
+		if ((s[i] == '\'' || s[i] == '\"') && quoter(s + i) && !qo)
 		{
 			qo = s[i];
 			i++;

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 17:31:05 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:02:58 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	h_setter(int sig, siginfo_t *s, void *content)
 	(void)s;
 	(void)content;
 	*es() = 130;
+	close((*b_ms())->pipefd[1]);
 	ret(*b_ms());
 	clean_ms(*b_ms());
 	exit(130);
