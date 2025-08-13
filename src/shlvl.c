@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/12 14:31:16 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:41:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,16 @@ void	close_hds(t_token *token)
 {
 	t_redir	*tmp;
 
-	if (token && token->fds && token->fds->in)
+	while (token && token->fds && token->fds->in)
 	{
-		while (token)
+		tmp = token->fds->in;
+		while (tmp)
 		{
-			tmp = token->fds->in;
-			while (tmp)
-			{
-				if (tmp->heredoc_fd > 2)
-					close(tmp->heredoc_fd);
-				tmp = tmp->next;
-			}
-			token = token->next;
+			if (tmp->heredoc_fd > 2)
+				close(tmp->heredoc_fd);
+			tmp = tmp->next;
 		}
+		token = token->next;
 	}
 }
 

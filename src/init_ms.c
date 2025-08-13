@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:21 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/12 14:34:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:20:29 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ static inline t_builtin	*init_bi(void)
 	return (builtin);
 }
 
-static void	display_banner(void)
-{
-	printf("\033[1;35m");
-	printf("  __  __ _       _     _          _ _ \n");
-	printf(" |  \\/  (_)_ __ (_)___| |__   ___| | |\n");
-	printf(" | |\\/| | | '_ \\| / __| '_ \\ / _ \\ | |\n");
-	printf(" | |  | | | | | | \\__ \\ | | |  __/ | |\n");
-	printf(" |_|  |_|_|_| |_|_|___/_| |_|\\___|_|_|\n");
-	printf("\n");
-	printf("     Created by htrindad & mely-pan\n");
-	printf("\033[0m");
-}
+//static void	display_banner(void)
+//{
+//	printf("\033[1;35m");
+//	printf("  __  __ _       _     _          _ _ \n");
+//	printf(" |  \\/  (_)_ __ (_)___| |__   ___| | |\n");
+//	printf(" | |\\/| | | '_ \\| / __| '_ \\ / _ \\ | |\n");
+//	printf(" | |  | | | | | | \\__ \\ | | |  __/ | |\n");
+//	printf(" |_|  |_|_|_| |_|_|___/_| |_|\\___|_|_|\n");
+//	printf("\n");
+//	printf("     Created by htrindad & mely-pan\n");
+//	printf("\033[0m");
+//}
 
 static inline char	*current_pwd(void)
 {
@@ -102,5 +102,5 @@ void	init_ms(t_ms *shell)
 	tcgetattr(STDIN_FILENO, &shell->term);
 	if (!shell->scases || !shell->builtin || !pid)
 		em("Malloc Fail.", shell, 0);
-	display_banner();
+	//display_banner();
 }
