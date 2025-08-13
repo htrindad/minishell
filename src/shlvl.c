@@ -37,7 +37,7 @@ void	close_hds(t_token *token)
 			while (tmp)
 			{
 				if (tmp->heredoc_fd > 2)
-				close(tmp->heredoc_fd);
+					close(tmp->heredoc_fd);
 				tmp = tmp->next;
 			}
 			token = token->next;
