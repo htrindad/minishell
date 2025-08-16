@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 18:27:50 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 20:24:54 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/16 21:28:24 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	echo(char **arg)
 	}
 	while (!h_nl(arg[++i]))
 		nl = false;
+	if (arg[i] == NULL)
+		return (0);
 	while (arg[i + 1])
 		printf("%s ", arg[i++]);
 	printf("%s", arg[i]);
