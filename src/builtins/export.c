@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:12:35 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/18 17:15:56 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 19:31:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	no_args(t_env *env)
 	{
 		printf("declare -x %s", env->key);
 		if (env->value != NULL)
-			printf("=%s", env->value);
+			printf("=\"%s\"", env->value);
 		printf("\n");
 		env = env->next;
 	}
