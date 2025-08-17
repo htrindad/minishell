@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:59:53 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/09 16:19:39 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:31:06 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,23 @@ static char	*join_env_entry(char *env_value, char *env_key)
 	return (joined);
 }
 
-char	**comp_env(t_env *env)
+static inline char	**backup(t_env *env, t_ms **ms)
+{
+	env = get_env(NULL);
+	if (env == NULL)
+		return (NULL);
+	(*ms)->env = env;
+	return (comp_env(env, ms));
+}
+
+char	**comp_env(t_env *env, t_ms **ms)
 {
 	char	**ptr;
 	size_t	i;
 
 	i = envsize(env);
 	if (!i)
-		return (NULL);
+		return (backup(env, ms));
 	ptr = ft_calloc(i + 1, sizeof(char *));
 	if (!ptr)
 		return (NULL);

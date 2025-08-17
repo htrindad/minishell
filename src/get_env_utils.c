@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:55:58 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/10 16:03:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:40:26 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline t_env	*return_it(char **ptr)
 		}
 		i++;
 	}
-	return (new);
+	return (free_args(ptr), new);
 }
 
 t_env	*empty_env(void)
