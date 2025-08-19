@@ -81,6 +81,6 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 		return (1);
 	}
 	ft_putstr_fd(value, 2);
-	ft_putstr_fd(": Command not found", 2);
+	ft_putstr_fd(": Command not found\n", 2);
 	return (127);
 }

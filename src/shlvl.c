@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/13 19:41:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 19:54:44 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ void	pump_n_dump(size_t *i, int *q)
 {
 	(*i)++;
 	*q = 1;
+}
+
+void	problem(t_env *env, char *str, t_ms *ms)
+{
+	if (add_env(&env, str))
+		em("Error: Malloc Fail.", ms, 0);
+	free(str);
 }
