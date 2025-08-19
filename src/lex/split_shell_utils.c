@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 17:40:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 19:25:18 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,16 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 
 	start = i;
 	quote_type = 0;
-	if (s[i] == '\'' || s[i] == '\"')
+	while (s[i] == '\'' || s[i] == '\"')
 	{
 		quote_type = s[i++];
 		while (s[i] && s[i] != quote_type)
 			i++;
-		if (!s[i])
-			return (em("Error\nUnclosed quotes", ms, 1), ft_strlen(s + start));
+		if (!s[i++])
+			return (em("Error: Unclosed quotes", ms, 1), ft_strlen(s + start));
 		quote_type = 0;
+		if (s[i] == '\"' || s[i] == '\'')
+			continue ;
 		while (s[i] && s[i] != ' ')
 			i++;
 	}

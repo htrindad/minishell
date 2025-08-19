@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/13 19:33:19 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:30:05 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	executor(t_ms **ms)
 	prev_fd = -1;
 	if (treat_heredocs(token, *ms))
 		return ;
-	env = comp_env((*ms)->env);
+	env = comp_env((*ms)->env, ms);
 	if (env == NULL)
 		return (em("Error\nMalloc Fail.\n", (*ms), 0));
 	while (token)
