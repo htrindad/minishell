@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:34:14 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/06/20 20:01:55 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:31:44 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,6 @@ void	parse_redirections(t_token **tokens, char *user_input)
 	}
 	have_heredocs(user_input, *tokens);
 	cleanup_redir(tokens);
+	if (DEBUG)
+		print_tokens(*tokens);
 }
