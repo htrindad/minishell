@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:58:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/16 20:08:32 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:33:49 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ static inline bool	er_id(char *arg)
 
 char	*tilt(char *old, char *home)
 {
-	char	*new;
-	size_t	size;
+	const size_t	h_size = ft_strlen(home) + 1;
+	size_t			size;
+	char			*new;
 
-	if (old[0] != '~' && old[1] != '/')
-		return (NULL);
-	size = ft_strlen(home) + ft_strlen(old + 2) + 2;
+	size = h_size;
+	if (old)
+		size += ft_strlen(old + 1) + 2;
 	new = ft_calloc(size, 1);
 	if (new == NULL)
 		return (NULL);
-	ft_strlcpy(new, home, size);
-	ft_strlcat(new, "/", size);
-	ft_strlcat(new, old + 2, size);
+	ft_strlcpy(new, home, h_size);
+	if (old)
+		(ft_strlcat(new, "/", h_size + 1), ft_strlcat(new, old + 1, size));
 	free(old);
 	return (new);
 }
