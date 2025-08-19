@@ -46,10 +46,10 @@ int	check_parse_error(t_ms *ms)
 	while (i > 0 && (ms->input[i] == 32 || (ms->input[i] > 8
 				&& ms->input[i] < 14)))
 		i--;
-	if (ft_is_special_char(ms->input[i]))
+	if (i >= 0 && ft_is_special_char(ms->input[i]))
 	{
 		*es() = 2;
-		perror("Parse error");
+		ft_putstr_fd("Parse Error\n", 2);
 		return (1);
 	}
 	return (0);

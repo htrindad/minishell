@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/12 14:32:08 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:30:42 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int			get_heredoc_quotes(char *input, t_redir **redir_list);
 bool		is_single_token_and_builtin(t_token *token, int prev_fd);
 int			single_exec(t_token *token, t_ms *ms,
 				bool is_parent, char **env);
-char		**comp_env(t_env *env);
+char		**comp_env(t_env *env, t_ms **ms);
 int			redir_exec(t_token *token, t_ms *ms);
 bool		mini_spec_case(char const *s, char **cases);
 int			fd_checker(t_token *token);
@@ -216,6 +216,7 @@ bool		change_ms(t_env *env, char *key, char *value);
 bool		change_the_score(t_env *env, t_token *tok);
 long long	ft_atoll(char *nptr);
 void		pump_n_dump(size_t *i, int *q);
+void		problem(t_env *env, char *str, t_ms *ms);
 
 // debug
 void		print_tokens(t_token *head);

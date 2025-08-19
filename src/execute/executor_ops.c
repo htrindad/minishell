@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 19:03:51 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 23:50:49 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	single_exec(t_token *token, t_ms *ms, bool is_parent, char **env)
 		}
 		i++;
 	}
-	return (1);
+	return (case_free(is_parent, env, ms), 1);
 }
 
 bool	swap_strs(char **s1, char *s2)
@@ -75,12 +75,12 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 		execve(cmd, full_cmd, env);
 		perror("execve");
 		if (!access(cmd, F_OK))
-			return (126);
+			return (free(cmd), 126);
 		if (access(cmd, X_OK))
-			return (127);
+			return (free(cmd), 127);
 		return (1);
 	}
 	ft_putstr_fd(value, 2);
-	perror(" Command not found");
+	ft_putstr_fd(": Command not found\n", 2);
 	return (127);
 }
