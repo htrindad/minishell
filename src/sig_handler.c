@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/13 20:02:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/17 19:26:37 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ static void	si(void)
 
 void	sig_handler(int sig, siginfo_t *s, void *content)
 {
+	int	stat;
+
 	(void)content;
 	(void)s;
 	if (*in_heredoc())
 		return ;
 	if (sig == SIGINT)
 		si();
+	waitpid(-1, &stat, 0);
 	ft_putchar_fd('\n', 1);
 	if (!g_pid)
 	{
