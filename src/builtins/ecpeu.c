@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 19:44:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:52:04 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	unset(t_ms *ms)
 		if (check_unst(arg[i]))
 		{
 			i++;
-			ret = 1;
 			continue ;
 		}
 		rm_env(&ms->env, arg[i]);

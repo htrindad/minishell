@@ -6,19 +6,11 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:58:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 19:33:49 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:50:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static inline bool	er_id(char *arg)
-{
-	perror("unset: '");
-	perror(arg);
-	perror("': not a valid identifier\n");
-	return (true);
-}
 
 char	*tilt(char *old, char *home)
 {
@@ -79,9 +71,9 @@ bool	check_unst(char *arg)
 
 	i = 0;
 	if (!ft_isalpha(arg[i]) && arg[i] != '_')
-		return (er_id(arg));
+		return (true);
 	while (arg[++i])
 		if ((!ft_isalnum(arg[i]) && arg[i] != '_') || arg[i] == '=')
-			return (er_id(arg));
+			return (true);
 	return (false);
 }
