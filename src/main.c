@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/07 20:19:26 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:38:59 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,57 +33,52 @@ static inline void	setup(t_ms *shell, char **env)
 
 static inline t_token	*last_token(t_token *tok)
 {
-	t_token	*last;
-
-	last = tok;
-	while (last->next)
-		last = last->next;
-	return (last);
+	while (tok->next && is_redirection(tok->cchar))
+		tok = tok->next;
+	return (tok);
 }
 
-static inline bool	swap(t_token *token, t_token *last)
+static inline bool	swap(t_token *token, t_token *last, size_t argc)
 {
 	size_t	i;
 
 	i = 0;
-	last->cchar = NONE;
-	last->next = NULL;
-	last->value = ft_calloc(2, sizeof(char *));
-	if (last->value == NULL)
-		return (true);
-	last->value[0] = token->value[0];
-	while (token->value[i + 1])
+	while (i < argc - 1)
 	{
-		token->value[i] = token->value[i + 1];
-		i++;
+		token->value[i] = ft_strdup(last->value[i + 1]);
+		if (token->value[i++] == NULL)
+			return (true);
 	}
-	token->value[i] = NULL;
+	i = 1;
+	while (last->value[i])
+		free(last->value[i++]);
+	last->value[1] = NULL;
 	return (false);
 }
 
 static inline bool	change_set(t_token **token)
 {
 	t_token	*last;
-	t_case	cc;
-	t_token	*next;
+	size_t	argc;
 
 	if (!token || !*token)
 		return (false);
 	last = last_token(*token);
+	argc = 0;
 	if ((*token)->value == NULL && last && last->value
 		&& is_redirection((*token)->cchar))
 	{
-		cc = (*token)->cchar;
-		next = (*token)->next;
-		free(*token);
-		*token = next;
-		last->next = ft_calloc(1, sizeof(t_token));
-		last->cchar = cc;
-		if (last->next == NULL)
+		while (last->value[argc])
+			argc++;
+		(*token)->value = ft_calloc(argc + 1, sizeof(char *));
+		if ((*token)->value == NULL)
 			return (true);
-		if (swap(*token, last->next))
+		(*token)->value[argc] = NULL;
+		if (swap(*token, last, argc))
 			return (true);
 	}
+	if (DEBUG)
+		print_tokens(*token);
 	return (false);
 }
 
