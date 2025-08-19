@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 19:54:43 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:57:47 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	quit(t_ms *ms)
 		}
 		num = ft_atoll(args[1]);
 		if (!num && !ft_isdigit(args[1][0]))
+		{
+			ms->running = true;
 			return (perror("Numeric argument required"), 2);
+		}
 		if (num < INT_MIN || num > INT_MAX)
 			return (perror("number goes out of bounds"), 2);
 		return ((int)num);
