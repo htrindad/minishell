@@ -68,7 +68,7 @@ static int	shift_args_left(char **args, t_token *token)
 	new_value[j] = NULL;
 	j = 0;
 	i = -1;
-	while (token->value[++i])
+	while (token->value && token->value[++i])
 		if (dup_and_check(&new_value[i], token->value[i], new_value))
 			return (1);
 	while (args[++j])

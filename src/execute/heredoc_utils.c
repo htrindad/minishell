@@ -40,10 +40,12 @@ static char	skip_quote_delim(const char *s, int *i)
 	return (q);
 }
 
-static void	skip_unquoted_delim(const char *s, int *i)
+static void	skip_unquoted_delim(const char *s, int *i, t_redir **tmp)
 {
-	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && !ft_is_special_char(s[*i]))
+	while (s[*i] && s[*i] != ' ' && s[*i] != '\t' && !ft_is_special_char(s[*i]) && s[*i] != '\'' && s[*i] != '\"')
 		(*i)++;
+	if (s[*i] == '\'' || s[*i] == '\"')
+		(*tmp)->heredoc_q = true;
 }
 
 int	get_heredoc_quotes(char *input, t_redir **redir)
@@ -66,7 +68,7 @@ int	get_heredoc_quotes(char *input, t_redir **redir)
 				tmp->heredoc_q = true;
 			}
 			else
-				skip_unquoted_delim(input, &i);
+				skip_unquoted_delim(input, &i, &tmp);
 			tmp = tmp->next;
 		}
 		else

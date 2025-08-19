@@ -71,7 +71,7 @@ static inline bool	change_set(t_token **token)
 		return (false);
 	last = last_token(*token);
 	if ((*token)->value == NULL && last && last->value
-		&& ((*token)->cchar == OUT || (*token)->cchar == APPEND))
+		&& is_redirection((*token)->cchar))
 	{
 		cc = (*token)->cchar;
 		next = (*token)->next;

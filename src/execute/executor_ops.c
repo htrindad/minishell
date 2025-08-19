@@ -75,12 +75,12 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 		execve(cmd, full_cmd, env);
 		perror("execve");
 		if (!access(cmd, F_OK))
-			return (126);
+			return (free(cmd), 126);
 		if (access(cmd, X_OK))
-			return (127);
+			return (free(cmd), 127);
 		return (1);
 	}
 	ft_putstr_fd(value, 2);
-	perror(" Command not found");
+	ft_putstr_fd(": Command not found\n", 2);
 	return (127);
 }
