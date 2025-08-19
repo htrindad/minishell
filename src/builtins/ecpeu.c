@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 19:52:04 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:54:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	change_dir(t_ms *ms)
 		return (perror("Too many arguments."), 1);
 	if (tok->value[1][0] == '~')
 		tok->value[1] = tilt(tok->value[1], ms->home);
-	if (getcwd(c, sizeof(c)) == NULL || chdir(tok->value[1]) < 0)
+	if (chdir(tok->value[1]) < 0 || getcwd(c, sizeof(c)) == NULL)
 	{
 		if (!tok->value[1][0])
 			return (1);
