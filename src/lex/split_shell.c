@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/11 17:39:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:25:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ char	***ft_split_shell(t_ms *shell)
 	{
 		new_s = handle_env_var(shell->input, shell);
 		if (!new_s || swap_strs(&shell->input, new_s))
-			return (NULL);
+			return (free_pre_split(array), NULL);
 		if (ft_filling_arr(array, new_s, shell, count))
-			return (free(new_s), NULL);
+			return (free_pre_split(array), free(new_s), NULL);
 		free(new_s);
 	}
 	else if (ft_filling_arr(array, shell->input, shell, count))
