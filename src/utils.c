@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:04:40 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/21 17:36:57 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:20:53 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	ctrl_slsh(int sig, siginfo_t *s, void *cont)
 	(void)cont;
 	(void)s;
 	(void)sig;
-	if (WTERMSIG(sig) == SIGQUIT)
-		return (ft_putstr_fd("Quit (Core Dumped)\n", 1));
+	write(1, "Quit (Core Dumped)\n", 19);
 }
 
 void	set_sigs(void)
