@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:34 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/19 22:38:59 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:36:36 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ static inline void	setup(t_ms *shell, char **env)
 	}
 	shell->si.sa_flags = SA_SIGINFO;
 	sigemptyset(&shell->si.sa_mask);
-	sigemptyset(&shell->sq.sa_mask);
 	shell->si.sa_sigaction = sig_handler;
-	shell->sq.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &shell->si, NULL);
-	sigaction(SIGQUIT, &shell->sq, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 static inline t_token	*last_token(t_token *tok)
