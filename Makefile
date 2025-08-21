@@ -1,7 +1,7 @@
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -g3 -D DEBUG=0
+CFLAGS = -Wall -Werror -Wextra -O3 -D DEBUG=0
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -51,7 +51,7 @@ $(OBJ_DIR)/%.o: ./src/%.c
 ## Compile neo_libft
 $(LIBFT):
 	@echo "$(YELLOW)compiling neo_libft$(RESET)"
-	@make bonus -s -C $(LIBFT_DIR)
+	@make -s -C $(LIBFT_DIR)
 
 ## Rule to compile the final executable
 $(NAME): $(LIBFT) $(OBJ)
@@ -61,7 +61,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 # Clean up object files and executable
 clean:
-	@make clean_bonus -s -C $(LIBFT_DIR)
+	@make clean -s -C $(LIBFT_DIR)
 	@rm -rf $(OBJ_DIR)
 	@echo "$(YELLOW)✗ Objects removed$(RESET)"
 
