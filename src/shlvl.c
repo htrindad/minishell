@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:30 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 17:23:02 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:30:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	close_hds(t_token *token)
 	}
 }
 
-long	ft_atoll(char *nptr)
+long	ft_atol(char *nptr)
 {
 	long	num;
 	long	neg;

@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 17:26:54 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:31:00 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	quit(t_ms *ms)
 			ms->running = true;
 			return (perror("Too many arguments"), 1);
 		}
-		num = ft_atoll(args[1]);
+		num = ft_atol(args[1]);
 		if (!num && !ft_isdigit(args[1][0]))
 		{
 			ms->running = true;
