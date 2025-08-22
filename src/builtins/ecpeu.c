@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 19:57:47 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:26:54 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	quit(t_ms *ms)
 			ms->running = true;
 			return (perror("Numeric argument required"), 2);
 		}
-		if (num < INT_MIN || num > INT_MAX)
+		if (num < INT_MIN || num > INT_MAX || ft_nlen(args[1]) > 10)
 			return (perror("number goes out of bounds"), 2);
 		return ((int)num);
 	}
