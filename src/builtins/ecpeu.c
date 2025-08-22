@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:35:03 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 18:02:34 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 20:47:28 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	quit(t_ms *ms)
 	if (args[1])
 	{
 		num = ft_atol(args[1]);
-		if (num && !ft_isdigit(args[2][0]))
+		if (num && args[1] && args[2] && !ft_isdigit(args[2][0]))
 		{
 			ms->running = true;
 			return (perror("Too many arguments"), 1);
 		}
-		if (args[2])
+		if (args[1] && args[2])
 			return (perror("Too many arguments"), 1);
 		if (!num && !ft_isdigit(args[1][0]))
 			return (perror("Numeric argument required"), 2);
