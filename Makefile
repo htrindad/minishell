@@ -1,7 +1,7 @@
 #Files
 NAME = minishell
 
-CFLAGS = -Wall -Werror -Wextra -O3 -D DEBUG=0
+CFLAGS = -Wall -Werror -Wextra -g3 -D DEBUG=0
 
 SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/lex/split_shell.c ./src/lex/split_shell_utils.c ./src/lexing.c \
@@ -13,7 +13,7 @@ SRC = ./src/free.c ./src/get_env.c ./src/init_ms.c ./src/handle/env_var.c \
 	./src/execute/redir_utils.c ./src/error.c ./src/debug.c ./src/debug2.c \
 	./src/execute/redir_utils2.c ./src/execute/comp_env.c ./src/lexing_utils.c \
 	./src/get_env_utils.c ./src/main.c ./src/execute/heredoc.c ./src/execute/b_in.c \
-	./src/execute/heredoc_utils.c ./src/shlvl.c
+	./src/execute/heredoc_utils.c ./src/shlvl.c ./src/utils.c
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst ./src/%.c, $(OBJ_DIR)/%.o, $(SRC))

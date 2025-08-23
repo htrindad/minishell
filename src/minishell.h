@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 17:30:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:04:02 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,17 @@ typedef struct s_ms
 	t_term			term;
 }		t_ms;
 
+typedef struct s_info
+{
+	char	***ptr;
+	size_t	count;
+}		t_info;
+
 // Functions
 void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
 bool	add_token(t_token **head, char **value, t_ms *ms);
-char	***ft_split_shell(t_ms *shell);
+t_info	ft_split_shell(t_ms *shell);
 char	*handle_env_var(char *input, t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
 			t_ms *ms);
@@ -187,7 +193,7 @@ int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
 void	rm_finisher(t_env *curr, t_env **head);
-void	lex_free(char ***args);
+void	lex_free(t_info info);
 t_case	set_case(char const *c);
 size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);
@@ -219,6 +225,7 @@ void	pump_n_dump(size_t *i, int *q);
 void	problem(t_env *env, char *str, t_ms *ms);
 void	free_pre_split(char ***split);
 size_t	ft_nlen(char *nbr);
+t_info	empty_info(void);
 
 // debug
 void	print_tokens(t_token *head);

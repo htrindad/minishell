@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/20 17:25:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:06:18 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,31 +94,30 @@ static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 	return (false);
 }
 
-char	***ft_split_shell(t_ms *shell)
+t_info	ft_split_shell(t_ms *shell)
 {
-	char	***array;
+	t_info	info;
 	char	*new_s;
-	size_t	count;
 
 	if (!shell->input || !ft_strncmp(shell->input, "", 1))
-		return (NULL);
-	count = count_cases(shell->input, shell);
-	if (!count)
-		return (NULL);
-	array = ft_calloc(count + 1, sizeof(char **));
-	if (!array)
-		return (NULL);
-	array[count] = NULL;
+		return (empty_info());
+	info.count = count_cases(shell->input, shell);
+	if (!info.count)
+		return (empty_info());
+	info.ptr = ft_calloc(info.count + 1, sizeof(char **));
+	if (info.ptr == NULL)
+		return (empty_info());
+	info.ptr[info.count] = NULL;
 	if (has_env_var(shell->input))
 	{
 		new_s = handle_env_var(shell->input, shell);
 		if (!new_s || swap_strs(&shell->input, new_s))
-			return (free_pre_split(array), NULL);
-		if (ft_filling_arr(array, new_s, shell, count))
-			return (free_pre_split(array), free(new_s), NULL);
+			return (free_pre_split(info.ptr), empty_info());
+		if (ft_filling_arr(info.ptr, new_s, shell, info.count))
+			return (free_pre_split(info.ptr), free(new_s), empty_info());
 		free(new_s);
 	}
-	else if (ft_filling_arr(array, shell->input, shell, count))
-		return (nuller(array));
-	return (array);
+	else if (ft_filling_arr(info.ptr, shell->input, shell, info.count))
+		return (nuller(info.ptr), empty_info());
+	return (info);
 }
