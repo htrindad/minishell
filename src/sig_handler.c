@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:14:57 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/21 18:26:09 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:31:41 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	sig_handler(int sig, siginfo_t *s, void *content)
 {
 	(void)content;
 	(void)s;
-	if (*in_heredoc())
-		return ;
 	if (sig == SIGINT)
 		si();
 	waitpid(-1, NULL, 0);
