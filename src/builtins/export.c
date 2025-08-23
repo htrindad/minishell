@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:12:35 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 18:59:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:54:51 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,19 @@ static inline bool	replace(char *arg, t_env *env)
 {
 	size_t	i;
 	char	*tmp;
+	t_env	*back;
 
 	i = 0;
+	back = env;
 	while (arg[i] && arg[i] != '=')
 		i++;
-	if (!arg[i])
-		return (false);
 	tmp = ft_substr(arg, 0, i);
 	if (tmp == NULL || !ft_strlen(tmp))
 		return (true);
+	while (back && ft_strncmp(back->key, tmp, ft_strlen(tmp)))
+		back = back->next;
+	if (back && back->value && !arg[i])
+		return (free(tmp), true);
 	rm_env(&env, tmp);
 	free(tmp);
 	return (false);
