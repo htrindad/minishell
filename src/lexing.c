@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/09 17:25:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:57:20 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,28 +82,21 @@ static void	null_fds(t_token *head)
 t_token	*lexing(t_ms *shell)
 {
 	t_token	*head;
-	char	***args;
-	int		i;
+	t_info	args;
+	size_t	i;
 
 	head = NULL;
 	args = ft_split_shell(shell);
-	if (!args)
+	if (args.ptr == NULL)
 		return (NULL);
 	i = 0;
 	*counter() = 0;
-	if (args[0] == NULL && args[1] != NULL)
-		if (add_token(&head, args[i++], shell))
+	while (i < args.count)
+		if (add_token(&head, args.ptr[i++], shell))
 			return (free_tokens(head), NULL);
-	while (args[i])
-	{
-		if (args[i][0][0])
-			if (add_token(&head, args[i], shell))
-				return (free_tokens(head), NULL);
-		i++;
-	}
 	if (check_parse_error(shell))
-		return (null_fds(head), lex_free(args), free_tokens(head), NULL);
+		return (null_fds(head), lex_free(args.ptr), free_tokens(head), NULL);
 	if (DEBUG)
 		print_tokens(head);
-	return (null_fds(head), lex_free(args), head);
+	return (null_fds(head), lex_free(args.ptr), head);
 }

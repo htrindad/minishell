@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:06 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/20 17:25:31 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:48:40 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	sub(char ***array, char const *s, t_ms *ms, size_t *len)
 	i = *len;
 	while (s[i] && (s[i] == ' ' || mini_spec_case(s + i, ms->scases)))
 	{
-		if (!i)
+		if (!i || (*len && spec_case_middle(s, i, ms->scases)))
 		{
 			if (f_spec_case(s, &i, ms->scases))
 			{
@@ -94,31 +94,30 @@ static bool	ft_filling_arr(char ***array, char const *s, t_ms *ms, size_t count)
 	return (false);
 }
 
-char	***ft_split_shell(t_ms *shell)
+t_info	ft_split_shell(t_ms *shell)
 {
-	char	***array;
+	t_info	arg;
 	char	*new_s;
-	size_t	count;
 
 	if (!shell->input || !ft_strncmp(shell->input, "", 1))
-		return (NULL);
-	count = count_cases(shell->input, shell);
-	if (!count)
-		return (NULL);
-	array = ft_calloc(count + 1, sizeof(char **));
-	if (!array)
-		return (NULL);
-	array[count] = NULL;
+		return (empty_spli());
+	arg.count = count_cases(shell->input, shell);
+	if (!arg.count)
+		return (empty_spli());
+	arg.ptr = ft_calloc(arg.count + 1, sizeof(char **));
+	if (arg.ptr == NULL)
+		return (empty_spli());
+	arg.ptr[arg.count] = NULL;
 	if (has_env_var(shell->input))
 	{
 		new_s = handle_env_var(shell->input, shell);
 		if (!new_s || swap_strs(&shell->input, new_s))
-			return (free_pre_split(array), NULL);
-		if (ft_filling_arr(array, new_s, shell, count))
-			return (free_pre_split(array), free(new_s), NULL);
+			return (free_pre_split(arg.ptr), empty_spli());
+		if (ft_filling_arr(arg.ptr, new_s, shell, arg.count))
+			return (free_pre_split(arg.ptr), free(new_s), empty_spli());
 		free(new_s);
 	}
-	else if (ft_filling_arr(array, shell->input, shell, count))
-		return (nuller(array));
-	return (array);
+	else if (ft_filling_arr(arg.ptr, shell->input, shell, arg.count))
+		return (nuller(arg.ptr), empty_spli());
+	return (arg);
 }

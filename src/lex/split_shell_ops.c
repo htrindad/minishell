@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:35:46 by htrindad          #+#    #+#             */
-/*   Updated: 2025/06/20 15:44:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:12:52 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static inline size_t	shorter(t_ms *ms, char const *s, size_t l, size_t tmp)
 	i = 1;
 	ms->cas = 0;
 	count = stress(s, ms, &tmp, &l);
-	count += !tmp || (s[0] == ' ' && tmp);
 	if (!s[i])
 		return (count);
 	while (s[i])

@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 17:30:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:47:06 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,17 @@ typedef struct s_ms
 	t_term			term;
 }		t_ms;
 
+typedef struct s_info
+{
+	char	***ptr;
+	size_t	count;
+}		t_info;
+
 // Functions
 void	free_fds(t_fds *fds);
 t_token	*lexing(t_ms *shell);
 bool	add_token(t_token **head, char **value, t_ms *ms);
-char	***ft_split_shell(t_ms *shell);
+t_info	ft_split_shell(t_ms *shell);
 char	*handle_env_var(char *input, t_ms *shell);
 size_t	iterate_through_q(const char *s, size_t i,
 			t_ms *ms);
@@ -219,6 +225,8 @@ void	pump_n_dump(size_t *i, int *q);
 void	problem(t_env *env, char *str, t_ms *ms);
 void	free_pre_split(char ***split);
 size_t	ft_nlen(char *nbr);
+bool	spec_case_middle(char const *s, size_t i, char **cases);
+t_info	empty_spli(void);
 
 // debug
 void	print_tokens(t_token *head);
