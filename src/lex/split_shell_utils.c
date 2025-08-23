@@ -6,24 +6,32 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:57:01 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/17 19:25:18 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 20:42:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static size_t	gnq(size_t *len, char const *s)
+static size_t	gnq(size_t len, char const *s)
 {
-	char const	qt = s[(*len)++];
+	char	qt;
 
-	while (s[*len] != qt)
-		(*len)++;
-	if (!s[*len])
-		perror("Unclosed quotes.");
-	if (s[*len] != ' ')
-		while (s[*len] && s[*len] != ' ')
-			(*len)++;
-	return (*len);
+	qt = s[len++];
+	while (s[len] && (qt || s[len] != ' '))
+	{
+		while (s[len] != qt)
+			len++;
+		qt = 0;
+		if (!s[len++])
+			return (perror("Unclosed quotes"), --len);
+		while (s[len] && s[len] != ' ' && !qt)
+		{
+			if (s[len] == '\'' || s[len] == '\"')
+				qt = s[len];
+			len++;
+		}
+	}
+	return (len);
 }
 
 void	c_len(size_t *len, char const *s, char **cases)
@@ -31,7 +39,7 @@ void	c_len(size_t *len, char const *s, char **cases)
 	while (s[*len] && s[*len] != ' ' && !mini_spec_case(s + *len, cases))
 	{
 		if (s[*len] == '\'' || s[*len] == '\"')
-			*len = gnq(len, s);
+			*len = gnq(*len, s);
 		else
 			(*len)++;
 	}
@@ -83,7 +91,7 @@ size_t	iterate_through_q(const char *s, size_t i, t_ms *ms)
 		quote_type = 0;
 		if (s[i] == '\"' || s[i] == '\'')
 			continue ;
-		while (s[i] && s[i] != ' ')
+		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;
 	}
 	if (s[i] && s[i] != ' ')
