@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:33:30 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/23 17:57:20 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:33:22 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ t_token	*lexing(t_ms *shell)
 	*counter() = 0;
 	while (i < args.count)
 		if (add_token(&head, args.ptr[i++], shell))
-			return (free_tokens(head), NULL);
+			return (lex_free(args), free_tokens(head), NULL);
 	if (check_parse_error(shell))
-		return (null_fds(head), lex_free(args.ptr), free_tokens(head), NULL);
+		return (null_fds(head), lex_free(args), free_tokens(head), NULL);
 	if (DEBUG)
 		print_tokens(head);
-	return (null_fds(head), lex_free(args.ptr), head);
+	return (null_fds(head), lex_free(args), head);
 }

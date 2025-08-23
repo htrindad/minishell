@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:21:25 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/23 18:29:05 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:18:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static inline void	first_case(size_t *l, t_token *new, t_ms *ms, size_t *i)
 	while (ms->input[*i] == ' ')
 		(*i)++;
 	new->cchar = set_case(ms->input + *i);
-	while ((mini_spec_case(ms->input + *i, ms->scases)
-		|| ms->input[*i] == ' ') && spec_case_middle(ms->input, *i, ms->scases))
+	while (mini_spec_case(ms->input + *i, ms->scases)
+		|| ms->input[*i] == ' ')
 		(*i)++;
 	*l = *i;
 	new->next = NULL;

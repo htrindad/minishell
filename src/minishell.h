@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/23 17:47:06 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:33:03 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int		redir_exec(t_token *token, t_ms *ms);
 bool	mini_spec_case(char const *s, char **cases);
 int		fd_checker(t_token *token);
 void	rm_finisher(t_env *curr, t_env **head);
-void	lex_free(char ***args);
+void	lex_free(t_info info);
 t_case	set_case(char const *c);
 size_t	stress(char const *s, t_ms *ms, size_t *tmp, size_t *l);
 void	ret(t_ms *ms);

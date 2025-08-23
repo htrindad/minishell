@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:32:48 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/20 17:24:58 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:54:31 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,18 @@ void	*nuller(char ***args)
 	return (NULL);
 }
 
-void	lex_free(char ***args)
+void	lex_free(t_info info)
 {
 	size_t	i;
 
-	i = 0;
-	if (args[0])
+	i = -1;
+	if (info.ptr)
 	{
-		while (args[i])
-			free_args(args[i++]);
-		free(args);
+		while (++i < info.count)
+			if (info.ptr[i])
+				free_args(info.ptr[i]);
+		free(info.ptr);
 	}
-	else
-		fa_spec(args);
 }
 
 void	free_pre_split(char ***split)
