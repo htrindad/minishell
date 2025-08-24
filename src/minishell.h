@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:15:09 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/22 17:30:25 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:34:18 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ size_t	change_sit(char const *s, char *q);
 int		case_free(bool is_parent, char **env, t_ms *ms);
 void	hsh(t_ms *ms);
 t_ms	**b_ms(void);
-bool	*in_heredoc(void);
 t_env	*empty_env(void);
 void	shlvl_checker(char *es, t_env *env);
 bool	change_ms(t_env *env, char *key, char *value);

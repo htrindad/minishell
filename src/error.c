@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:10:45 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/11 17:34:01 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:34:28 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ t_ms	**b_ms(void)
 	static t_ms	*ms;
 
 	return (&ms);
-}
-
-bool	*in_heredoc(void)
-{
-	static bool	in = false;
-
-	return (&in);
 }
 
 int	check_parse_error(t_ms *ms)
