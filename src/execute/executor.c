@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:46:43 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/19 23:46:28 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:26:25 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ static void	wait_process(t_ms *ms)
 			if (WIFEXITED(status))
 				*es() = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
+			{
 				*es() = WTERMSIG(status) + 128;
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_putstr_fd("Quit (Core Dumped)\n", 2);
+			}
 			else
 				*es() = 1;
 		}

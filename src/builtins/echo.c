@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 18:27:50 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/16 21:28:24 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:25:43 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ int	echo(char **arg)
 	if (nl)
 		printf("\n");
 	return (0);
+}
+
+size_t	ft_nlen(char *nbr)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (nbr == NULL)
+		return (0);
+	while (nbr[i] && !(nbr[i] >= '1' && nbr[i] <= '9'))
+		i++;
+	while (ft_isdigit(nbr[i]))
+	{
+		i++;
+		j++;
+	}
+	return (j);
 }

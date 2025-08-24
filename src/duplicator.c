@@ -6,7 +6,7 @@
 /*   By: htrindad <htrindad@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:08:59 by htrindad          #+#    #+#             */
-/*   Updated: 2025/07/12 18:23:21 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:05:07 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	*counter(void)
 {
-	static size_t	counter = 0;
+	static size_t	counter = 1;
 
 	return (&counter);
 }

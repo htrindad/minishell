@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:10:16 by htrindad          #+#    #+#             */
-/*   Updated: 2025/08/19 23:50:49 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/24 13:42:16 by htrindad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ bool	swap_strs(char **s1, char *s2)
 	tmp = *s1;
 	*s1 = ft_strdup(s2);
 	if (s1 == NULL)
+	{
+		ft_putstr_fd("Malloc error.\n", 2);
+		if (s2)
+			free(s2);
 		return (true);
+	}
 	free(tmp);
 	return (false);
 }
@@ -72,6 +77,7 @@ int	run_execve(char *cmd, char **full_cmd, char **env, char *value)
 		if (!ft_strncmp(full_cmd[0], ".", ft_strlen(full_cmd[0]))
 			&& !full_cmd[1])
 			return (2);
+		(signal(SIGINT, SIG_DFL), signal(SIGQUIT, SIG_DFL));
 		execve(cmd, full_cmd, env);
 		perror("execve");
 		if (!access(cmd, F_OK))
