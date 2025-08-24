@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:48:02 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/08/13 20:03:48 by htrindad         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:38:17 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	heredoc_parent(int *pipefd, int pid)
 	status = 0;
 	close(pipefd[1]);
 	waitpid(pid, &status, 0);
-	*in_heredoc() = false;
 	if (WEXITSTATUS(status) > 0)
 		return (pipefd[0]);
 	*es() = 130;
@@ -81,7 +80,6 @@ int	handle_heredoc(t_redir *redir, t_ms *ms)
 
 	if (pipe(pipefd) < 0)
 		return (perror("heredoc"), -1);
-	*in_heredoc() = true;
 	ms->pipefd[0] = pipefd[0];
 	ms->pipefd[1] = pipefd[1];
 	pid = fork();
@@ -117,7 +115,7 @@ int	treat_heredocs(t_token *token, t_ms *ms)
 				{
 					fd = handle_heredoc(tmp, ms);
 					if (fd == -1)
-						return (close_hds(token), write(1, "\n", 1));
+						return (close_hds(token), 1);
 					tmp->heredoc_fd = fd;
 				}
 				tmp = tmp->next;
